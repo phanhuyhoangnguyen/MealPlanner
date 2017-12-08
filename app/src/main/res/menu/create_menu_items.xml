@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_createMenu"
+        android:title="@string/new_menu"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_editMenu"
+        android:title="@string/edit_menu"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/custom_logout_btn"
+        android:title="@string/log_out"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_addMenu"
+        android:icon="@drawable/ic_add"
+        android:title="@string/new_menu"
+        app:showAsAction="ifRoom"/>
+
+</menu>

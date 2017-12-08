@@ -1,0 +1,35 @@
+{
+  "foods": {
+    "CaesarSalad": {
+      "name": "Caesar salad",
+      "duration": "20",
+      "calories": "44",
+      "type": "Salad",
+      "img": "https://firebasestorage.googleapis.com/v0/b/mealplanner-ec8ca.appspot.com/o/res%2Fsalad.jpg?alt=media&token=257d4392-8a1f-4fb7-84b5-b63abb4643f4"
+    },
+    "AntipastoSalad": {
+      "name": "Antipasto salad",
+      "duration": "30",
+      "calories": "240",
+      "type": "Salad",
+      "img": "https://firebasestorage.googleapis.com/v0/b/mealplanner-ec8ca.appspot.com/o/res%2Fsalad.jpg?alt=media&token=257d4392-8a1f-4fb7-84b5-b63abb4643f4"
+    },
+    "ChickenSalad": {
+      "name": "Chicken salad",
+      "duration": "40",
+      "calories": "48",
+      "type": "Salad",
+      "img": "https://firebasestorage.googleapis.com/v0/b/mealplanner-ec8ca.appspot.com/o/res%2Fsalad.jpg?alt=media&token=257d4392-8a1f-4fb7-84b5-b63abb4643f4"
+    }
+  },
+  "Ingredient": {
+    "Onion": {
+      "name": "Onion",
+      "Quantity": "1"
+    },
+    "Lecture": {
+      "name": "Lecture",
+      "Quantity": "1"
+    }
+  }
+}

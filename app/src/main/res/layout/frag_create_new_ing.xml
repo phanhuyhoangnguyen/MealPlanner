@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="15dp"
+    android:layout_marginStart="15dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.myapp.mealplanner.Fragment.CreateNewIngFrag">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/new_ingredient"
+        android:textSize="32sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/ingNameInput_createNewIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/enter_ingredient_name"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/ingCalInput_createNewIng_Frag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_ingredient_calories"
+                android:layout_marginTop="20dp"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/measurementSpn_createNewIng_Frag"
+            android:layout_width="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:prompt="@string/volume_measurement"
+            android:layout_weight="1">
+        </Spinner>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/lnLayoutContainerSpn_createNewIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/measurementNoSpn_createNewIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:prompt="@string/volume_measurement">
+    </Spinner>
+
+    <!--<LinearLayout
+        android:id="@+id/radioGrLinear_createNewIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioGroup
+            android:id="@+id/countRadioGroup_createNewIng_Frag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/countRadioBtn_createNewIng_Frag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/countable_cup" />
+
+            <RadioButton
+                android:id="@+id/uncountRadioBtn_createNewIng_Frag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/uncountable_grams" />
+        </RadioGroup>
+
+    </LinearLayout>-->
+
+    <Button
+        android:id="@+id/saveBtn_createNewIng_Frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/save"
+        android:layout_marginTop="20dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp" />
+</LinearLayout>

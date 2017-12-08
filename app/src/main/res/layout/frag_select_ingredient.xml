@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.myapp.mealplanner.Fragment.SelectIngFrag">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoText_selectIng_Frag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="2"
+            android:hint="@string/add_ingredient" />
+
+        <ImageButton
+            android:id="@+id/clearTxtImgBtn_selectIng_Frag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/ic_cancel"
+            android:visibility="invisible"
+            android:contentDescription="@string/clear_text_button" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/listLabelLinear_selectIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ingNameLabel_selectIng_Frag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ingredient_list" />
+
+        <TextView
+            android:id="@+id/ingCalLabel_selectIng_Frag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/calories" />
+
+        <TextView
+            android:id="@+id/ingQunLabel_selectIng_Frag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/quantity" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleVw_selectIng_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/saveBtn_selectIng_Frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:hint="@string/save" />
+
+</LinearLayout>

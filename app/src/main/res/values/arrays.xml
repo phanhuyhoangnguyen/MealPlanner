@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menuItmType_array">
+        <item>Appetizer</item>
+        <item>Entree</item>
+        <item>Dessert</item>
+    </string-array>
+
+    <string-array name="foodType_array">
+        <item>Salad</item>
+        <item>Soup</item>
+        <item>Pan-Frying</item>
+        <item>Dessert</item>
+    </string-array>
+
+    <string-array name="volumeMeasurement_array">
+        <item>[Please Select Measure]</item>
+        <item>Cup (C)</item>
+        <item>Drop (dr)</item>
+        <item>Gallon (gal)</item>
+        <item>Gram (g)</item>
+        <item>Litre (l)</item>
+        <item>Ounces (oz)</item>
+        <item>Pinch (pn)</item>
+        <item>Pint (pt)</item>
+        <item>Pottle (pot)</item>
+        <item>Quart (qt)</item>
+        <item>Tablespoon (tbs)</item>
+        <item>Teaspoon (tps)</item>
+        <item>mL</item>
+        <item>Number (1, 2…)</item>
+    </string-array>
+
+    <string-array name="measurementNo_array">
+        <item>[Number of Measurements]</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
