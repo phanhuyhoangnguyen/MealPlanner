@@ -48,6 +48,6 @@ public class IngredientCountable extends Ingredient {
     @Override
     public void changeQuantityMeasurement(int index) {
         Collection<String>
-        getMeasurementDict().getCollection()
+        getMeasurementDict().getCollection();
     }
 }
