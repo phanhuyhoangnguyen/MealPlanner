@@ -25,12 +25,12 @@ public abstract class Ingredient implements Parcelable {
 
     private String name;
 
-    public MultiValueMap<String, String> getMeasurementDict() {
-        return measurementDictMultiMap;
-    }
-
     public void setMeasurementDictMultiMap(MultiValueMap<String, String> measurementDictMultiMap) {
         this.measurementDictMultiMap = measurementDictMultiMap;
+    }
+
+    public MultiValueMap<String, String> getMeasurementDictMultiMap() {
+        return measurementDictMultiMap;
     }
 
     //This can be replaced as HashMap <String, sub HashMap>
@@ -46,28 +46,6 @@ public abstract class Ingredient implements Parcelable {
 
     private String measure;
 
-    public String getCalories() {
-        return calories;
-    }
-
-    public void setCalories(String calories) {
-        this.calories = calories;
-    }
-
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {this.quantity = quantity;}
-
-    public String getMeasure() {
-        return measure;
-    }
-
-    public void setMeasure(String measure) {
-        this.measure = measure;
-    }
 
     public Ingredient() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
@@ -90,6 +68,8 @@ public abstract class Ingredient implements Parcelable {
         quantity = String.valueOf(1);
     }
 
+    public abstract void changeQuantityMeasurement(int index);
+
     @Override
     public int describeContents() {
         return 0;
@@ -99,5 +79,25 @@ public abstract class Ingredient implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
     }
 
-    public abstract void changeQuantityMeasurement(int index);
+    public String getCalories() {
+        return calories;
+    }
+
+    public void setCalories(String calories) {
+        this.calories = calories;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {this.quantity = quantity;}
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
 }
