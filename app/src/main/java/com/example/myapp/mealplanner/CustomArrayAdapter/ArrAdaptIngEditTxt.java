@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.myapp.mealplanner.Object.IngredientUncountable;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.R;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.IngredientRowHolder> {
 
-    private List<IngredientUncountable> listItems;
+    private List<IngredientCountable> listItems;
     private LayoutInflater inflater;
 
     private String text;
@@ -29,10 +29,10 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
     private final OnEditTextFinishedListener listener;
 
     public interface OnEditTextFinishedListener {
-        void active(Editable text, IngredientUncountable ing, int position);
+        void active(Editable text, IngredientCountable ing, int position);
     }
 
-    public ArrAdaptIngEditTxt(Context context, List<IngredientUncountable> listViews, OnEditTextFinishedListener listener) {
+    public ArrAdaptIngEditTxt(Context context, List<IngredientCountable> listViews, OnEditTextFinishedListener listener) {
         this.listItems = listViews;
         this.inflater = LayoutInflater.from(context);
         this.listener = listener;
@@ -76,7 +76,7 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
             this.ingQunEditTxt.addTextChangedListener(myCustomEditTextListener);
         }
 
-        public void bind(final IngredientUncountable currentItm, final OnEditTextFinishedListener mListener, final int position) {
+        public void bind(final IngredientCountable currentItm, final OnEditTextFinishedListener mListener, final int position) {
             myCustomEditTextListener.updatePosition(getAdapterPosition(), currentItm);
             if (text == null) {
                 getInsCalories().setText(Integer.valueOf(currentItm.getCalories()) * Integer.valueOf(currentItm.getQuantity()) / 100 + "kj");
@@ -121,9 +121,9 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
     private class MyCustomEditTextListener implements TextWatcher {
         private int position;
         private String savedText;
-        private IngredientUncountable currentItm;
+        private IngredientCountable currentItm;
 
-        public void updatePosition(int position, IngredientUncountable currentItm) {
+        public void updatePosition(int position, IngredientCountable currentItm) {
             this.position = position;
             this.savedText = currentItm.getCalories();
             this.currentItm = currentItm;

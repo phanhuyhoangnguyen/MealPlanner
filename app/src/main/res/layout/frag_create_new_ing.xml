@@ -37,7 +37,7 @@
             android:id="@+id/ingCalInput_createNewIng_Frag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_weight="1">
 
             <EditText
                 android:layout_width="match_parent"
@@ -47,14 +47,14 @@
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/measurementSpn_createNewIng_Frag"
+        <TextView
+            android:id="@+id/measurementTxtVw_createNewIng_Frag"
             android:layout_width="0dp"
             android:layout_marginTop="20dp"
             android:layout_height="wrap_content"
-            android:prompt="@string/volume_measurement"
-            android:layout_weight="1">
-        </Spinner>
+            android:layout_weight="1"
+            android:text="@string/gram">
+        </TextView>
 
     </LinearLayout>
     

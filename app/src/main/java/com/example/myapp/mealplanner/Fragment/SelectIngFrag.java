@@ -309,7 +309,8 @@ public class SelectIngFrag extends Fragment {
                 itemsAvailAdapter.clear();
 
                 for (DataSnapshot ingredientSnapshot : dataSnapshot.getChildren()) {
-                    Ingredient ingObj = ingredientSnapshot.getValue(Ingredient.class);
+                    //TODO: review this, abstract class
+                    Ingredient ingObj = (IngredientCountable) ingredientSnapshot.getValue(IngredientCountable.class);
                     if (ingObj != null) {
                         ingNameData.add(ingObj.getName());
                         //Create New Map from data retrieve
@@ -394,7 +395,7 @@ public class SelectIngFrag extends Fragment {
     final ArrAdaptIngBtnListener.OnItmClickListener mItmListener = new ArrAdaptIngBtnListener.OnItmClickListener() {
 
         @Override
-        public void onItemClick(View view, IngredientCountable item) {
+        public void onItemClick(View view, Ingredient item) {
             //This is only triggered when the button with set onClickListener is clicked
             //Toast.makeText(getActivity(), "Short Click", Toast.LENGTH_SHORT).show();
             switch (view.getId()) {
@@ -425,7 +426,7 @@ public class SelectIngFrag extends Fragment {
         }
 
         @Override
-        public void onItemLongClick(View view, IngredientCountable item) {
+        public void onItemLongClick(View view, Ingredient item) {
             view.showContextMenu();
         }
     };

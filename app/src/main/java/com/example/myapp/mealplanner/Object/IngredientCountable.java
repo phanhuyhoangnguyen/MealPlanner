@@ -79,6 +79,7 @@ public class IngredientCountable extends Ingredient {
         //List<List<String>> yourList = new ArrayList<>(newValues);
         String[] values = (String[])newValues.toArray(new String[newValues.size()]); //Same with: String[] values = (String[]) newValues.toArray(new String[0]);
 
+        //[1, Gram, 139];
         if (values.length == 3){
             setMeasure(values[1]);
             setCalories(values[2]);
