@@ -200,11 +200,11 @@ public class CreateNewIngFrag extends Fragment {
     }
 
     private void createNewIng() {
-        //TODO: fix all these warning
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
         //RadioGroup radioGrp = getView().findViewById(R.id.countRadioGroup_createNewIng_Frag);
 
+        //TODO: fix all these warning
         //TODO: put format constraint for name to be camelCase
         String name = ingName.getEditText().getText().toString();
         String cal = ingCal.getEditText().getText().toString();

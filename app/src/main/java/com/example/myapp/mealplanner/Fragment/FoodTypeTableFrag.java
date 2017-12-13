@@ -116,13 +116,13 @@ public class FoodTypeTableFrag extends Fragment {
         onShowFoodViewRequestListener.onShowFoodViewRequested(requestCode);
     }
 
-    public interface OnShowFoodViewRequestListener {
+    public interface OnFragInteractListener {
         //After the onAttack is called, every time this is executed, this will be perform by Activity,
         //with the parameter of this Fragment
         void onShowFoodViewRequested(int requestCode);
     }
 
-    private OnShowFoodViewRequestListener onShowFoodViewRequestListener;
+    private OnFragInteractListener onShowFoodViewRequestListener;
 
     @Override
     public final void onAttach(Context context) {
@@ -130,9 +130,9 @@ public class FoodTypeTableFrag extends Fragment {
         super.onAttach(context);
         try {
             //reference back to its activity
-            onShowFoodViewRequestListener = (OnShowFoodViewRequestListener) context;
+            onShowFoodViewRequestListener = (OnFragInteractListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement OnShowFoodViewRequestListener");
+            throw new ClassCastException(context.toString() + "must implement OnFragInteractListener");
         }
     }
 }

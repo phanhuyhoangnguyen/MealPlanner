@@ -35,7 +35,7 @@ import java.util.Calendar;
  */
 public class CreateMenuFrag extends Fragment {
 
-    //TODO: Convert to ArrayList String for better performance
+    //String will allow better performance but Recipe will allow object being able to passed between Fragments
     private ArrayList<Recipe> appetizer;
     private ArrayList<Recipe> entree;
     private ArrayList<Recipe> dessert;
@@ -212,13 +212,13 @@ public class CreateMenuFrag extends Fragment {
         });
     }
 
-    public interface OnCreateNewMenuRequestListener {
+    public interface OnFragInteractListener {
         //After the onAttack is called, every time this is executed, this will be perform by Activity,
         //with the parameter of this Fragment
         void onCreateNewMenuRequested(Menu newMenu, String msg);
     }
 
-    private OnCreateNewMenuRequestListener onCreateNewMenuRequestedListener;
+    private OnFragInteractListener onCreateNewMenuRequestedListener;
 
     @Override
     public final void onAttach(Context context) {
@@ -226,7 +226,7 @@ public class CreateMenuFrag extends Fragment {
         super.onAttach(context);
         try {
             //reference back to its activity
-            onCreateNewMenuRequestedListener = (OnCreateNewMenuRequestListener) context;
+            onCreateNewMenuRequestedListener = (OnFragInteractListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement OnCreateMenuFinishedListener");
         }

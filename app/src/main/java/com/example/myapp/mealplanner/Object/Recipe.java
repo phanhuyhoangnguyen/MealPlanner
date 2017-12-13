@@ -22,25 +22,24 @@ public class Recipe implements Parcelable {
     public String foodType;
     public String menuType;
 
-    public List<Ingredient> getIngredientUncountables() {
-        return ingredientUncountables;
+    public List<Ingredient> getIngredientCountables() {
+        return ingredientCountable;
     }
 
-    public void setIngredientUncountables(List<Ingredient> ingredientUncountables) {
-        this.ingredientUncountables = ingredientUncountables;
+    public void setIngredientCountables(List<Ingredient> ingredientCountable) {
+        this.ingredientCountable = ingredientCountable;
     }
 
-    public List<Ingredient> ingredientUncountables;
-    /*public HashMap<String, String> ingredientUncountables;
+    public List<Ingredient> ingredientCountable;
+    /*public HashMap<String, String> ingredientCountable;
 
     public HashMap<String, String> getIngredientUncountables() {
-        return ingredientUncountables;
+        return ingredientCountable;
     }
 
-    public void setIngredientUncountables(HashMap<String, String> ingredientUncountables) {
-        this.ingredientUncountables = ingredientUncountables;
+    public void setIngredientUncountables(HashMap<String, String> ingredientCountable) {
+        this.ingredientCountable = ingredientCountable;
     }*/
-
 
     public String getFoodType() {
         return foodType;
@@ -66,8 +65,7 @@ public class Recipe implements Parcelable {
     public Recipe(String servingYield, String img,
                   String calories, String duration,
                   String name, String instruction,
-                  String fType, String mType, List<Ingredient> ingredientUncountables) {
-        //TODO: remove id and repopulate teh database
+                  String fType, String mType, List<Ingredient> ingredientCountable) {
         this.servingYield = servingYield;
         this.img = img;
         this.name = name;
@@ -76,7 +74,7 @@ public class Recipe implements Parcelable {
         this.instruction = instruction;
         this.foodType = fType;
         this.menuType = mType;
-        this.ingredientUncountables = ingredientUncountables;
+        this.ingredientCountable = ingredientCountable;
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR =
@@ -99,7 +97,7 @@ public class Recipe implements Parcelable {
         foodType = in.readString();
         menuType = in.readString();
         servingYield = in.readString();
-        //ingredientUncountables = in.readList(ingredientUncountables, CREATOR);
+        //ingredientCountable = in.readList(ingredientCountable, CREATOR);
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -111,7 +109,7 @@ public class Recipe implements Parcelable {
         out.writeString(foodType);
         out.writeString(menuType);
         out.writeString(servingYield);
-        //out.writeList(ingredientUncountables);
+        //out.writeList(ingredientCountable);
     }
 
     public String getName() {

@@ -67,9 +67,6 @@ public abstract class Ingredient implements Parcelable {
             measurementDictMultiMap.put(String.valueOf(i), meCalMap.get(key));
             i++;
         }
-
-
-
         quantity = String.valueOf(1);
     }
 

@@ -22,12 +22,11 @@ import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
 
 import java.util.List;
 
-public class CreateMenuFragContainerAct extends AppCompatActivity implements CreateMenuFrag.OnCreateNewMenuRequestListener,
-        FoodTypeTableFrag.OnShowFoodViewRequestListener, RecipeListRowFrag.onFragInteractListener,
+public class CreateMenuFragContainerAct extends AppCompatActivity implements CreateMenuFrag.OnFragInteractListener,
+        FoodTypeTableFrag.OnFragInteractListener, RecipeListRowFrag.onFragInteractListener,
         CreateNewRecipeFrag.OnFragInteractListener,
         SelectIngFrag.OnFragInteractListener, CreateNewIngFrag.OnFragInteractListener {
 
-    //TODO: rename all the interface of Fragment and method to be better meaning
     private FragmentManager manager;
 
     @Override
