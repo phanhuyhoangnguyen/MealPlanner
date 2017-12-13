@@ -4,6 +4,7 @@ https://stackoverflow.com/questions/2470856/convert-collection-to-list
 https://stackoverflow.com/questions/1751844/java-convert-liststring-to-a-string
 https://stackoverflow.com/questions/1383797/java-hashmap-how-to-get-key-from-value
 https://stackoverflow.com/questions/5566921/androidpassing-a-hash-map-between-activities/5567917#5567917
+-generateViewId(), Google Api: https://stackoverflow.com/questions/1714297/android-view-setidint-id-programmatically-how-to-avoid-id-conflicts
 
 Good Resources For Reviewing:
 Foundation Knowledge Books:
@@ -20,3 +21,5 @@ http://www.mkyong.com/regular-expressions/10-java-regular-expression-examples-yo
 http://www.vogella.com/tutorials/JavaRegularExpressions/article.html
 tool for checking regrex
 https://regex101.com/
+3. Static:
+https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/

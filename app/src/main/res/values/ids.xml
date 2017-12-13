@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="newSpinner1" type="id"/>
+    <item name="newSpinner2" type="id"/>
+    <item name="newEditText1" type="id"/>
+    <item name="newEditText2" type="id"/>
+</resources>

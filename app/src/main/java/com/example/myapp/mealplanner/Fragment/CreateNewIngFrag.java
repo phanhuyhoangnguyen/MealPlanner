@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +33,11 @@ import java.util.Map;
 public class CreateNewIngFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static int measurementInput = 1;
+    private static final String newCalInputTag = "newCalInput";
+    private static final String newSpinnerTag = "newSpinner";
+    private EditText newCalInput;
+    private Spinner newSpinner;
+    private int measurementInput = 1;
 
     private String mParam1;
     private String mParam2;
@@ -92,64 +97,92 @@ public class CreateNewIngFrag extends Fragment {
         measurementNoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                //TODO: position 0, allow user to delete spinner
-                if (position != 0) {
-                    measurementInput = Integer.valueOf(measurementNoSpinner.getSelectedItem().toString());
-                }
-                if (measurementInput > 1) {
-                    for (int i = 0; i < measurementInput; i++) {
-                        final EditText newCalInput = new EditText(getActivity());
-                        final Spinner newSpinner = new Spinner(getActivity());
-                        //TODO: fix this, id is duplicated
-                        newCalInput.setId(i);
-                        newSpinner.setId(i);
+                //Check and handling when user re-selecting spinner: hidden all the unnecessary rows
+                //Alternative method: while (it.hasNext()) instead of "measurementNoSpinner.getAdapter().getCount()"
+                measurementInput += position;
+                for (int i = 0; i <= measurementNoSpinner.getAdapter().getCount(); i++) {
 
-                        LinearLayout linearContainer = getView().findViewById(R.id.lnLayoutContainerSpn_createNewIng_Frag);
-                        //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear.getLayoutParams();
+                    if (i < position) {
+                        newCalInput = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i + 1)));
+                        newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i + 1)));
 
-                        LinearLayout newLinearIndividually = new LinearLayout(getActivity());
-                        newLinearIndividually.setOrientation(LinearLayout.HORIZONTAL);
+                        //check if 1st, 2nd row are existed
+                        if (newCalInput == null) {
+                            //Handling when user first select number of measurement inputs: create new rows
+                            newCalInput = new EditText(getActivity());
+                            newSpinner = new Spinner(getActivity());
 
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                            //Alternative method: id doesn't have to be unique, can get the view using SetTag
+                            //Alternative method 2: using Google API generateViewId()
+                            //Alternative method 3: using external additional file in res/values/ids.xml
+                            newCalInput.setTag("newCalInput".concat(String.valueOf(i + 1)));
+                            newSpinner.setTag("newSpinner".concat(String.valueOf(i + 1)));
 
-                        params.weight = 1f;
-                        newCalInput.setLayoutParams(params);
+                            LinearLayout linearContainer = getView().findViewById(R.id.lnLayoutContainerSpn_createNewIng_Frag);
+                            //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear.getLayoutParams();
 
-                        params.weight = 1f;
-                        newSpinner.setLayoutParams(params);
+                            LinearLayout newLinearIndividually = new LinearLayout(getActivity());
+                            newLinearIndividually.setOrientation(LinearLayout.HORIZONTAL);
 
-                        ArrayAdapter<String> newSpAdapter = new ArrayAdapter<>(getActivity(),
-                                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.volumeMeasurement_array));
-                        newSpAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                        newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                if (position != 0) {
-                                    String[] itemTags = newSpinner.getSelectedItem().toString().split(" ");
-                                    String hints = String.valueOf("Enter Calories per ");
-                                    if (position == 4) {
-                                        newCalInput.setHint(hints.concat("100g"));
+                            params.weight = 1f;
+                            newCalInput.setLayoutParams(params);
+
+                            params.weight = 1f;
+                            newSpinner.setLayoutParams(params);
+
+                            ArrayAdapter<String> newSpAdapter = new ArrayAdapter<>(getActivity(),
+                                    android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.volumeMeasurement_array));
+                            newSpAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+                            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                                    if (position != 0) {
+                                        String[] itemTags = newSpinner.getSelectedItem().toString().split(" ");
+                                        String hints = String.valueOf("Enter Calories per ");
+                                        if (position == 4) {
+                                            newCalInput.setHint(hints.concat("100g"));
+                                        } else
+                                            newCalInput.setHint(String.valueOf("Enter Calories per ").concat(itemTags[0]));
                                     } else
-                                        newCalInput.setHint(String.valueOf("Enter Calories per ").concat(itemTags[0]));
-                                } else
-                                    newCalInput.setHint("");
-                            }
+                                        newCalInput.setHint("");
+                                }
 
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
 
-                            }
-                        });
+                                }
+                            });
 
-                        newSpinner.setAdapter(newSpAdapter);
+                            newSpinner.setAdapter(newSpAdapter);
+                            newSpinner.setSelection(i);
 
-                        newLinearIndividually.addView(newCalInput);
-                        newLinearIndividually.addView(newSpinner);
-                        linearContainer.addView(newLinearIndividually);
+                            newLinearIndividually.addView(newCalInput);
+                            newLinearIndividually.addView(newSpinner);
+                            linearContainer.addView(newLinearIndividually);
+                            Log.i("id", newCalInput.getTag().toString());
+                            Log.i("id", newSpinner.getTag().toString());
+                        } else {
+                            newCalInput.setVisibility(View.VISIBLE);
+                            newSpinner.setVisibility(View.VISIBLE);
 
-                        Toast.makeText(getActivity(), measurementInput + "created", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // i == index of Next
+                        Spinner nextSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i + 1)));
+                        EditText nextCalInput = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i + 1)));
+
+                        if (nextCalInput != null && nextSpinner != null) {
+                            //This easier than delete: set null, remove view...
+                            nextSpinner.setVisibility(View.GONE);
+                            nextCalInput.setVisibility(View.GONE);
+                        } else {
+                            //Turn off Switch for For Loop
+                            i = measurementNoSpinner.getAdapter().getCount() + 1;
+                        }
                     }
                 }
             }
@@ -162,9 +195,7 @@ public class CreateNewIngFrag extends Fragment {
 
         ArrayAdapter<String> measurementNoInputAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.measurementNo_array));
-
         measurementNoInputAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
         measurementNoSpinner.setAdapter(measurementNoInputAdapter);
     }
 
@@ -177,7 +208,7 @@ public class CreateNewIngFrag extends Fragment {
         //TODO: put format constraint for name to be camelCase
         String name = ingName.getEditText().getText().toString();
         String cal = ingCal.getEditText().getText().toString();
-        TextView measurementSpinner = getView().findViewById(R.id.measurementTxtVw_createNewIng_Frag);
+        TextView gramsLabel = getView().findViewById(R.id.measurementTxtVw_createNewIng_Frag);
 
         if (!hasIng(name)) {
             if (name.isEmpty()) {
@@ -187,8 +218,26 @@ public class CreateNewIngFrag extends Fragment {
             } else {
                 Ingredient newIng;
                 HashMap<String, String> melCal = new HashMap<>();
-                for (int i = 0; i > measurementInput; i++) {
-                    //melCal.put(measurement, cal);
+                melCal.put(gramsLabel.getText().toString(), cal);
+
+                //Default No of Input is 1 -> i = 1
+                //Default No of measurementInput is 1 -> i < measurementInput
+                for (int i = 1; i < measurementInput; i++){
+                    Spinner newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i)));
+                    EditText newInputCal = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i)));
+
+                    if (newSpinner == null || newInputCal == null){
+                        Log.i("null found", ""+i);
+                    }
+                    else {
+                        if (newInputCal.getText().toString().equals("")) {
+                            newInputCal.setError("Please Enter Ingredient Calories!");
+                            //Turn off Switch
+                            i = measurementInput;
+                        } else {
+                            melCal.put(newSpinner.getSelectedItem().toString(), newInputCal.getText().toString());
+                        }
+                    }
                 }
 
                 newIng = new IngredientCountable(name, melCal);

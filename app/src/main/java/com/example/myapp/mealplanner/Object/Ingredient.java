@@ -56,15 +56,20 @@ public abstract class Ingredient implements Parcelable {
         this.name = name;
         this.measurementDictMultiMap = new MultiValueMap<>();
 
+        String firstKey = meCalMap.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();
+        this.measure = firstKey;
+        this.calories = meCalMap.get(firstKey); //Alternative method: meCalMap.values().toArray()[0].toString();
+
         //Alternative method: using KeySet Iterator (instead of for), EntrySet (instead of keySet)
-        for (int i = 0; i < meCalMap.size(); i++){
-            for (String key : meCalMap.keySet()) {
-                measurementDictMultiMap.put(String.valueOf(i), key);
-                measurementDictMultiMap.put(String.valueOf(i), meCalMap.get(key));
-                this.measure = key;
-                this.calories = meCalMap.get(key);
-            }
+        int i=0;
+        for (String key : meCalMap.keySet()) { //for (int i = 0; i < meCalMap.size(); i++){
+            measurementDictMultiMap.put(String.valueOf(i), key);
+            measurementDictMultiMap.put(String.valueOf(i), meCalMap.get(key));
+            i++;
         }
+
+
+
         quantity = String.valueOf(1);
     }
 
