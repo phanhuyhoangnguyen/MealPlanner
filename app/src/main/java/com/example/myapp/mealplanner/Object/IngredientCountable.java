@@ -2,6 +2,7 @@ package com.example.myapp.mealplanner.Object;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -80,8 +81,11 @@ public class IngredientCountable extends Ingredient {
 
         while (it.hasNext()) {
             checkKey = ((Map.Entry) it.next()).getKey().toString();
+            Log.i("it.next()", checkKey);
+            Log.i("currentKey", currentKey);
+            if (!checkKey.equalsIgnoreCase(currentKey)) {
+                Log.i("equal", "false");
 
-            if (checkKey.equalsIgnoreCase(currentKey)) {
                 if (index > currentIndex) {
                     newKey = checkKey;
 
@@ -92,6 +96,7 @@ public class IngredientCountable extends Ingredient {
                 }
             }
             else {
+                Log.i("equal", "true");
                 currentIndex = index;
             }
             index++;

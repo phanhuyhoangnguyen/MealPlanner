@@ -3,8 +3,10 @@ package com.example.myapp.mealplanner.Object;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by John.nguyen on 07/12/2017.
@@ -30,43 +32,66 @@ public abstract class Ingredient implements Parcelable {
         return measurementDictMultiMap;
     }*/
 
-    //This can be replaced as HashMap <String, sub HashMap>
-    //Or HashMap <String, List <Custom Object>
-    //Or HashMap<String, List<String>>(), where List<String> values = new ArrayList<String>();
-    //and this Array can hold as many as value if you want, each key of HashMap related to 1 Array
-    //Or Array with each index has 2 value: String measurement, String defaultCalories == Custom Array with Custom Object
-    //private MultiValueMap<String, String> measurementDictMultiMap; // HashMap is stored as array
-    //or LinkedHashMap instead of HashMap for allowing values to be set in order
-    //TODO: try to convert to LinkedHashMap
-    private HashMap<String, String> measurementDictMultiMap;
+    //This can be replaced as HashMap <String, sub HashMap> : Firebase don't support
+    // or HashMap<String, String>: support but only 1 key and 1 value, we sometimes need 2 values
+    // or HashMap <String, List <Custom Object>
+    // or HashMap<String, List<String>>(), where List<String> values = new ArrayList<String>();
+    // and this Array can hold as many as value if you want, each key of HashMap related to 1 Array
+    // or Array with each index has 2 value: String measurement, String currentCalories == Custom Array with Custom Object
+    // private MultiValueMap<String, String> measurementDictMultiMap; // HashMap is stored as array
+    // or LinkedHashMap instead of HashMap for allowing values to be set in order
 
-    private String defaultCalories;
-    private String quantity;
-    private String defaultMeasure;
+    public String getCurrentMeasurement() {
+        return currentMeasurement;
+    }
+
+    public void setCurrentMeasurement(String currentMeasurement) {
+        this.currentMeasurement = currentMeasurement;
+    }
+
+    //private HashMap<String, String> measurementDictMultiMap;
+    private String currentMeasurement;
+
+    public String getCurrentCalories() {
+        return currentCalories;
+    }
+
+    public void setCurrentCalories(String currentCalories) {
+        this.currentCalories = currentCalories;
+    }
+
+    private String currentCalories;
+    private String currentQuantity;
+
+    public List<Measurements> getMeasurementDictMultiMap() {
+        return measurementDictMultiMap;
+    }
+
+    public void setMeasurementDictMultiMap(List<Measurements> measurementDictMultiMap) {
+        this.measurementDictMultiMap = measurementDictMultiMap;
+    }
+
+    private List<Measurements> measurementDictMultiMap;
 
 
     public Ingredient() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public Ingredient(String name, HashMap<String, String> meCalMap) {
+    public Ingredient(String name, ArrayList<Measurements> meCal) {
         //TODO: Ingredients are different Calories when under different cooking
         this.name = name;
 
-        String firstKey = meCalMap.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();
-        this.defaultMeasure = firstKey;
-        this.defaultCalories = meCalMap.get(firstKey); //Alternative method: meCalMap.values().toArray()[0].toString();
+        /*String firstKey = meCal.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();
+        this.currentMeasurement = firstKey;
+        this.currentCalories = meCal.get(firstKey); //Alternative method: meCalMap.values().toArray()[0].toString();*/
 
-        //this.measurementDictMultiMap = new MultiValueMap<>();
-        this.measurementDictMultiMap = meCalMap;
-        //Alternative method: using KeySet Iterator (instead of for), EntrySet (instead of keySet)
-        /*int i=0;
-        for (String key : meCalMap.keySet()) { //for (int i = 0; i < meCalMap.size(); i++){
-            measurementDictMultiMap.put(String.valueOf(i), key);
-            measurementDictMultiMap.put(String.valueOf(i), meCalMap.get(key));
-            i++;
-        }*/
-        quantity = String.valueOf(1);
+        this.measurementDictMultiMap = meCal;
+        //this.measurementDictMultiMap = meCalMap;
+
+        this.currentCalories = meCal.get(0).getCalories();
+        this.currentQuantity = meCal.get(0).getQuantity();
+        this.currentMeasurement = meCal.get(0).getName();
     }
 
     public abstract void changeQuantityMeasurement(String key);
@@ -80,34 +105,18 @@ public abstract class Ingredient implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
     }
 
-    public String getQuantity() {
-        return quantity;
+    public String getCurrentQuantity() {
+        return currentQuantity;
     }
 
-    public void setQuantity(String quantity) {this.quantity = quantity;}
+    public void setCurrentQuantity(String currentQuantity) {this.currentQuantity = currentQuantity;}
 
 
-    public HashMap<String, String> getMeasurementDictMultiMap() {
+    /*public HashMap<String, String> getMeasurementDictMultiMap() {
         return measurementDictMultiMap;
     }
 
     public void setMeasurementDictMultiMap(HashMap<String, String> measurementDictMultiMap) {
         this.measurementDictMultiMap = measurementDictMultiMap;
-    }
-
-    public String getDefaultCalories() {
-        return defaultCalories;
-    }
-
-    public void setDefaultCalories(String defaultCalories) {
-        this.defaultCalories = defaultCalories;
-    }
-
-    public String getDefaultMeasure() {
-        return defaultMeasure;
-    }
-
-    public void setDefaultMeasure(String defaultMeasure) {
-        this.defaultMeasure = defaultMeasure;
-    }
+    }*/
 }
