@@ -2,12 +2,14 @@ package com.example.myapp.mealplanner.CustomArrayAdapter.Alternative;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Object.Ingredient;
 import com.example.myapp.mealplanner.Object.IngredientCountable;
@@ -35,13 +37,14 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
     private int position;
 
     public interface OnItmClickListener {
-        //this is implemented by activity, whichever written in here will be implemented in Activity
-        //on the other hand, these will be called by (this) array, in the bellow part.
-        //On the other word, this part control the installation but the execution will be controlled
-        //in the below
+        // Whichever written in here will be implemented in Activity and also in this class: Interface control the installation part
+        // however, the class doesn't define the actual mechanism but only reference and linked to Activity
+        // The purpose to do this is because, the array hold reference to the current item, which is clicked
+        // the array can be middle man to link this current item and activity to perform the desire actions
         void onItemLongClick(View view, Ingredient item);
         void onItemClick(View view, Ingredient item);
     }
+
     private final OnItmClickListener itmListener;
 
     /* private final OnBtnClickListener btnListener;
@@ -62,7 +65,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
     @Override
     public IngredientRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.layout_ingredient_list_item_btn_qun, parent, false);
-        return new IngredientRowHolder(v, new MyViewLongClickListener());
+        return new IngredientRowHolder(v, new MyViewClickListener());
     }
 
     @Override
@@ -89,14 +92,14 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
         private Button ingQunIn;
         private Button ingQunDe;
 
-        private MyViewLongClickListener myViewLongClickListener;
+        private MyViewClickListener MyViewClickListener;
 
         //private MyBtnListener myBtnListener;
 
         /*//2nd method of Create Context Menu:
         private IngredientCountable mData;*/
 
-        public IngredientRowHolder(View itemView, MyViewLongClickListener myViewLongClickListener) {
+        public IngredientRowHolder(View itemView, MyViewClickListener MyViewClickListener) {
             super(itemView);
 
             ingName = (TextView) itemView.findViewById(R.id.ingName_listItm_Layout);
@@ -105,15 +108,16 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
             ingQunIn = (Button) itemView.findViewById(R.id.ingQunBtnInc_listItm_Layout);
             ingQunDe = (Button) itemView.findViewById(R.id.ingQunBtnDed_listItm_Layout);
 
-            this.myViewLongClickListener = myViewLongClickListener;
+            this.MyViewClickListener = MyViewClickListener;
 
-            itemView.setOnLongClickListener(myViewLongClickListener);
+            itemView.setOnLongClickListener(MyViewClickListener);
+            itemView.setOnClickListener(MyViewClickListener);
 
             //Button is also setOnClickListener, using same variable
-            ingQunIn.setOnClickListener(myViewLongClickListener);
-            ingQunDe.setOnClickListener(myViewLongClickListener);
+            ingQunIn.setOnClickListener(MyViewClickListener);
+            ingQunDe.setOnClickListener(MyViewClickListener);
 
-            //1st method: implements View.OnCreateContextMenuListener directly
+            //1st method: implements View.OnCreateContextMenuListener directly from this class
             itemView.setOnCreateContextMenuListener(this);
 
             /*//2nd method: create another custom variable which implement View.OnCreateContextMenuListener
@@ -144,10 +148,10 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
         public void bind(final Ingredient listItems/*, final OnItmClickListener itmListener /*, final OnBtnClickListener btnListener*/) {
             getIngName().setText(listItems.getName());
-            getIngQuantity().setText(listItems.getQuantity().concat(listItems.getMeasure()));
-            getInsCalories().setText(Float.valueOf(listItems.getCalories()) + "kj");
+            getIngQuantity().setText(listItems.getQuantity().concat(listItems.getDefaultMeasure()));
+            getInsCalories().setText(Float.valueOf(listItems.getDefaultCalories()) + "kj");
 
-            myViewLongClickListener.update(listItems);
+            MyViewClickListener.update(listItems);
 
             /*//2nd method of Create Context Menu:
             mData = listItems;*/
@@ -217,7 +221,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
     //not only one
     //Old Approach will declare 2 separate variables which each implement 1 only: either OnLongClick for item row
     //another variable implement OnClickListener for button
-    private class MyViewLongClickListener implements View.OnLongClickListener, View.OnClickListener {
+    private class MyViewClickListener implements View.OnLongClickListener, View.OnClickListener {
         private Ingredient currentItm;
 
         public void update(Ingredient currentItm) {

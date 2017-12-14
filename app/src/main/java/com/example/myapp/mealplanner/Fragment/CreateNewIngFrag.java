@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CreateNewIngFrag extends Fragment {
@@ -99,7 +100,9 @@ public class CreateNewIngFrag extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 //Check and handling when user re-selecting spinner: hidden all the unnecessary rows
                 //Alternative method: while (it.hasNext()) instead of "measurementNoSpinner.getAdapter().getCount()"
+                measurementInput = 1;
                 measurementInput += position;
+
                 for (int i = 0; i <= measurementNoSpinner.getAdapter().getCount(); i++) {
 
                     if (i < position) {
@@ -168,7 +171,6 @@ public class CreateNewIngFrag extends Fragment {
                         } else {
                             newCalInput.setVisibility(View.VISIBLE);
                             newSpinner.setVisibility(View.VISIBLE);
-
                         }
                     } else {
                         // i == index of Next
@@ -185,6 +187,7 @@ public class CreateNewIngFrag extends Fragment {
                         }
                     }
                 }
+                Toast.makeText(getActivity(), "measurementInput" + measurementInput, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -200,6 +203,7 @@ public class CreateNewIngFrag extends Fragment {
     }
 
     private void createNewIng() {
+        //TODO: autocomplete text with calories and spinner
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
         //RadioGroup radioGrp = getView().findViewById(R.id.countRadioGroup_createNewIng_Frag);
@@ -220,8 +224,6 @@ public class CreateNewIngFrag extends Fragment {
                 HashMap<String, String> melCal = new HashMap<>();
                 melCal.put(gramsLabel.getText().toString(), cal);
 
-                //Default No of Input is 1 -> i = 1
-                //Default No of measurementInput is 1 -> i < measurementInput
                 for (int i = 1; i < measurementInput; i++){
                     Spinner newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i)));
                     EditText newInputCal = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i)));

@@ -79,7 +79,7 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
         public void bind(final IngredientCountable currentItm, final OnEditTextFinishedListener mListener, final int position) {
             myCustomEditTextListener.updatePosition(getAdapterPosition(), currentItm);
             if (text == null) {
-                getInsCalories().setText(Integer.valueOf(currentItm.getCalories()) * Integer.valueOf(currentItm.getQuantity()) / 100 + "kj");
+                getInsCalories().setText(Integer.valueOf(currentItm.getDefaultCalories()) * Integer.valueOf(currentItm.getQuantity()) / 100 + "kj");
             } else {
                 ingQunEditTxt.setText(Integer.valueOf(text) * Integer.valueOf(currentItm.getQuantity()) / 100 + "kj");
             }
@@ -125,7 +125,7 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
 
         public void updatePosition(int position, IngredientCountable currentItm) {
             this.position = position;
-            this.savedText = currentItm.getCalories();
+            this.savedText = currentItm.getDefaultCalories();
             this.currentItm = currentItm;
         }
 
