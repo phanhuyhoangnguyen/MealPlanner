@@ -1,404 +1,607 @@
 {
   "Ingredients" : {
     "Artichoke" : {
-      "calories" : "47",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "47",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "47"
+      },
       "name" : "Artichoke",
       "quantity" : "1"
     },
     "Arugula" : {
-      "calories" : "25",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "25",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "25"
+      },
       "name" : "Arugula",
       "quantity" : "1"
     },
     "Asparagus" : {
-      "calories" : "25",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "25",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "25"
+      },
       "name" : "Asparagus",
       "quantity" : "1"
     },
     "Bamboo Shoot" : {
-      "calories" : "27",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "27",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "27"
+      },
       "name" : "Bamboo Shoot",
       "quantity" : "1"
     },
-    "Bell pepper" : {
-      "calories" : "20",
-      "measure" : "Gram (g)",
-      "name" : "Bell pepper",
+    "Bell Pepper" : {
+      "defaultCalories" : "20",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "20"
+      },
+      "name" : "Bell Pepper",
       "quantity" : "1"
     },
     "Bitter Melon" : {
-      "calories" : "34",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "34",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "34"
+      },
       "name" : "Bitter Melon",
       "quantity" : "1"
     },
-    "Broad Bean" : {
-      "calories" : "88",
-      "measure" : "Gram (g)",
-      "name" : "Broad Bean",
+    "Broad Beans" : {
+      "defaultCalories" : "88",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "88"
+      },
+      "name" : "Broad Beans",
       "quantity" : "1"
     },
     "Broccoli" : {
-      "calories" : "34",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "34",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "34"
+      },
       "name" : "Broccoli",
       "quantity" : "1"
     },
     "Brown Rice (long-grain)" : {
-      "calories" : "111",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "111",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "111"
+      },
       "name" : "Brown Rice (long-grain)",
       "quantity" : "1"
     },
     "Brussels Sprout" : {
-      "calories" : "43",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "43",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "43"
+      },
       "name" : "Brussels Sprout",
-      "quantity" : "100"
+      "quantity" : "1"
     },
     "Cabbage" : {
-      "calories" : "25",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "25",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "25"
+      },
       "name" : "Cabbage",
-      "quantity" : "100"
+      "quantity" : "1"
     },
     "Carrots" : {
-      "calories" : "41",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "41",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "41"
+      },
       "name" : "Carrots",
       "quantity" : "1"
     },
     "Celery" : {
-      "calories" : "16",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "16",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "16"
+      },
       "name" : "Celery",
-      "quantity" : "100"
+      "quantity" : "1"
     },
     "Chard" : {
-      "calories" : "19",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "19",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "19"
+      },
       "name" : "Chard",
-      "quantity" : "100"
+      "quantity" : "1"
     },
     "Chayote" : {
-      "calories" : "19",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "19",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "19"
+      },
       "name" : "Chayote",
       "quantity" : "1"
     },
     "Chicory" : {
-      "calories" : "23",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "23",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "23"
+      },
       "name" : "Chicory",
       "quantity" : "1"
     },
     "Chili Pepper" : {
-      "calories" : "40",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "40",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "40"
+      },
       "name" : "Chili Pepper",
       "quantity" : "1"
     },
     "Chinese Cabbage" : {
-      "calories" : "13",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "13",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "13"
+      },
       "name" : "Chinese Cabbage",
       "quantity" : "1"
     },
     "Cucumber" : {
-      "calories" : "16",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "16",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "16"
+      },
       "name" : "Cucumber",
       "quantity" : "1"
     },
     "Daikon" : {
-      "calories" : "18",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "18",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "18"
+      },
       "name" : "Daikon",
       "quantity" : "1"
     },
     "Egg" : {
-      "calories" : "155",
-      "measure" : "Number (1, 2…)",
+      "defaultCalories" : "155",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "155"
+      },
       "name" : "Egg",
       "quantity" : "1"
     },
     "Eggplant" : {
-      "calories" : "25",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "25",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "25"
+      },
       "name" : "Eggplant",
       "quantity" : "1"
     },
     "Endive" : {
-      "calories" : "17",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "17",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "17"
+      },
       "name" : "Endive",
       "quantity" : "1"
     },
     "Garlic" : {
-      "calories" : "149",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "149",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "149"
+      },
       "name" : "Garlic",
       "quantity" : "1"
     },
     "Ginger" : {
-      "calories" : "80",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "80",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "80"
+      },
       "name" : "Ginger",
       "quantity" : "1"
     },
     "Green Bean" : {
-      "calories" : "31",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "31",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "31"
+      },
       "name" : "Green Bean",
       "quantity" : "1"
     },
     "Ham" : {
-      "calories" : "145",
-      "measure" : "Ounces (oz)",
+      "defaultCalories" : "145",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "145"
+      },
       "name" : "Ham",
       "quantity" : "1"
     },
     "Kale" : {
-      "calories" : "49",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "49",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "49"
+      },
       "name" : "Kale",
       "quantity" : "1"
     },
     "Kohlrabi" : {
-      "calories" : "27",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "27",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "27"
+      },
       "name" : "Kohlrabi",
       "quantity" : "1"
     },
     "Leek" : {
-      "calories" : "61",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "61",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "61"
+      },
       "name" : "Leek",
       "quantity" : "1"
     },
     "Lettuce" : {
-      "calories" : "15",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "15",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "15"
+      },
       "name" : "Lettuce",
       "quantity" : "1"
     },
     "Maize" : {
-      "calories" : "365",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "365",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "365"
+      },
       "name" : "Maize",
       "quantity" : "1"
     },
     "Mustard Greens" : {
-      "calories" : "21",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "21",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "21"
+      },
       "name" : "Mustard Greens",
       "quantity" : "1"
     },
     "Napa Cabbage" : {
-      "calories" : "12",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "12",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "12"
+      },
       "name" : "Napa Cabbage",
       "quantity" : "1"
     },
     "Okra" : {
-      "calories" : "33",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "33",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "33"
+      },
       "name" : "Okra",
       "quantity" : "1"
     },
     "Onion" : {
-      "calories" : "40",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "40",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "40"
+      },
       "name" : "Onion",
       "quantity" : "1"
     },
     "Oyster Sauce" : {
-      "calories" : "51",
-      "measure" : "Tablespoon (tbs)",
+      "defaultCalories" : "51",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "Tablespoon (tbs)" : "9",
+        "gram (g)" : "51"
+      },
       "name" : "Oyster Sauce",
       "quantity" : "1"
     },
     "Paprika" : {
-      "calories" : "282",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "282",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "282"
+      },
       "name" : "Paprika",
       "quantity" : "1"
     },
     "Parsnip" : {
-      "calories" : "75",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "75",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "75"
+      },
       "name" : "Parsnip",
       "quantity" : "1"
     },
     "Pea" : {
-      "calories" : "81",
-      "measure" : "Ounces (oz)",
+      "defaultCalories" : "81",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "81"
+      },
       "name" : "Pea",
       "quantity" : "1"
     },
     "Peanut Oil" : {
-      "calories" : "884",
-      "measure" : "Tablespoon (tbs)",
+      "defaultCalories" : "884",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "884"
+      },
       "name" : "Peanut Oil",
       "quantity" : "1"
     },
     "Potato" : {
-      "calories" : "77",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "77",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "77"
+      },
       "name" : "Potato",
       "quantity" : "1"
     },
     "Radish" : {
-      "calories" : "16",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "16",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "16"
+      },
       "name" : "Radish",
       "quantity" : "1"
     },
     "Rapini" : {
-      "calories" : "22",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "22",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "22"
+      },
       "name" : "Rapini",
       "quantity" : "1"
     },
     "Red Cabbage" : {
-      "calories" : "31",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "31",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "31"
+      },
       "name" : "Red Cabbage",
       "quantity" : "1"
     },
     "Rhubarb" : {
-      "calories" : "21",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "21",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "21"
+      },
       "name" : "Rhubarb",
       "quantity" : "1"
     },
     "Rutabaga" : {
-      "calories" : "32",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "32",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "32"
+      },
       "name" : "Rutabaga",
       "quantity" : "1"
     },
     "Salt" : {
-      "calories" : "0",
-      "measure" : "Teaspoon (tps)",
+      "defaultCalories" : "0",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "0"
+      },
       "name" : "Salt",
       "quantity" : "1"
     },
     "Scallion" : {
-      "calories" : "32",
-      "measure" : "Number (1, 2…)",
+      "defaultCalories" : "32",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "32"
+      },
       "name" : "Scallion",
       "quantity" : "1"
     },
     "Shallot" : {
-      "calories" : "72",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "72",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "72"
+      },
       "name" : "Shallot",
       "quantity" : "1"
     },
     "Shiitake Mushroom" : {
-      "calories" : "34",
-      "measure" : "Ounces (oz)",
+      "defaultCalories" : "34",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "34"
+      },
       "name" : "Shiitake Mushroom",
       "quantity" : "1"
     },
     "Shrimp" : {
-      "calories" : "99",
-      "measure" : "Ounces (oz)",
+      "defaultCalories" : "99",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "99"
+      },
       "name" : "Shrimp",
       "quantity" : "1"
     },
     "Spinach" : {
-      "calories" : "23",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "23",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "23"
+      },
       "name" : "Spinach",
       "quantity" : "1"
     },
     "Spring Onion" : {
-      "calories" : "32",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "32",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "32"
+      },
       "name" : "Spring Onion",
       "quantity" : "1"
     },
     "Sugar" : {
-      "calories" : "387",
-      "measure" : "Teaspoon (tps)",
+      "defaultCalories" : "387",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "387"
+      },
       "name" : "Sugar",
       "quantity" : "1"
     },
     "Tomato" : {
-      "calories" : "18",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "18",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "18"
+      },
       "name" : "Tomato",
       "quantity" : "1"
     },
     "Turnip" : {
-      "calories" : "28",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "28",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "28"
+      },
       "name" : "Turnip",
       "quantity" : "1"
     },
     "Vegetable Oil" : {
-      "calories" : "884",
-      "measure" : "Tablespoon (tbs)",
+      "defaultCalories" : "884",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "884"
+      },
       "name" : "Vegetable Oil",
       "quantity" : "1"
     },
     "Watercress" : {
-      "calories" : "11",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "11",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "11"
+      },
       "name" : "Watercress",
       "quantity" : "1"
     },
     "White Parboiled Rice (long-grain)" : {
-      "calories" : "123",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "123",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "123"
+      },
       "name" : "White Parboiled Rice (long-grain)",
       "quantity" : "1"
     },
     "White Pepper" : {
-      "calories" : "251",
-      "measure" : "Teaspoon (tps)",
+      "defaultCalories" : "251",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "251"
+      },
       "name" : "White Pepper",
       "quantity" : "1"
     },
     "White Rice (Basmati)" : {
-      "calories" : "191",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "191",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "191"
+      },
       "name" : "White Rice (Basmati)",
       "quantity" : "1"
     },
     "White Rice (Jasmine)" : {
-      "calories" : "160",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "160",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "160"
+      },
       "name" : "White Rice (Jasmine)",
       "quantity" : "1"
     },
     "White Rice (glutinous)" : {
-      "calories" : "97",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "97",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "97"
+      },
       "name" : "White Rice (glutinous)",
       "quantity" : "1"
     },
     "White Rice (long-grain)" : {
-      "calories" : "130",
-      "measure" : "Cup (C)",
+      "defaultCalories" : "130",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "Cup (C)" : "205",
+        "gram (g)" : "130"
+      },
       "name" : "White Rice (long-grain)",
       "quantity" : "1"
     },
     "White Rice (short-grain)" : {
-      "calories" : "130",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "130",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "130"
+      },
       "name" : "White Rice (short-grain)",
       "quantity" : "1"
     },
     "Zucchini" : {
-      "calories" : "17",
-      "measure" : "Gram (g)",
+      "defaultCalories" : "17",
+      "defaultMeasure" : "gram (g)",
+      "measurementDictMultiMap" : {
+        "gram (g)" : "17"
+      },
       "name" : "Zucchini",
       "quantity" : "1"
     }
