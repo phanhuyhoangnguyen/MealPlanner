@@ -377,7 +377,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         StringBuilder name = new StringBuilder("");
 
         for (Ingredient i : data) {
-            totalCal += Integer.valueOf(i.getCalories());
+            totalCal += Integer.valueOf(i.getDefaultCalories());
             name.append(i.getName()).append(" ").append(i.getQuantity()).append("g").append("\n");
         }
 

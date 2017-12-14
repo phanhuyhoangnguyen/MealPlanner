@@ -1,15 +1,24 @@
 Current Working Resources:
+https://stackoverflow.com/questions/580160/how-to-convert-a-collection-to-list
+https://stackoverflow.com/questions/2470856/convert-collection-to-list
+https://stackoverflow.com/questions/1751844/java-convert-liststring-to-a-string
 https://stackoverflow.com/questions/1383797/java-hashmap-how-to-get-key-from-value
 https://stackoverflow.com/questions/5566921/androidpassing-a-hash-map-between-activities/5567917#5567917
-https://stackoverflow.com/questions/3093863/how-to-create-a-multimapk-v-from-a-mapk-collectionv
-https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
-https://stackoverflow.com/questions/8229473/hashmap-one-key-multiple-values
-http://www.geeksforgeeks.org/retrieving-elements-from-collection-for-each-iterator-listiterator-enumerationiterator/
+-generateViewId(), Google Api: https://stackoverflow.com/questions/1714297/android-view-setidint-id-programmatically-how-to-avoid-id-conflicts
+-multimap problem with firebase: https://www.firebase.com/docs/android/guide/understanding-data.html#section-arrays-in-firebase
+https://www.firebase.com/docs/android/guide/saving-data.html
+update this method too
+int index = 0;
+for (Object key : map.keySet()) {
+   Object value = map.get(key);
+   ++index;
+}
 
 Good Resources For Reviewing:
 Foundation Knowledge Books:
 Beginning Android 4 Application Development Wei-Meng Lee
 Professional Android Application Development Retro Meier
+
 1. String Components:
 https://stackoverflow.com/questions/38913836/java-how-to-see-if-a-string-contains-multiple-words
 https://stackoverflow.com/questions/18885043/better-way-to-detect-if-a-string-contains-multiple-words
@@ -20,3 +29,5 @@ http://www.mkyong.com/regular-expressions/10-java-regular-expression-examples-yo
 http://www.vogella.com/tutorials/JavaRegularExpressions/article.html
 tool for checking regrex
 https://regex101.com/
+3. Static:
+https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/

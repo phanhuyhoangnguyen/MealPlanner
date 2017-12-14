@@ -134,6 +134,7 @@ public class SelectIngFrag extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 String ingName = parent.getItemAtPosition(position).toString();
+                // we can change code to pass Ingredient instead of String: addSelectedIngredient(ingredientsMap.get(ingName));
                 addSelectedIngredient(ingName);
                 clearText();
             }
@@ -309,7 +310,8 @@ public class SelectIngFrag extends Fragment {
                 itemsAvailAdapter.clear();
 
                 for (DataSnapshot ingredientSnapshot : dataSnapshot.getChildren()) {
-                    Ingredient ingObj = ingredientSnapshot.getValue(Ingredient.class);
+                    //TODO: review this, abstract class
+                    Ingredient ingObj = (IngredientCountable) ingredientSnapshot.getValue(IngredientCountable.class);
                     if (ingObj != null) {
                         ingNameData.add(ingObj.getName());
                         //Create New Map from data retrieve
@@ -394,7 +396,7 @@ public class SelectIngFrag extends Fragment {
     final ArrAdaptIngBtnListener.OnItmClickListener mItmListener = new ArrAdaptIngBtnListener.OnItmClickListener() {
 
         @Override
-        public void onItemClick(View view, IngredientCountable item) {
+        public void onItemClick(View view, Ingredient item) {
             //This is only triggered when the button with set onClickListener is clicked
             //Toast.makeText(getActivity(), "Short Click", Toast.LENGTH_SHORT).show();
             switch (view.getId()) {
@@ -419,13 +421,16 @@ public class SelectIngFrag extends Fragment {
                     break;
 
                 default:
+                    item.changeQuantityMeasurement(item.getDefaultMeasure());
+                    Log.i("check Measure", item.getDefaultMeasure());
+                    Log.i("check Cal", item.getDefaultCalories());
                     break;
             }
             arrayIngredientAdapter.notifyDataSetChanged();
         }
 
         @Override
-        public void onItemLongClick(View view, IngredientCountable item) {
+        public void onItemLongClick(View view, Ingredient item) {
             view.showContextMenu();
         }
     };
@@ -514,7 +519,11 @@ public class SelectIngFrag extends Fragment {
     }
 
     public void addSelectedIngredient(String ingName) {
-        //addIngredientTestData();
+        // addIngredientTestData();
+        // We use the Map in order to simplified passing parameter String instead of Passing Ingredient
+        // This way, instead of having create or retrieve specific Ingredient, we can just look that ingredient,
+        // which is already created and stored in memory.
+
         Ingredient ing = ingredientsMap.get(ingName);
         /*if (!ingSelectedData.contains(ing)) {
             ingSelectedData.add(ing);

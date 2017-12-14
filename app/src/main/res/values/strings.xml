@@ -74,7 +74,7 @@
     <string name="increase_plus_symbol">+</string>
     <string name="increase_minus_symbol">-</string>
     <string name="number">number</string>
-    <string name="gram">gram</string>
+    <string name="gram">gram (g)</string>
     <string name="calories">Calories</string>
     <string name="quantity">Quantity</string>
     <string name="instruction_desc">Instruction Description</string>

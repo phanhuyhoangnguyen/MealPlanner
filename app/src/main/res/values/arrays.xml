@@ -14,7 +14,7 @@
     </string-array>
 
     <string-array name="volumeMeasurement_array">
-        <item>[Please Select Measure]</item>
+        <!--<item>[Please Select Measure]</item>-->
         <item>Cup (C)</item>
         <item>Drop (dr)</item>
         <item>Gallon (gal)</item>
@@ -32,7 +32,7 @@
     </string-array>
 
     <string-array name="measurementNo_array">
-        <item>[Number of Measurements]</item>
+        <item>[Add additional Measurements]</item>
         <item>1</item>
         <item>2</item>
     </string-array>

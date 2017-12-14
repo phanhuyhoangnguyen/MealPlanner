@@ -12,7 +12,8 @@ import com.example.myapp.mealplanner.Fragment.CreateMenuFrag;
 import com.example.myapp.mealplanner.Fragment.CreateNewIngFrag;
 import com.example.myapp.mealplanner.Fragment.CreateNewRecipeFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
-import com.example.myapp.mealplanner.Object.IngredientUncountable;
+import com.example.myapp.mealplanner.Object.Ingredient;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
 import com.example.myapp.mealplanner.Fragment.RecipeInsFrag;
@@ -21,12 +22,11 @@ import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
 
 import java.util.List;
 
-public class CreateMenuFragContainerAct extends AppCompatActivity implements CreateMenuFrag.OnCreateNewMenuRequestListener,
-        FoodTypeTableFrag.OnShowFoodViewRequestListener, RecipeListRowFrag.onFragInteractListener,
+public class CreateMenuFragContainerAct extends AppCompatActivity implements CreateMenuFrag.OnFragInteractListener,
+        FoodTypeTableFrag.OnFragInteractListener, RecipeListRowFrag.onFragInteractListener,
         CreateNewRecipeFrag.OnFragInteractListener,
         SelectIngFrag.OnFragInteractListener, CreateNewIngFrag.OnFragInteractListener {
 
-    //TODO: rename all the interface of Fragment and method to be better meaning
     private FragmentManager manager;
 
     @Override
@@ -122,7 +122,7 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     @Override
-    public void OnAddIngRequest(List<IngredientUncountable> data) {
+    public void OnAddIngRequest(List<Ingredient> data) {
         //Pass data to fragment
         SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
         FragmentTransaction transaction = manager.beginTransaction();
@@ -132,9 +132,9 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     @Override
-    public void OnRetrieveIngRequest(List<IngredientUncountable> ingredientUncountables) {
+    public void OnRetrieveIngRequest(List<Ingredient> ingredientCountables) {
         CreateNewRecipeFrag createNewRecipeFrag = (CreateNewRecipeFrag) manager.findFragmentByTag("AddNewRecipeFrag");
-        createNewRecipeFrag.addIngDataToFrag(ingredientUncountables);
+        createNewRecipeFrag.addIngDataToFrag(ingredientCountables);
     }
 
     @Override
