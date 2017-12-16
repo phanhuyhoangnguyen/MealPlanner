@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Object.Ingredient;
 import com.example.myapp.mealplanner.Object.IngredientCountable;
+import com.example.myapp.mealplanner.Object.Measurement;
 import com.example.myapp.mealplanner.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CreateNewIngFrag extends Fragment {
@@ -44,6 +44,9 @@ public class CreateNewIngFrag extends Fragment {
     private String mParam2;
 
     private ArrayList<Ingredient> IngredientDb;
+    private Map<String, Measurement> measurementsMap;
+
+    private HashMap<String, Object> MultiMeasureDict;
 
     private OnFragInteractListener mFragInteractListener;
 
@@ -74,8 +77,16 @@ public class CreateNewIngFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_create_new_ing, container, false);
 
+        retrieveData();
+
         //Toolbar SetUp
         setHasOptionsMenu(true);
+
+        //push HashMap of Multi-Measurement Dictionary Database to server
+        //pushMultiMeasureDict();
+
+        TextView gramsLabel = view.findViewById(R.id.measurementTxtVw_createNewIng_Frag);
+        gramsLabel.setText(R.string.gram);
 
         Button saveIngInfoBtn = view.findViewById(R.id.saveBtn_createNewIng_Frag);
         saveIngInfoBtn.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +96,35 @@ public class CreateNewIngFrag extends Fragment {
                 //onAddIngBtnClicked();
             }
         });
-        //retrieveIngData();
+
+
         return view;
+    }
+
+    private void pushMultiMeasureDict() {
+        MultiMeasureDict = new HashMap<>();
+        Measurement newMeObj;
+        for (int i = 0; i < getResources().getStringArray(R.array.volumeMeasurement_array).length; i++){
+            newMeObj = new Measurement(getResources().getStringArray(R.array.volumeMeasurement_array)[i], "1");
+            MultiMeasureDict.put(newMeObj.getName(), newMeObj);
+        }
+        /* = new Measurement("Cup (C)", "1");
+        Measurement newMeObj = new Measurement("Drop (dr)", "1");
+        Measurement newMeObj = new Measurement("Gallon (gal)", "1");
+        Measurement newMeObj = new Measurement("Gram (g)", "100");
+        Measurement newMeObj = new Measurement("Litre (l)", "1");
+        Measurement newMeObj = new Measurement("ml", "100");
+        Measurement newMeObj = new Measurement("Ounces (oz)", "1");
+        Measurement newMeObj = new Measurement("Pinch (pn)", "1");
+        Measurement newMeObj = new Measurement("Pint (pt)", "1");
+        Measurement newMeObj = new Measurement("Pottle (pot)", "1");
+        Measurement newMeObj = new Measurement("Number (1, 2...)", "1");
+        Measurement newMeObj = new Measurement("Teaspoon (tps)", "1");
+        Measurement newMeObj = new Measurement("Tablespoon (tbs)", "1");
+        Measurement newMeObj = new Measurement("Quart (qt)", "1");*/
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Measurement");
+        mDatabase.updateChildren(MultiMeasureDict);
     }
 
     @Override
@@ -136,8 +174,11 @@ public class CreateNewIngFrag extends Fragment {
                             params.weight = 1f;
                             newSpinner.setLayoutParams(params);
 
+                            //Alternative method: retrieve data from Firebase instead of using external array in res folder:
+                            // String[] measurementNameArrays = getResources().getStringArray(R.array.volumeMeasurement_array);
+                            String[] measurementNameArrays = measurementsMap.keySet().toArray(new String[measurementsMap.keySet().size()]);
                             ArrayAdapter<String> newSpAdapter = new ArrayAdapter<>(getActivity(),
-                                    android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.volumeMeasurement_array));
+                                    android.R.layout.simple_spinner_item, measurementNameArrays);
                             newSpAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
                             newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -156,7 +197,6 @@ public class CreateNewIngFrag extends Fragment {
 
                                 @Override
                                 public void onNothingSelected(AdapterView<?> adapterView) {
-
                                 }
                             });
 
@@ -166,8 +206,6 @@ public class CreateNewIngFrag extends Fragment {
                             newLinearIndividually.addView(newCalInput);
                             newLinearIndividually.addView(newSpinner);
                             linearContainer.addView(newLinearIndividually);
-                            Log.i("id", newCalInput.getTag().toString());
-                            Log.i("id", newSpinner.getTag().toString());
                         } else {
                             newCalInput.setVisibility(View.VISIBLE);
                             newSpinner.setVisibility(View.VISIBLE);
@@ -187,7 +225,6 @@ public class CreateNewIngFrag extends Fragment {
                         }
                     }
                 }
-                Toast.makeText(getActivity(), "measurementInput" + measurementInput, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -206,7 +243,6 @@ public class CreateNewIngFrag extends Fragment {
         //TODO: autocomplete text with calories and spinner
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
-        //RadioGroup radioGrp = getView().findViewById(R.id.countRadioGroup_createNewIng_Frag);
 
         //TODO: fix all these warning
         //TODO: put format constraint for name to be camelCase
@@ -221,8 +257,29 @@ public class CreateNewIngFrag extends Fragment {
                 ingName.setError("Please Enter Ingredient Calories!");
             } else {
                 Ingredient newIng;
-                HashMap<String, String> melCal = new HashMap<>();
-                melCal.put(gramsLabel.getText().toString(), cal);
+                //Alternative method: using List instead of HashMap<String, Measurement>
+                HashMap<String, Measurement> melCal = new HashMap<>();
+                Measurement measurement = measurementsMap.get(gramsLabel.getText().toString());
+                Log.i( "measurementsMap Size: ", String.valueOf(measurementsMap.size()));
+                for (String i: measurementsMap.keySet()){
+                    Log.i("Key Set", i);
+                    Log.i("search: ", gramsLabel.getText().toString());
+                    if (i.equalsIgnoreCase(gramsLabel.getText().toString())){
+                        measurement = measurementsMap.get(gramsLabel.getText().toString());
+                        Log.i("Matched: ", "add");
+                    }
+                }
+                if (measurement != null) {
+                    if (measurement.getCalories() != null) {
+                        measurement.setCalories(cal);
+                    } else {
+                        Toast.makeText(getActivity(), "Calories is null", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Log.i("Measurement","is null");
+                }
+                melCal.put(measurement.getName(), measurement);
 
                 for (int i = 1; i < measurementInput; i++){
                     Spinner newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i)));
@@ -237,7 +294,10 @@ public class CreateNewIngFrag extends Fragment {
                             //Turn off Switch
                             i = measurementInput;
                         } else {
-                            melCal.put(newSpinner.getSelectedItem().toString(), newInputCal.getText().toString());
+                            //TODO: Check this: re-allocate memory location, override the new value but not affect the existing value
+                            measurement = measurementsMap.get(newSpinner.getSelectedItem().toString());
+                            measurement.setCalories(newInputCal.getText().toString());
+                            melCal.put(measurement.getName(), measurement);
                         }
                     }
                 }
@@ -255,15 +315,38 @@ public class CreateNewIngFrag extends Fragment {
         }
     }
 
-    private void retrieveIngData() {
-        IngredientDb = new ArrayList<>();
+    private void retrieveData() {
+        //retrieve MeasurementData
+        //Alternative method 1: Using ArrayList<Measurement> and use loop to add
+        measurementsMap = new HashMap<>();
+
+        DatabaseReference mMeasurementDatabase = FirebaseDatabase.getInstance().getReference("Measurements");
+        mMeasurementDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot measurementSnapshot : dataSnapshot.getChildren()) {
+                    Measurement obj = (Measurement) measurementSnapshot.getValue(Measurement.class);
+                    if (obj != null) {
+                        measurementsMap.put(obj.getName(), obj);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        //retrieve Ingredient Data
+        //Alternative method, using HashMap <String, Ingredient>, this might be a bit better for search performance
+        /*IngredientDb = new ArrayList<>();
         IngredientDb.clear();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Ingredients");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference mIngDatabase = FirebaseDatabase.getInstance().getReference("Ingredients");
+        mIngDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ingredientSnapshot : dataSnapshot.getChildren()) {
-                    Ingredient ingObj = (Ingredient) ingredientSnapshot.getValue(Ingredient.class);
+                    Ingredient ingObj = (IngredientCountable) ingredientSnapshot.getValue(IngredientCountable.class);
                     if (ingObj != null) {
                         IngredientDb.add(ingObj);
                     }
@@ -273,10 +356,11 @@ public class CreateNewIngFrag extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+        });*/
     }
 
     private boolean hasIng(String name) {
+        //Alternative method 1: change to hashMap and use get() to retrieve data for better performance
         /*if (IngredientDb != null) {
             for (Ingredient ing : IngredientDb) {
                 if (ing.getName().equalsIgnoreCase(name))

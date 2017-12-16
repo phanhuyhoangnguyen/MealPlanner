@@ -117,7 +117,7 @@ public class SelectIngFrag extends Fragment {
 
         //Retrieve database to AutoCompleteText List: ingNameData, Map: ingredientsMap
         //If called in here, this might be called more than once, so remember to clear the data, otherwise the data might duplicated
-        retrieveIngredientData();
+        //retrieveIngredientData();
 
         //TODO: create custom ArrayAdapter for Auto-complete text, showing no result
         itemsAvailAdapter = new ArrayAdapter<>(
@@ -421,9 +421,9 @@ public class SelectIngFrag extends Fragment {
                     break;
 
                 default:
-                    item.changeQuantityMeasurement(item.getDefaultMeasure());
-                    Log.i("check Measure", item.getDefaultMeasure());
-                    Log.i("check Cal", item.getDefaultCalories());
+                    item.changeQuantityMeasurement(item.getCurrentMeasurement());
+                    Log.i("check Measure", item.getCurrentMeasurement());
+                    Log.i("check Cal", item.getCurrentCalories());
                     break;
             }
             arrayIngredientAdapter.notifyDataSetChanged();

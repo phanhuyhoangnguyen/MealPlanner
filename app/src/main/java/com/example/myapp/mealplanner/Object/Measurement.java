@@ -4,7 +4,7 @@ package com.example.myapp.mealplanner.Object;
  * Created by John.nguyen on 15/12/2017.
  */
 
-public class Measurements {
+public class Measurement {
     public String getName() {
         return name;
     }
@@ -35,13 +35,20 @@ public class Measurements {
 
     private String quantity;
 
-    public Measurements(){
+    public Measurement(){
         //Default Constructor for Firebase if needed
     }
 
-    public Measurements(String name, String quantity){
+    public Measurement(String name, String quantity){
+        setName(name);
+        setQuantity(quantity);
+        setCalories("Need to Update");
+    }
+
+    public Measurement(String name, String quantity, String calories){
         this.name = name;
         this.quantity = quantity;
+        this.calories = calories;
     }
 
 }

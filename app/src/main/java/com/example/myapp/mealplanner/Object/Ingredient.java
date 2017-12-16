@@ -3,10 +3,7 @@ package com.example.myapp.mealplanner.Object;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by John.nguyen on 07/12/2017.
@@ -49,7 +46,7 @@ public abstract class Ingredient implements Parcelable {
         this.currentMeasurement = currentMeasurement;
     }
 
-    //private HashMap<String, String> measurementDictMultiMap;
+    private HashMap<String, Measurement> measurementDictMultiMap;
     private String currentMeasurement;
 
     public String getCurrentCalories() {
@@ -63,35 +60,21 @@ public abstract class Ingredient implements Parcelable {
     private String currentCalories;
     private String currentQuantity;
 
-    public List<Measurements> getMeasurementDictMultiMap() {
-        return measurementDictMultiMap;
-    }
-
-    public void setMeasurementDictMultiMap(List<Measurements> measurementDictMultiMap) {
-        this.measurementDictMultiMap = measurementDictMultiMap;
-    }
-
-    private List<Measurements> measurementDictMultiMap;
-
 
     public Ingredient() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public Ingredient(String name, ArrayList<Measurements> meCal) {
+    public Ingredient(String name, HashMap<String, Measurement> meCal) {
         //TODO: Ingredients are different Calories when under different cooking
         this.name = name;
 
-        /*String firstKey = meCal.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();
+        String firstKey = meCal.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();
         this.currentMeasurement = firstKey;
-        this.currentCalories = meCal.get(firstKey); //Alternative method: meCalMap.values().toArray()[0].toString();*/
+        this.currentCalories = meCal.get(firstKey).getCalories(); //Alternative method: meCalMap.values().toArray()[0].toString();
+        this.currentQuantity = meCal.get(firstKey).getQuantity();
 
         this.measurementDictMultiMap = meCal;
-        //this.measurementDictMultiMap = meCalMap;
-
-        this.currentCalories = meCal.get(0).getCalories();
-        this.currentQuantity = meCal.get(0).getQuantity();
-        this.currentMeasurement = meCal.get(0).getName();
     }
 
     public abstract void changeQuantityMeasurement(String key);
@@ -112,11 +95,11 @@ public abstract class Ingredient implements Parcelable {
     public void setCurrentQuantity(String currentQuantity) {this.currentQuantity = currentQuantity;}
 
 
-    /*public HashMap<String, String> getMeasurementDictMultiMap() {
+    public HashMap<String, Measurement> getMeasurementDictMultiMap() {
         return measurementDictMultiMap;
     }
 
-    public void setMeasurementDictMultiMap(HashMap<String, String> measurementDictMultiMap) {
+    public void setMeasurementDictMultiMap(HashMap<String, Measurement> measurementDictMultiMap) {
         this.measurementDictMultiMap = measurementDictMultiMap;
-    }*/
+    }
 }

@@ -6,7 +6,6 @@ import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +17,7 @@ public class IngredientCountable extends Ingredient {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public IngredientCountable(String name, HashMap<String, String> melCal) {
+    public IngredientCountable(String name, HashMap<String, Measurement> melCal) {
         super(name, melCal);
     }
 
@@ -35,16 +34,16 @@ public class IngredientCountable extends Ingredient {
 
     private IngredientCountable(Parcel in) {
         setName(in.readString());
-        setDefaultCalories(in.readString());
-        setQuantity(in.readString());
-        setDefaultMeasure(in.readString());
+        setCurrentCalories(in.readString());
+        setCurrentQuantity(in.readString());
+        setCurrentMeasurement(in.readString());
     }
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(getName());
-        out.writeString(getDefaultCalories());
-        out.writeString(getQuantity());
-        out.writeString(getDefaultMeasure());
+        out.writeString(getCurrentCalories());
+        out.writeString(getCurrentQuantity());
+        out.writeString(getCurrentMeasurement());
     }
 
     @Override
@@ -90,8 +89,9 @@ public class IngredientCountable extends Ingredient {
                     newKey = checkKey;
 
                     //Update to change value
-                    setDefaultMeasure(newKey);
-                    setDefaultCalories(getMeasurementDictMultiMap().get(newKey));
+                    setCurrentMeasurement(newKey);
+                    setCurrentQuantity(getMeasurementDictMultiMap().get(newKey).getQuantity());
+                    setCurrentCalories(getMeasurementDictMultiMap().get(newKey).getCalories());
                     break;
                 }
             }
