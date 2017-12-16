@@ -64,15 +64,18 @@ public class IngredientCountable extends Ingredient {
         // or 2: different way of for: for (Iterator<Map.Entry<String, String>> it = mapString.entrySet().iterator(); it.hasNext();) {
         // or 3: using Spliterator: Spliterator sit = getMeasurementDictMultiMap().entrySet().spliterator();
         // or 4: MapIterator<Integer, Integer> it = iterableMap.mapIterator();
-        // or 5: Using Stream Api Java 8
-        // or 6: Using MutableMap
-        // or 7: Maps.transformEntries: special method which can help to convert value at the same time: e.g. [a, 2] -> [a, 8]
-        // or 8: Using for loop with using Map variable: for (Map.Entry<String, String> entry : getMeasurementDictMultiMap().entrySet()) or KeySet()
-        // or 9: Using for loop with String variable for (String key: getMeasurementDictMultiMap().keySet()) {
-        // or 10: Display element by element using Iterator: while (it.hasNext()) it.next();
-        // or 11: ListIterator (able to move backward instead of Iterator
-        // or 12: Enumeration: Enumeration values = newValues.elements(); it.hasMoreElements())
-        // or : Using For with counter i: for (int i = 0; i < getMeasurementDictMultiMap().keySet().size(); i++) { Object obj = keys.get(i);
+        // or 5: for(Entry<String, String> e : m.entrySet()) { String key = e.getKey(); String value = e.getValue();
+        // or 6: map.forEach((k,v)->System.out.println("Key: " + k + "Value: " + v));
+        // or 7: Using Stream Api Java 8
+        // or 8: Using MutableMap
+        // or 9: Maps.transformEntries: special method which can help to convert value at the same time: e.g. [a, 2] -> [a, 8]
+        // or 10: Using for loop with using Map variable: for (Map.Entry<String, String> entry : getMeasurementDictMultiMap().entrySet()) or KeySet()
+        // or 11: Using for loop with String variable for (String key: getMeasurementDictMultiMap().keySet()) {
+        // or 12: Display element by element using Iterator: while (it.hasNext()) it.next();
+        // or 13: ListIterator (able to move backward instead of Iterator
+        // or 14: Enumeration: Enumeration values = newValues.elements(); it.hasMoreElements())
+        // or 15: Using For with counter i: for (int i = 0; i < getMeasurementDictMultiMap().keySet().size(); i++) { Object obj = keys.get(i);
+        // or 16: Using For with counter i: int index = 0; for (Object key : map.keySet()) {Object value = map.get(key); ++index;
 
         String newKey, checkKey;
         Iterator it = getMeasurementDictMultiMap().entrySet().iterator();

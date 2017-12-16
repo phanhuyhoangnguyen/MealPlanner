@@ -1,18 +1,8 @@
 Current Working Resources:
-https://stackoverflow.com/questions/580160/how-to-convert-a-collection-to-list
-https://stackoverflow.com/questions/2470856/convert-collection-to-list
-https://stackoverflow.com/questions/1751844/java-convert-liststring-to-a-string
-https://stackoverflow.com/questions/1383797/java-hashmap-how-to-get-key-from-value
-https://stackoverflow.com/questions/5566921/androidpassing-a-hash-map-between-activities/5567917#5567917
--generateViewId(), Google Api: https://stackoverflow.com/questions/1714297/android-view-setidint-id-programmatically-how-to-avoid-id-conflicts
--multimap problem with firebase: https://www.firebase.com/docs/android/guide/understanding-data.html#section-arrays-in-firebase
-https://www.firebase.com/docs/android/guide/saving-data.html
-update this method too
-int index = 0;
-for (Object key : map.keySet()) {
-   Object value = map.get(key);
-   ++index;
-}
+http://toinayangi.vn/cach-lam-mon-bap-xao-don-gian-de-lam/
+bap xao: google search results
+https://cookpad.com/vn/tim-kiem/b%E1%BA%AFp%20x%C3%A0o
+learn how to calculate cal
 
 Good Resources For Reviewing:
 Foundation Knowledge Books:
@@ -31,3 +21,15 @@ tool for checking regrex
 https://regex101.com/
 3. Static:
 https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/
+
+Todo List - Extension Idea:
+Update with my own menu database
+Timer widget for cooking preparation
+Update Ingredient Other Nutrition data: carb, vitamin A
+Recommended nutrition intakes including vital intakes (vegestable) and bad food limitation intakes.
+Recommdation for vital intake (AI for further enhance): no vegestable -> drink or alternative
+Chart: display food nutrition intakes
+Taking out Food Option
+Taking out Drink Option
+Drink Recipe
+AI: recommended meal set

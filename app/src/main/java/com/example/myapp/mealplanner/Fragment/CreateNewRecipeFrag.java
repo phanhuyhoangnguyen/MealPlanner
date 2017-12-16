@@ -432,6 +432,4 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
-
-
 }

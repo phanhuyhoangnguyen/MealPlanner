@@ -117,7 +117,7 @@ public class SelectIngFrag extends Fragment {
 
         //Retrieve database to AutoCompleteText List: ingNameData, Map: ingredientsMap
         //If called in here, this might be called more than once, so remember to clear the data, otherwise the data might duplicated
-        //retrieveIngredientData();
+        retrieveIngredientData();
 
         //TODO: create custom ArrayAdapter for Auto-complete text, showing no result
         itemsAvailAdapter = new ArrayAdapter<>(
@@ -452,7 +452,6 @@ public class SelectIngFrag extends Fragment {
                     Log.i("run", "1");
                 }
             });*/
-
 
             /*Handler handler = new Handler();
             final Runnable r = new Runnable() {

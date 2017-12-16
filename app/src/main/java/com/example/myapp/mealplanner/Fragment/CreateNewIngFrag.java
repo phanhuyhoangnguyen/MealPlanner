@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,10 +44,7 @@ public class CreateNewIngFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ArrayList<Ingredient> IngredientDb;
     private Map<String, Measurement> measurementsMap;
-
-    private HashMap<String, Object> MultiMeasureDict;
 
     private OnFragInteractListener mFragInteractListener;
 
@@ -83,7 +81,7 @@ public class CreateNewIngFrag extends Fragment {
         setHasOptionsMenu(true);
 
         //push HashMap of Multi-Measurement Dictionary Database to server
-        //pushMultiMeasureDict();
+        pushMultiMeasureDict();
 
         TextView gramsLabel = view.findViewById(R.id.measurementTxtVw_createNewIng_Frag);
         gramsLabel.setText(R.string.gram);
@@ -102,28 +100,23 @@ public class CreateNewIngFrag extends Fragment {
     }
 
     private void pushMultiMeasureDict() {
-        MultiMeasureDict = new HashMap<>();
-        Measurement newMeObj;
-        for (int i = 0; i < getResources().getStringArray(R.array.volumeMeasurement_array).length; i++){
-            newMeObj = new Measurement(getResources().getStringArray(R.array.volumeMeasurement_array)[i], "1");
-            MultiMeasureDict.put(newMeObj.getName(), newMeObj);
-        }
-        /* = new Measurement("Cup (C)", "1");
-        Measurement newMeObj = new Measurement("Drop (dr)", "1");
-        Measurement newMeObj = new Measurement("Gallon (gal)", "1");
-        Measurement newMeObj = new Measurement("Gram (g)", "100");
-        Measurement newMeObj = new Measurement("Litre (l)", "1");
-        Measurement newMeObj = new Measurement("ml", "100");
-        Measurement newMeObj = new Measurement("Ounces (oz)", "1");
-        Measurement newMeObj = new Measurement("Pinch (pn)", "1");
-        Measurement newMeObj = new Measurement("Pint (pt)", "1");
-        Measurement newMeObj = new Measurement("Pottle (pot)", "1");
-        Measurement newMeObj = new Measurement("Number (1, 2...)", "1");
-        Measurement newMeObj = new Measurement("Teaspoon (tps)", "1");
-        Measurement newMeObj = new Measurement("Tablespoon (tbs)", "1");
-        Measurement newMeObj = new Measurement("Quart (qt)", "1");*/
+        Map<String, Object> MultiMeasureDict = new HashMap<>();
+        MultiMeasureDict.put("Cup (C)", new Measurement("Cup (C)", "1"));
+        //MultiMeasureDict.put("Custom", new Measurement("Custom (anything)", "1"));
+        MultiMeasureDict.put("Drop (dr)", new Measurement("Drop (dr)", "1"));
+        MultiMeasureDict.put("Gallon (gal)", new Measurement("Gallon (gal)", "1"));
+        MultiMeasureDict.put("Gram (g)", new Measurement("Gram (g)", "100"));
+        MultiMeasureDict.put("Litre (l)", new Measurement("Litre (l)", "1"));
+        MultiMeasureDict.put("Ounces (oz)", new Measurement("Ounces (oz)", "1"));
+        MultiMeasureDict.put("Pinch (pn)", new Measurement("Pinch (pn)", "1"));
+        MultiMeasureDict.put("Pint (pt)", new Measurement("Pint (pt)", "1"));
+        MultiMeasureDict.put("Pottle (pot)", new Measurement("Pot (pot)", "1"));
+        MultiMeasureDict.put("Quart (qt)", new Measurement("Quart (qt)", "1"));
+        MultiMeasureDict.put("Tablespoon (tbs)", new Measurement("Tablespoon (tbs)", "1"));
+        MultiMeasureDict.put("Teaspoon (tps)", new Measurement("Teaspoon (tps)", "1"));
+        MultiMeasureDict.put("ml", new Measurement("ml", "100"));
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Measurement");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Measurements");
         mDatabase.updateChildren(MultiMeasureDict);
     }
 
@@ -132,6 +125,11 @@ public class CreateNewIngFrag extends Fragment {
         super.onResume();
         //Alternative method: CustomArrayAdapter with ListView and Custom Sub Object containing only: calories and measurement
         final Spinner measurementNoSpinner = getView().findViewById(R.id.measurementNoSpn_createNewIng_Frag);
+
+        ArrayAdapter<String> measurementNoInputAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.measurementNo_array));
+        measurementNoInputAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        measurementNoSpinner.setAdapter(measurementNoInputAdapter);
 
         measurementNoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -149,63 +147,7 @@ public class CreateNewIngFrag extends Fragment {
 
                         //check if 1st, 2nd row are existed
                         if (newCalInput == null) {
-                            //Handling when user first select number of measurement inputs: create new rows
-                            newCalInput = new EditText(getActivity());
-                            newSpinner = new Spinner(getActivity());
-
-                            //Alternative method: id doesn't have to be unique, can get the view using SetTag
-                            //Alternative method 2: using Google API generateViewId()
-                            //Alternative method 3: using external additional file in res/values/ids.xml
-                            newCalInput.setTag("newCalInput".concat(String.valueOf(i + 1)));
-                            newSpinner.setTag("newSpinner".concat(String.valueOf(i + 1)));
-
-                            LinearLayout linearContainer = getView().findViewById(R.id.lnLayoutContainerSpn_createNewIng_Frag);
-                            //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear.getLayoutParams();
-
-                            LinearLayout newLinearIndividually = new LinearLayout(getActivity());
-                            newLinearIndividually.setOrientation(LinearLayout.HORIZONTAL);
-
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                            params.weight = 1f;
-                            newCalInput.setLayoutParams(params);
-
-                            params.weight = 1f;
-                            newSpinner.setLayoutParams(params);
-
-                            //Alternative method: retrieve data from Firebase instead of using external array in res folder:
-                            // String[] measurementNameArrays = getResources().getStringArray(R.array.volumeMeasurement_array);
-                            String[] measurementNameArrays = measurementsMap.keySet().toArray(new String[measurementsMap.keySet().size()]);
-                            ArrayAdapter<String> newSpAdapter = new ArrayAdapter<>(getActivity(),
-                                    android.R.layout.simple_spinner_item, measurementNameArrays);
-                            newSpAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-                            newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                    if (position != 0) {
-                                        String[] itemTags = newSpinner.getSelectedItem().toString().split(" ");
-                                        String hints = String.valueOf("Enter Calories per ");
-                                        if (position == 4) {
-                                            newCalInput.setHint(hints.concat("100g"));
-                                        } else
-                                            newCalInput.setHint(String.valueOf("Enter Calories per ").concat(itemTags[0]));
-                                    } else
-                                        newCalInput.setHint("");
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-                                }
-                            });
-
-                            newSpinner.setAdapter(newSpAdapter);
-                            newSpinner.setSelection(i);
-
-                            newLinearIndividually.addView(newCalInput);
-                            newLinearIndividually.addView(newSpinner);
-                            linearContainer.addView(newLinearIndividually);
+                            createNewInputRows(i);
                         } else {
                             newCalInput.setVisibility(View.VISIBLE);
                             newSpinner.setVisibility(View.VISIBLE);
@@ -232,11 +174,71 @@ public class CreateNewIngFrag extends Fragment {
 
             }
         });
+    }
 
-        ArrayAdapter<String> measurementNoInputAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.measurementNo_array));
-        measurementNoInputAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        measurementNoSpinner.setAdapter(measurementNoInputAdapter);
+    private void createNewInputRows(int id) {
+        //Handling when user first select number of measurement inputs: create new rows
+        newCalInput = new EditText(getActivity());
+        newSpinner = new Spinner(getActivity());
+
+        //Alternative method: id doesn't have to be unique, can get the view using SetTag
+        //Alternative method 2: using Google API generateViewId()
+        //Alternative method 3: using external additional file in res/values/ids.xml
+        newCalInput.setTag("newCalInput".concat(String.valueOf(id + 1)));
+        newSpinner.setTag("newSpinner".concat(String.valueOf(id + 1)));
+
+        LinearLayout linearContainer = getView().findViewById(R.id.lnLayoutContainerSpn_createNewIng_Frag);
+        //LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear.getLayoutParams();
+
+        LinearLayout newLinearIndividually = new LinearLayout(getActivity());
+        newLinearIndividually.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        params.weight = 1f;
+        newCalInput.setLayoutParams(params);
+
+        params.weight = 1f;
+        newSpinner.setLayoutParams(params);
+
+        //Alternative method: retrieve data from Firebase instead of using external array in res folder:
+        // String[] measurementNameArrays = getResources().getStringArray(R.array.volumeMeasurement_array);
+
+        String[] measurementNameArrays = measurementsMap.keySet().toArray(new String[measurementsMap.keySet().size()]);
+
+        //Alternative method: Collection.sort(measurementNameArrays);
+        Arrays.sort(measurementNameArrays);
+
+        ArrayAdapter<String> newSpAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, measurementNameArrays);
+        newSpAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+
+        newSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if (position != 0) {
+                    String[] itemTags = newSpinner.getSelectedItem().toString().split(" ");
+                    String hints = String.valueOf("Enter Calories per ");
+                    if (position == 4) {
+                        newCalInput.setHint(hints.concat("100g"));
+                    } else
+                        newCalInput.setHint(String.valueOf("Enter Calories per ").concat(itemTags[0]));
+                } else
+                    newCalInput.setHint("");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        newSpinner.setAdapter(newSpAdapter);
+        newSpinner.setSelection(id);
+
+        newLinearIndividually.addView(newCalInput);
+        newLinearIndividually.addView(newSpinner);
+        linearContainer.addView(newLinearIndividually);
     }
 
     private void createNewIng() {
@@ -317,9 +319,8 @@ public class CreateNewIngFrag extends Fragment {
 
     private void retrieveData() {
         //retrieve MeasurementData
-        //Alternative method 1: Using ArrayList<Measurement> and use loop to add
         measurementsMap = new HashMap<>();
-
+        //Alternative method 1: Using ArrayList<Measurement> and use loop to add
         DatabaseReference mMeasurementDatabase = FirebaseDatabase.getInstance().getReference("Measurements");
         mMeasurementDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -338,7 +339,7 @@ public class CreateNewIngFrag extends Fragment {
         });
 
         //retrieve Ingredient Data
-        //Alternative method, using HashMap <String, Ingredient>, this might be a bit better for search performance
+        //Alternative method, using HashMap<String, String>, this might be a bit better for search performance
         /*IngredientDb = new ArrayList<>();
         IngredientDb.clear();
         DatabaseReference mIngDatabase = FirebaseDatabase.getInstance().getReference("Ingredients");
