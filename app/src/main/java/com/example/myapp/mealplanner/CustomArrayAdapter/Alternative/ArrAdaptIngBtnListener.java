@@ -2,20 +2,18 @@ package com.example.myapp.mealplanner.CustomArrayAdapter.Alternative;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Object.Ingredient;
-import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.R;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by John.nguyen on 18/11/2017.
@@ -86,6 +84,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
     public static class IngredientRowHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
+        //TODO: Selection Box - for optional Ingredients
         private TextView ingName;
         private TextView ingCal;
         private TextView ingQuantity;
@@ -102,11 +101,11 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
         public IngredientRowHolder(View itemView, MyViewClickListener MyViewClickListener) {
             super(itemView);
 
-            ingName = (TextView) itemView.findViewById(R.id.ingName_listItm_Layout);
-            ingCal = (TextView) itemView.findViewById(R.id.ingCal_listItm_Layout);
-            ingQuantity = (TextView) itemView.findViewById(R.id.ingQun_listItm_Layout);
-            ingQunIn = (Button) itemView.findViewById(R.id.ingQunBtnInc_listItm_Layout);
-            ingQunDe = (Button) itemView.findViewById(R.id.ingQunBtnDed_listItm_Layout);
+            ingName = itemView.findViewById(R.id.ingName_listItm_Layout);
+            ingCal = itemView.findViewById(R.id.ingCal_listItm_Layout);
+            ingQuantity = itemView.findViewById(R.id.ingQun_listItm_Layout);
+            ingQunIn = itemView.findViewById(R.id.ingQunBtnInc_listItm_Layout);
+            ingQunDe = itemView.findViewById(R.id.ingQunBtnDed_listItm_Layout);
 
             this.MyViewClickListener = MyViewClickListener;
 
@@ -148,8 +147,9 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
         public void bind(final Ingredient listItems/*, final OnItmClickListener itmListener /*, final OnBtnClickListener btnListener*/) {
             getIngName().setText(listItems.getName());
-            getIngQuantity().setText(listItems.getQuantity().concat(listItems.getDefaultMeasure()));
-            getInsCalories().setText(Float.valueOf(listItems.getDefaultCalories()) + "kj");
+            getIngQuantity().setText(listItems.getCurrentQuantity().concat(listItems.getCurrentMeasurement()));
+            String cal = String.format(Locale.US, "%.2f", Double.valueOf(listItems.getCurrentCalories()));
+            getInsCalories().setText(cal.concat( " Cal"));
 
             MyViewClickListener.update(listItems);
 

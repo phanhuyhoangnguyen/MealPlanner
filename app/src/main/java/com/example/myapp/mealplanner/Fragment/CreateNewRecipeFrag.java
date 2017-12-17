@@ -377,8 +377,8 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         StringBuilder name = new StringBuilder("");
 
         for (Ingredient i : data) {
-            totalCal += Integer.valueOf(i.getDefaultCalories());
-            name.append(i.getName()).append(" ").append(i.getQuantity()).append("g").append("\n");
+            totalCal += Integer.valueOf(i.getCurrentCalories());
+            name.append(i.getName()).append(" ").append(i.getCurrentQuantity()).append("g").append("\n");
         }
 
         selectedIngList = data;
@@ -432,6 +432,4 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
-
-
 }

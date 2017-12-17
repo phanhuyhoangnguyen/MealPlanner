@@ -16,6 +16,7 @@
     <string-array name="volumeMeasurement_array">
         <!--<item>[Please Select Measure]</item>-->
         <item>Cup (C)</item>
+        <item>Custom</item>
         <item>Drop (dr)</item>
         <item>Gallon (gal)</item>
         <item>Gram (g)</item>
@@ -28,7 +29,6 @@
         <item>Tablespoon (tbs)</item>
         <item>Teaspoon (tps)</item>
         <item>mL</item>
-        <item>Number (1, 2…)</item>
     </string-array>
 
     <string-array name="measurementNo_array">

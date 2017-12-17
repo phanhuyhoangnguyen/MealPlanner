@@ -1,18 +1,19 @@
 Current Working Resources:
-https://stackoverflow.com/questions/580160/how-to-convert-a-collection-to-list
-https://stackoverflow.com/questions/2470856/convert-collection-to-list
-https://stackoverflow.com/questions/1751844/java-convert-liststring-to-a-string
-https://stackoverflow.com/questions/1383797/java-hashmap-how-to-get-key-from-value
-https://stackoverflow.com/questions/5566921/androidpassing-a-hash-map-between-activities/5567917#5567917
--generateViewId(), Google Api: https://stackoverflow.com/questions/1714297/android-view-setidint-id-programmatically-how-to-avoid-id-conflicts
--multimap problem with firebase: https://www.firebase.com/docs/android/guide/understanding-data.html#section-arrays-in-firebase
-https://www.firebase.com/docs/android/guide/saving-data.html
-update this method too
-int index = 0;
-for (Object key : map.keySet()) {
-   Object value = map.get(key);
-   ++index;
-}
+
+https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
+https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+https://stackoverflow.com/questions/8819842/best-way-to-format-a-double-value-to-2-decimal-places
+
+bap xao: google search results
+http://toinayangi.vn/cach-lam-mon-bap-xao-don-gian-de-lam/
+
+https://cookpad.com/vn/tim-kiem/b%E1%BA%AFp%20x%C3%A0o
+
+learn how to calculate cal:
+http://www.nowloss.com/how-to-count-calories-in-food-to-lose-weight.htm - How to read food label
+http://www.fitnessforweightloss.com/calories-how-to-read-a-food-label/ - Standard Formular to Expaint
+http://www.foodiefiasco.com/how-to-correctly-count-calories/ - Net Carb, Net Calories, Improved Formular
+https://www.exploratorium.edu/cooking/convert/measurements.html convert formula
 
 Good Resources For Reviewing:
 Foundation Knowledge Books:
@@ -31,3 +32,24 @@ tool for checking regrex
 https://regex101.com/
 3. Static:
 https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/
+
+Todo List - Extension Idea:
+Selection Box - for optional Ingredients
+Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...
+Update with my own menu database
+Timer widget for cooking preparation
+Update Ingredient Other Nutrition data: carb, vitamin A...
+Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
+ + Random pick healthy food to add the meal to be fully healthy and nutritions: e.g. banana, nut, batiso tea...
+Health Checker Function: allow users to check their symptomp according to their body parts: 
+e.g. hurt in lower part of belly, make a assumptions based on unhealthy diet check, recommended for food intakes.
+Organs Improvements: allow users to specific enhance their target body parts/organ including muscles, eyes, livers, kiddney...
+ + Recommended healthy food intakes including banana, vegestable, cranberry, nuts... for extra health benefits.
+Recommdation for vital intake (AI for further enhance): no vegestable -> drink or alternative
+Supplement Recommendation for healthier life: medicine, fish oil (with correct usage) - advertisements with big brand medicine in future (or pro-edition to unlock)
+e.g. Ural
+Chart: display food nutrition intakes
+Taking out Food Option
+Taking out Drink Option
+Drink Recipe
+AI: recommended meal set

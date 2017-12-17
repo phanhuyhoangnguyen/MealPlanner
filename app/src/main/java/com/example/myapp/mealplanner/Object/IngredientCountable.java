@@ -2,10 +2,10 @@ package com.example.myapp.mealplanner.Object;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +17,7 @@ public class IngredientCountable extends Ingredient {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public IngredientCountable(String name, HashMap<String, String> melCal) {
+    public IngredientCountable(String name, HashMap<String, Measurement> melCal) {
         super(name, melCal);
     }
 
@@ -34,16 +34,16 @@ public class IngredientCountable extends Ingredient {
 
     private IngredientCountable(Parcel in) {
         setName(in.readString());
-        setDefaultCalories(in.readString());
-        setQuantity(in.readString());
-        setDefaultMeasure(in.readString());
+        setCurrentCalories(in.readString());
+        setCurrentQuantity(in.readString());
+        setCurrentMeasurement(in.readString());
     }
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(getName());
-        out.writeString(getDefaultCalories());
-        out.writeString(getQuantity());
-        out.writeString(getDefaultMeasure());
+        out.writeString(getCurrentCalories());
+        out.writeString(getCurrentQuantity());
+        out.writeString(getCurrentMeasurement());
     }
 
     @Override
@@ -64,40 +64,49 @@ public class IngredientCountable extends Ingredient {
         // or 2: different way of for: for (Iterator<Map.Entry<String, String>> it = mapString.entrySet().iterator(); it.hasNext();) {
         // or 3: using Spliterator: Spliterator sit = getMeasurementDictMultiMap().entrySet().spliterator();
         // or 4: MapIterator<Integer, Integer> it = iterableMap.mapIterator();
-        // or 5: Using Stream Api Java 8
-        // or 6: Using MutableMap
-        // or 7: Maps.transformEntries: special method which can help to convert value at the same time: e.g. [a, 2] -> [a, 8]
-        // or 8: Using for loop with using Map variable: for (Map.Entry<String, String> entry : getMeasurementDictMultiMap().entrySet()) or KeySet()
-        // or 9: Using for loop with String variable for (String key: getMeasurementDictMultiMap().keySet()) {
-        // or 10: Display element by element using Iterator: while (it.hasNext()) it.next();
-        // or 11: ListIterator (able to move backward instead of Iterator
-        // or 12: Enumeration: Enumeration values = newValues.elements(); it.hasMoreElements())
-        // or : Using For with counter i: for (int i = 0; i < getMeasurementDictMultiMap().keySet().size(); i++) { Object obj = keys.get(i);
+        // or 5: for(Entry<String, String> e : m.entrySet()) { String key = e.getKey(); String value = e.getValue();
+        // or 6: map.forEach((k,v)->System.out.println("Key: " + k + "Value: " + v));
+        // or 7: Using Stream Api Java 8
+        // or 8: Using MutableMap
+        // or 9: Maps.transformEntries: special method which can help to convert value at the same time: e.g. [a, 2] -> [a, 8]
+        // or 10: Using for loop with using Map variable: for (Map.Entry<String, String> entry : getMeasurementDictMultiMap().entrySet()) or KeySet()
+        // or 11: Using for loop with String variable for (String key: getMeasurementDictMultiMap().keySet()) {
+        // or 12: Display element by element using Iterator: while (it.hasNext()) it.next();
+        // or 13: ListIterator (able to move backward instead of Iterator
+        // or 14: Enumeration: Enumeration values = newValues.elements(); it.hasMoreElements())
+        // or 15: Using For with counter i: for (int i = 0; i < getMeasurementDictMultiMap().keySet().size(); i++) { Object obj = keys.get(i);
+        // or 16: Using For with counter i: int index = 0; for (Object key : map.keySet()) {Object value = map.get(key); ++index;
 
-        String newKey, checkKey;
-        Iterator it = getMeasurementDictMultiMap().entrySet().iterator();
-        int currentIndex = 0, index = 0;
+        if (getMeasurementDictMultiMap().size() > 1) {
+            String newKey, checkKey;
+            Iterator it = getMeasurementDictMultiMap().entrySet().iterator();
+            int currentIndex = 0, index = 0;
 
-        while (it.hasNext()) {
-            checkKey = ((Map.Entry) it.next()).getKey().toString();
+            while (it.hasNext()) {
+                checkKey = ((Map.Entry) it.next()).getKey().toString();
+                Log.i("it.next()", checkKey);
+                Log.i("currentKey", currentKey);
+                if (!checkKey.equalsIgnoreCase(currentKey)) {
+                    Log.i("equal", "false");
 
-            if (checkKey.equalsIgnoreCase(currentKey)) {
-                if (index > currentIndex) {
-                    newKey = checkKey;
+                    if (index > currentIndex) {
+                        newKey = checkKey;
 
-                    //Update to change value
-                    setDefaultMeasure(newKey);
-                    setDefaultCalories(getMeasurementDictMultiMap().get(newKey));
-                    break;
+                        //Update to change value
+                        setCurrentMeasurement(newKey);
+                        setCurrentQuantity(getMeasurementDictMultiMap().get(newKey).getQuantity());
+                        setCurrentCalories(getMeasurementDictMultiMap().get(newKey).getCalories());
+                        break;
+                    }
+                } else {
+                    Log.i("equal", "true");
+                    currentIndex = index;
                 }
-            }
-            else {
-                currentIndex = index;
-            }
-            index++;
-            if (index >= getMeasurementDictMultiMap().keySet().size()){
-                //reset
-                it = getMeasurementDictMultiMap().entrySet().iterator();
+                index++;
+                if (index >= getMeasurementDictMultiMap().keySet().size()) {
+                    //reset
+                    it = getMeasurementDictMultiMap().entrySet().iterator();
+                }
             }
         }
     }
