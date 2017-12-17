@@ -400,8 +400,8 @@ public class SelectIngFrag extends Fragment {
             //This is only triggered when the button with set onClickListener is clicked
             //Toast.makeText(getActivity(), "Short Click", Toast.LENGTH_SHORT).show();
             switch (view.getId()) {
+                //TODO: fix this
                 case R.id.ingQunBtnInc_listItm_Layout:
-
                     /*//Add Increase to quantity -> change calories
                     item.setCalories(String.valueOf((Float.valueOf(item.getCalories()) *
                             (Float.valueOf(item.getQuantity()) + Float.valueOf(item.getQuantity())/2))
@@ -478,7 +478,7 @@ public class SelectIngFrag extends Fragment {
         //this is also can be called in here, but not only from ArrayAdapter
         //1st way: Add manually with the menu define layout: Not recommend because v.getId() is always the same
         menu.setHeaderTitle("Select Action");
-        menu.add(Menu.NONE, R.id.delete_option, Menu.NONE, "Remove");
+        menu.add(Menu.NONE, R.id.delete_option, Menu.NONE, "Replace with Alternative Ingredients");
         //menu.add(Menu.NONE, v.getId(), Menu.NONE, "Test Item 1");
         //menu.add(Menu.NONE, v.getId(), Menu.NONE, "Test Item 2");
 

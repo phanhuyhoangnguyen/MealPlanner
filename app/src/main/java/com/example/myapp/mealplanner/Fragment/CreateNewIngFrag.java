@@ -27,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,7 +80,7 @@ public class CreateNewIngFrag extends Fragment {
         setHasOptionsMenu(true);
 
         //push HashMap of Multi-Measurement Dictionary Database to server
-        pushMultiMeasureDict();
+        //pushMultiMeasureDict();
 
         TextView gramsLabel = view.findViewById(R.id.measurementTxtVw_createNewIng_Frag);
         gramsLabel.setText(R.string.gram);
@@ -94,7 +93,6 @@ public class CreateNewIngFrag extends Fragment {
                 //onAddIngBtnClicked();
             }
         });
-
 
         return view;
     }

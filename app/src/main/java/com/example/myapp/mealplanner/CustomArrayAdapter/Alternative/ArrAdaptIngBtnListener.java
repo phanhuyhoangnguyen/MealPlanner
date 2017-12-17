@@ -13,6 +13,7 @@ import com.example.myapp.mealplanner.Object.Ingredient;
 import com.example.myapp.mealplanner.R;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by John.nguyen on 18/11/2017.
@@ -83,6 +84,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
     public static class IngredientRowHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
+        //TODO: Selection Box - for optional Ingredients
         private TextView ingName;
         private TextView ingCal;
         private TextView ingQuantity;
@@ -146,7 +148,8 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
         public void bind(final Ingredient listItems/*, final OnItmClickListener itmListener /*, final OnBtnClickListener btnListener*/) {
             getIngName().setText(listItems.getName());
             getIngQuantity().setText(listItems.getCurrentQuantity().concat(listItems.getCurrentMeasurement()));
-            getInsCalories().setText(String.valueOf(Float.valueOf(listItems.getCurrentCalories())).concat( "kj"));
+            String cal = String.format(Locale.US, "%.2f", Double.valueOf(listItems.getCurrentCalories()));
+            getInsCalories().setText(cal.concat( " Cal"));
 
             MyViewClickListener.update(listItems);
 

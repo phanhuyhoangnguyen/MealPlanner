@@ -77,35 +77,36 @@ public class IngredientCountable extends Ingredient {
         // or 15: Using For with counter i: for (int i = 0; i < getMeasurementDictMultiMap().keySet().size(); i++) { Object obj = keys.get(i);
         // or 16: Using For with counter i: int index = 0; for (Object key : map.keySet()) {Object value = map.get(key); ++index;
 
-        String newKey, checkKey;
-        Iterator it = getMeasurementDictMultiMap().entrySet().iterator();
-        int currentIndex = 0, index = 0;
+        if (getMeasurementDictMultiMap().size() > 1) {
+            String newKey, checkKey;
+            Iterator it = getMeasurementDictMultiMap().entrySet().iterator();
+            int currentIndex = 0, index = 0;
 
-        while (it.hasNext()) {
-            checkKey = ((Map.Entry) it.next()).getKey().toString();
-            Log.i("it.next()", checkKey);
-            Log.i("currentKey", currentKey);
-            if (!checkKey.equalsIgnoreCase(currentKey)) {
-                Log.i("equal", "false");
+            while (it.hasNext()) {
+                checkKey = ((Map.Entry) it.next()).getKey().toString();
+                Log.i("it.next()", checkKey);
+                Log.i("currentKey", currentKey);
+                if (!checkKey.equalsIgnoreCase(currentKey)) {
+                    Log.i("equal", "false");
 
-                if (index > currentIndex) {
-                    newKey = checkKey;
+                    if (index > currentIndex) {
+                        newKey = checkKey;
 
-                    //Update to change value
-                    setCurrentMeasurement(newKey);
-                    setCurrentQuantity(getMeasurementDictMultiMap().get(newKey).getQuantity());
-                    setCurrentCalories(getMeasurementDictMultiMap().get(newKey).getCalories());
-                    break;
+                        //Update to change value
+                        setCurrentMeasurement(newKey);
+                        setCurrentQuantity(getMeasurementDictMultiMap().get(newKey).getQuantity());
+                        setCurrentCalories(getMeasurementDictMultiMap().get(newKey).getCalories());
+                        break;
+                    }
+                } else {
+                    Log.i("equal", "true");
+                    currentIndex = index;
                 }
-            }
-            else {
-                Log.i("equal", "true");
-                currentIndex = index;
-            }
-            index++;
-            if (index >= getMeasurementDictMultiMap().keySet().size()){
-                //reset
-                it = getMeasurementDictMultiMap().entrySet().iterator();
+                index++;
+                if (index >= getMeasurementDictMultiMap().keySet().size()) {
+                    //reset
+                    it = getMeasurementDictMultiMap().entrySet().iterator();
+                }
             }
         }
     }
