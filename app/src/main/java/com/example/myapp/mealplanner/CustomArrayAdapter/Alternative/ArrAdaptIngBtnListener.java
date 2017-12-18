@@ -34,7 +34,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
     private int position;
 
-    public interface OnItmClickListener {
+    public interface OnItmClickListener{
         // Whichever written in here will be implemented in Activity and also in this class: Interface control the installation part
         // however, the class doesn't define the actual mechanism but only reference and linked to Activity
         // The purpose to do this is because, the array hold reference to the current item, which is clicked

@@ -99,6 +99,7 @@ public class CreateNewIngFrag extends Fragment {
 
     private void pushMultiMeasureDict() {
         Map<String, Object> MultiMeasureDict = new HashMap<>();
+        MultiMeasureDict.put("Countable (1, 2…)", new Measurement("Countable (1, 2…)", "1"));
         MultiMeasureDict.put("Cup (C)", new Measurement("Cup (C)", "1"));
         //MultiMeasureDict.put("Custom", new Measurement("Custom (anything)", "1"));
         MultiMeasureDict.put("Drop (dr)", new Measurement("Drop (dr)", "1"));

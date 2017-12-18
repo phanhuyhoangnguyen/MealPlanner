@@ -11,6 +11,12 @@ import java.util.HashMap;
 
 public abstract class Ingredient implements Parcelable {
 
+    private String name;
+
+    private String currentCalories;
+    private String currentQuantity;
+    private String currentMeasurement;
+
     public String getName() {
         return name;
     }
@@ -18,8 +24,6 @@ public abstract class Ingredient implements Parcelable {
     public void setName(String name) {
         this.name = name;
     }
-
-    private String name;
 
     /*public void setMeasurementDictMultiMap(MultiValueMap<String, String> measurementDictMultiMap) {
         this.measurementDictMultiMap = measurementDictMultiMap;
@@ -36,18 +40,17 @@ public abstract class Ingredient implements Parcelable {
     // and this Array can hold as many as value if you want, each key of HashMap related to 1 Array
     // or Array with each index has 2 value: String measurement, String currentCalories == Custom Array with Custom Object
     // private MultiValueMap<String, String> measurementDictMultiMap; // HashMap is stored as array
-    // or LinkedHashMap instead of HashMap for allowing values to be set in order
-
     public String getCurrentMeasurement() {
         return currentMeasurement;
     }
 
-    public void setCurrentMeasurement(String currentMeasurement) {
+    // or LinkedHashMap instead of HashMap for allowing values to be set in order
+
+    void setCurrentMeasurement(String currentMeasurement) {
         this.currentMeasurement = currentMeasurement;
     }
 
     private HashMap<String, Measurement> measurementDictMultiMap;
-    private String currentMeasurement;
 
     public String getCurrentCalories() {
         return currentCalories;
@@ -56,10 +59,6 @@ public abstract class Ingredient implements Parcelable {
     public void setCurrentCalories(String currentCalories) {
         this.currentCalories = currentCalories;
     }
-
-    private String currentCalories;
-    private String currentQuantity;
-
 
     public Ingredient() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
@@ -94,7 +93,8 @@ public abstract class Ingredient implements Parcelable {
 
     public void setCurrentQuantity(String currentQuantity) {this.currentQuantity = currentQuantity;}
 
-
+    //The public label allow Firebase to access and get This value to push it up to database,
+    //Any data written in this method will be pushed up to server.
     public HashMap<String, Measurement> getMeasurementDictMultiMap() {
         return measurementDictMultiMap;
     }
