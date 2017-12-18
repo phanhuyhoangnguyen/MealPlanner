@@ -96,6 +96,7 @@ public class IngredientCountable extends Ingredient {
                         setCurrentMeasurement(newKey);
                         setCurrentQuantity(getMeasurementDictMultiMap().get(newKey).getQuantity());
                         setCurrentCalories(getMeasurementDictMultiMap().get(newKey).getCalories());
+
                         break;
                     }
                 } else {

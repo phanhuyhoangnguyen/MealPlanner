@@ -30,9 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SelectIngFrag extends Fragment {
@@ -394,36 +397,41 @@ public class SelectIngFrag extends Fragment {
 
     //Alternative: 1st Design: Final Design, also this handle the action directly but not pass to the activity
     final ArrAdaptIngBtnListener.OnItmClickListener mItmListener = new ArrAdaptIngBtnListener.OnItmClickListener() {
-
         @Override
-        public void onItemClick(View view, Ingredient item) {
+        public void onItemClick(View view, Ingredient localItm) {
+            //get constant value from Firebase based on local Item's Name
+            Ingredient serverItm = ingredientsMap.get(localItm.getName()); //get correct Ingredient
+            //get correct base quantity's measurement name, from local current measurement -> get quantity value from server
+            float baseQuantity = Float.valueOf(serverItm.getMeasurementDictMultiMap().get(localItm.getCurrentMeasurement()).getQuantity());
+            float i = baseQuantity / 2;
+            DecimalFormat df = new DecimalFormat("#.####");
+            df.setRoundingMode(RoundingMode.CEILING);
+
             //This is only triggered when the button with set onClickListener is clicked
             //Toast.makeText(getActivity(), "Short Click", Toast.LENGTH_SHORT).show();
             switch (view.getId()) {
-                //TODO: fix this
+                //TODO: reformat number quantity to be correct: 1.0 -> 1
                 case R.id.ingQunBtnInc_listItm_Layout:
-                    /*//Add Increase to quantity -> change calories
-                    item.setCalories(String.valueOf((Float.valueOf(item.getCalories()) *
-                            (Float.valueOf(item.getQuantity()) + Float.valueOf(item.getQuantity())/2))
-                            / Float.valueOf(item.getQuantity())));
-                    item.setQuantity(String.valueOf(Float.valueOf(item.getQuantity()) + Float.valueOf(item.getQuantity())/2));*/
+                    Log.i("locItm currentQty + i: ", localItm.getCurrentQuantity() + "+" + i);
+                    localItm.setCurrentCalories(String.valueOf((Float.valueOf(localItm.getCurrentCalories()) *
+                            (Float.valueOf(localItm.getCurrentQuantity()) + i) / Float.valueOf(localItm.getCurrentQuantity()))));
+                    //String qun = String.format(Locale.US, "%.2f", Double.valueOf(localItm.getCurrentCalories()));
+                    localItm.setCurrentQuantity(String.valueOf(Float.valueOf(localItm.getCurrentQuantity()) + i));
                     break;
 
                 case R.id.ingQunBtnDed_listItm_Layout:
-
-                    /*//Deduce 50 to quantity -> change calories
-                    if ((Float.valueOf(item.getQuantity()) - Float.valueOf(item.getQuantity())/2) > 0) {
-                        item.setCalories(String.valueOf((Float.valueOf(item.getCalories()) *
-                                (Float.valueOf(item.getQuantity()) - Float.valueOf(item.getQuantity())/2))
-                                / Float.valueOf(item.getQuantity())));
-                        item.setQuantity(String.valueOf(Float.valueOf(item.getQuantity()) - Float.valueOf(item.getQuantity())/2));
-                    }*/
+                    Log.i("locItm currentQty - i: ", localItm.getCurrentQuantity() + "-" + i);
+                    if ((Float.valueOf(localItm.getCurrentQuantity()) - i) > 0) {
+                        localItm.setCurrentCalories(String.valueOf((Float.valueOf(localItm.getCurrentCalories()) *
+                                (Float.valueOf(localItm.getCurrentQuantity()) - i) / Float.valueOf(localItm.getCurrentQuantity()))));
+                        localItm.setCurrentQuantity(String.valueOf(Float.valueOf(localItm.getCurrentQuantity()) - i));
+                    }
                     break;
 
                 default:
-                    item.changeQuantityMeasurement(item.getCurrentMeasurement());
-                    Log.i("check Measure", item.getCurrentMeasurement());
-                    Log.i("check Cal", item.getCurrentCalories());
+                    localItm.changeQuantityMeasurement(localItm.getCurrentMeasurement());
+                    Log.i("check Measure", localItm.getCurrentMeasurement());
+                    Log.i("check Cal", localItm.getCurrentCalories());
                     break;
             }
             arrayIngredientAdapter.notifyDataSetChanged();
@@ -576,6 +584,7 @@ public class SelectIngFrag extends Fragment {
 
     public interface OnFragInteractListener {
         void OnRetrieveIngRequest(List<Ingredient> ingredientCountables);
+
         void OnCreateNewIngRequest();
     }
 
