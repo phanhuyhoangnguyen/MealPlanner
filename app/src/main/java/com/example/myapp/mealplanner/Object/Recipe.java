@@ -22,6 +22,16 @@ public class Recipe implements Parcelable {
     public String foodType;
     public String menuType;
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String origin;
+
     //Even if I didn't wrote code for this, Firebase would still able to create and push these up on Database Cloud
     //Firebase will push everything in this Object onto Cloud, either getter or setter with make up name for a variables and
     //automatically create anothers getter and setter on Database Cloud, this ended up dupplicated data
@@ -67,13 +77,13 @@ public class Recipe implements Parcelable {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public Recipe(String servingYield, String img,
-                  String calories, String duration,
-                  String name, String instruction,
-                  String fType, String mType, List<IngredientCountable> ingredientCountable) {
+    public Recipe(String img, String name, String city, String country, String calories, String duration,
+                  String servingYield, String instruction, String fType, String mType,
+                  List<IngredientCountable> ingredientCountable) {
         this.servingYield = servingYield;
         this.img = img;
         this.name = name;
+        this.origin = city.concat(", ").concat(country);
         this.duration = duration;
         this.calories = calories;
         this.instruction = instruction;

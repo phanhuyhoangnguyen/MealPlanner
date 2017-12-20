@@ -59,26 +59,23 @@ public class RecipeInsFrag extends Fragment {
     }
 
     private void initializeUI(View view) {
-        recipe = getArguments().getParcelable("RECIPE");
-        String foodName = recipe.getName();
-        String foodCal = recipe.getCalories();
-        String foodDuration = recipe.getDuration();
-        String foodIns = recipe.getInstruction();
-        String foodType = recipe.getFoodType().concat("/").concat(recipe.getMenuType());
-
-
         TextView name = view.findViewById(R.id.name_recipeIns_Frag);
+        TextView country = view.findViewById(R.id.origin_recipeIns_Frag);
         TextView cal = view.findViewById(R.id.cal_recipeIns_Frag);
         TextView duration = view.findViewById(R.id.duration_recipeIns_Frag);
-        TextView instruction = view.findViewById(R.id.ins_recipeIns_Frag);
+        TextView instruction = view.findViewById(R.id.insBody_recipeIns_Frag);
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
         Button addRecipeBtn = view.findViewById(R.id.addRecipedBtn_recipeIns_Frag);
 
-        name.setText(foodName);
-        cal.setText(foodCal);
+        recipe = getArguments().getParcelable("RECIPE");
+
+        name.setText(recipe.getName());
+        country.setText(recipe.getOrigin());
+        cal.setText(recipe.getCalories());
+        String foodDuration = duration.getText().toString().concat("\n").concat(recipe.getDuration());
         duration.setText(foodDuration);
-        instruction.setText(foodIns);
-        type.setText(foodType);
+        instruction.setText(recipe.getInstruction());
+        type.setText(recipe.getFoodType().concat("/").concat(recipe.getMenuType()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         Calendar calendar = Calendar.getInstance();

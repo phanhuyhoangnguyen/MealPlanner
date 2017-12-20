@@ -18,6 +18,7 @@
     <string name="dessert_Cap">DESSERT</string>
     <string name="add">Add</string>
     <string name="food_name">Food Name</string>
+    <string name="origin">Origin</string>
     <string name="food_calories">Food Calories</string>
     <string name="home">Home</string>
     <string name="favourite_pick">Favourite Pick</string>
@@ -88,4 +89,5 @@
     <string name="volume_measurement">Volume Measurement</string>
     <string name="countable_cup">Countable (cup,…)</string>
     <string name="uncountable_grams">Uncountable (grams,…)</string>
+    <string name="city_name">City Name</string>
 </resources>

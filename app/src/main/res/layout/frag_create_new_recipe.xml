@@ -6,7 +6,7 @@
     tools:context="com.example.myapp.mealplanner.Fragment.CreateNewRecipeFrag">
 
     <EditText
-        android:id="@+id/newRecipe_dishNameEditTxt_frag"
+        android:id="@+id/dishNameEditTxt_createNewRecipe_Frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/recipe_name"
@@ -18,22 +18,45 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/prepDuInput_createNewRecipe_Frag"
+            android:id="@+id/cityEditTxt_createNewRecipe_Frag"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/prepare_duration_label"
-            android:textSize="18sp"
-            android:inputType="time"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/city_name"/>
+
+        <Spinner
+            android:id="@+id/countrySpn_createNewRecipe_Frag"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/calInput_createNewRecipe_Frag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:hint="@string/food_calories"
             android:textSize="18sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/prepDuInput_createNewRecipe_Frag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/prepare_duration_label"
+            android:inputType="time"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/servingNoInput_createNewRecipe_Frag"
@@ -41,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/no_of_servings"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -72,19 +95,19 @@
             android:id="@+id/insLabel_createNewRecipe_Frag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="120dp"
             android:text="@string/instruction_label"
             android:textSize="22sp"
-            android:layout_marginEnd="120dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/addIngBtn_createNewRecipe_Frag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_ingredient"
-            android:textSize="12sp"
+            android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/insLabel_createNewRecipe_Frag"
-            android:layout_alignParentEnd="true"/>
+            android:text="@string/add_ingredient"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

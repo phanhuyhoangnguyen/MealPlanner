@@ -33,6 +33,9 @@ https://regex101.com/
 3. Static:
 https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/
 
+4.Float vs Double:
+https://study.com/academy/lesson/java-float-vs-double.html
+
 Todo List - Extension Idea:
 Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...
 Update with my own menu database
