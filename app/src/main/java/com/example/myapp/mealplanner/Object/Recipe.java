@@ -22,15 +22,20 @@ public class Recipe implements Parcelable {
     public String foodType;
     public String menuType;
 
-    public List<Ingredient> getIngredientCountables() {
+    //Even if I didn't wrote code for this, Firebase would still able to create and push these up on Database Cloud
+    //Firebase will push everything in this Object onto Cloud, either getter or setter with make up name for a variables and
+    //automatically create anothers getter and setter on Database Cloud, this ended up dupplicated data
+    public List<IngredientCountable> getIngredientCountable() {
         return ingredientCountable;
     }
 
-    public void setIngredientCountables(List<Ingredient> ingredientCountable) {
+    //TODO:bug found when creating new Recipe: cause: Ingredient, check and fix
+    public void setIngredientCountable(List<IngredientCountable> ingredientCountable) {
         this.ingredientCountable = ingredientCountable;
     }
 
-    public List<Ingredient> ingredientCountable;
+    //Test: List<Ingredient> -> List<IngredientCountable>
+    public List<IngredientCountable> ingredientCountable;
     /*public HashMap<String, String> ingredientCountable;
 
     public HashMap<String, String> getIngredientUncountables() {
@@ -65,7 +70,7 @@ public class Recipe implements Parcelable {
     public Recipe(String servingYield, String img,
                   String calories, String duration,
                   String name, String instruction,
-                  String fType, String mType, List<Ingredient> ingredientCountable) {
+                  String fType, String mType, List<IngredientCountable> ingredientCountable) {
         this.servingYield = servingYield;
         this.img = img;
         this.name = name;

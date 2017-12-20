@@ -43,11 +43,11 @@ public class SelectIngFrag extends Fragment {
     private static final String ARG_INGLIST = "existedIngredient";
 
     //IngredientUncountable AutoCompletion Code
-    private HashMap<String, Ingredient> ingredientsMap;
+    private HashMap<String, IngredientCountable> ingredientsMap;
     private ArrayList<String> ingNameData;
     private RecyclerView mRecycleView;
     private LinearLayout listLabelLn;
-    private ArrayList<Ingredient> ingSelectedData;
+    private ArrayList<IngredientCountable> ingSelectedData;
     private ArrayAdapter<String> itemsAvailAdapter;
 
     //Alternative 1st Design
@@ -74,11 +74,11 @@ public class SelectIngFrag extends Fragment {
         // Required empty public constructor
     }
 
-    public static SelectIngFrag newInstance(List<Ingredient> existingData) {
+    public static SelectIngFrag newInstance(List<IngredientCountable> existingData) {
         SelectIngFrag fragment = new SelectIngFrag();
         Bundle args = new Bundle();
 
-        args.putParcelableArrayList(ARG_INGLIST, (ArrayList<Ingredient>) existingData);
+        args.putParcelableArrayList(ARG_INGLIST, (ArrayList<IngredientCountable>) existingData);
         fragment.setArguments(args);
         return fragment;
     }
@@ -318,7 +318,7 @@ public class SelectIngFrag extends Fragment {
                     if (ingObj != null) {
                         ingNameData.add(ingObj.getName());
                         //Create New Map from data retrieve
-                        ingredientsMap.put(ingObj.getName(), ingObj);
+                        ingredientsMap.put(ingObj.getName(), (IngredientCountable) ingObj);
                         Log.i("ingNameData Update 1:", " add");
 
                         //2nd way: retrieve from Firebase
@@ -505,6 +505,7 @@ public class SelectIngFrag extends Fragment {
         //1st method: Using switch
         switch (item.getItemId()) {
             case R.id.delete_option:
+                //TODO: fix this, check why the item removed but still recorded in memory but not creating new
                 ingSelectedData.remove(ingredientUncountable);
                 Toast.makeText(getActivity(), "Delete!", Toast.LENGTH_SHORT).show();
                 updateList();
@@ -531,7 +532,7 @@ public class SelectIngFrag extends Fragment {
         // This way, instead of having create or retrieve specific Ingredient, we can just look that ingredient,
         // which is already created and stored in memory.
 
-        Ingredient ing = ingredientsMap.get(ingName);
+        IngredientCountable ing = ingredientsMap.get(ingName);
         /*if (!ingSelectedData.contains(ing)) {
             ingSelectedData.add(ing);
         }*/
@@ -583,7 +584,7 @@ public class SelectIngFrag extends Fragment {
     private OnFragInteractListener mFragListener;
 
     public interface OnFragInteractListener {
-        void OnRetrieveIngRequest(List<Ingredient> ingredientCountables);
+        void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountables);
 
         void OnCreateNewIngRequest();
     }

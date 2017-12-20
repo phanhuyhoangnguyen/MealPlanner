@@ -303,6 +303,7 @@ public class CreateNewIngFrag extends Fragment {
                     }
                 }
 
+                //This line should specify Ingredient is Countable or Uncountable clearly
                 newIng = new IngredientCountable(name, melCal);
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Ingredients");
 
