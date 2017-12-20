@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.myapp.mealplanner.Fragment.CreateNewRecipeFrag">
+    tools:context="com.example.myapp.mealplanner.Fragment.NewRecipeFrag">
 
     <EditText
         android:id="@+id/dishNameEditTxt_createNewRecipe_Frag"

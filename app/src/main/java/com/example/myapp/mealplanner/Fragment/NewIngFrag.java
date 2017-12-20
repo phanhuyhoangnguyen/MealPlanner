@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateNewIngFrag extends Fragment {
+public class NewIngFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String newCalInputTag = "newCalInput";
@@ -47,12 +47,12 @@ public class CreateNewIngFrag extends Fragment {
 
     private OnFragInteractListener mFragInteractListener;
 
-    public CreateNewIngFrag() {
+    public NewIngFrag() {
         // Required empty public constructor
     }
 
-    public static CreateNewIngFrag newInstance(String param1, String param2) {
-        CreateNewIngFrag fragment = new CreateNewIngFrag();
+    public static NewIngFrag newInstance(String param1, String param2) {
+        NewIngFrag fragment = new NewIngFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -241,7 +241,6 @@ public class CreateNewIngFrag extends Fragment {
     }
 
     private void createNewIng() {
-        //TODO: autocomplete text with calories and spinner
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
 
@@ -382,7 +381,7 @@ public class CreateNewIngFrag extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("CreateNewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity().getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }
@@ -390,7 +389,7 @@ public class CreateNewIngFrag extends Fragment {
     public void onAddIngBtnClicked() {
         if (mFragInteractListener != null) {
             mFragInteractListener.onAddIngBtnClicked();
-            getActivity().getSupportFragmentManager().popBackStack("CreateNewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getActivity().getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 

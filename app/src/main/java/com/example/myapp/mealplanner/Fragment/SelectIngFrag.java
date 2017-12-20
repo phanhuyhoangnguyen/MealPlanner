@@ -35,7 +35,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 
 public class SelectIngFrag extends Fragment {
@@ -87,7 +86,7 @@ public class SelectIngFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            ingSelectedData = new ArrayList<>();
+            ingSelectedData = new ArrayList<>();  //TODO: try to delete this line of code
             ingSelectedData = getArguments().getParcelableArrayList(ARG_INGLIST);
         }
         //If call from here, this method will be only called once but not again when resume
@@ -584,7 +583,7 @@ public class SelectIngFrag extends Fragment {
     private OnFragInteractListener mFragListener;
 
     public interface OnFragInteractListener {
-        void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountables);
+        void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountable);
 
         void OnCreateNewIngRequest();
     }

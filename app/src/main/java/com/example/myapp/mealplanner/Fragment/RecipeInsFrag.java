@@ -65,7 +65,7 @@ public class RecipeInsFrag extends Fragment {
         TextView duration = view.findViewById(R.id.duration_recipeIns_Frag);
         TextView instruction = view.findViewById(R.id.insBody_recipeIns_Frag);
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
-        Button addRecipeBtn = view.findViewById(R.id.addRecipedBtn_recipeIns_Frag);
+        Button addRecipeBtn = view.findViewById(R.id.addRecipeBtn_recipeIns_Frag);
 
         recipe = getArguments().getParcelable("RECIPE");
 
@@ -125,6 +125,10 @@ public class RecipeInsFrag extends Fragment {
                     case R.id.action_addNewDish:
                         return true;
 
+                    case R.id.action_editRecipe:
+
+                        return true;
+
                     default:
                         Log.i("onMenuItemClick", "default");
                         return false;
@@ -157,15 +161,26 @@ public class RecipeInsFrag extends Fragment {
         // Required empty public constructor
     }
 
+    private OnFragInteractListener mFragListener;
+
+    public interface OnFragInteractListener {
+        void OnEditRecipeRequest(Recipe passRecipe);
+    }
+
     @Override
     public final void onAttach(Context context) {
-        //This method avoid to call super.onAttach(context) if I'm not using api 23 or more
         super.onAttach(context);
-        /*try {
+        try {
             //reference back to its activity
-            onMenuItemClickListener = (onMenuItemClickListener) context;
+            mFragListener = (OnFragInteractListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement onMenuItemClickListener");
-        }*/
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mFragListener = null;
     }
 }

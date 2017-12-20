@@ -37,14 +37,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemSelectedListener {
+public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String totalCalData, foodInsData;
     //Test: Ingredient -> IngredientCountable
     private List<IngredientCountable> selectedIngList;
     private ArrayList<Recipe> recipeDatabase;
 
-    public CreateNewRecipeFrag() {
+    public NewRecipeFrag() {
         // Required empty public constructor
     }
 
@@ -274,7 +274,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         if (TextUtils.isEmpty(recipeName.getText().toString())) {
             recipeName.setError("Enter Dish Name");
         } else if (recipeCity.getText().toString().isEmpty()) {
-            prepDuration.setError("Enter City's Origin");
+            prepDuration.setError("Enter Food's Original City");
         } else if (prepDuration.getText().toString().isEmpty()) {
             prepDuration.setError("Enter Preparation Duration");
         } else if (servings.getText().toString().isEmpty()) {
@@ -428,14 +428,14 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof CreateNewRecipeFrag.OnFragInteractListener) {
+        if (context instanceof NewRecipeFrag.OnFragInteractListener) {
             mFragInteractListener = (OnFragInteractListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnAddIngListener");
         }
 
-        /*if (context instanceof CreateNewRecipeFrag.OnRecipeCreatedListener) {
+        /*if (context instanceof NewRecipeFrag.OnRecipeCreatedListener) {
             mOnRecipeCreatedListener = (OnRecipeCreatedListener) context;
         } else {
             throw new RuntimeException(context.toString()

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Recipe implements Parcelable {
 
-    //TODO: try to convert to private
+    //TODO: try to convert to private to see how Firebase react
     public String servingYield;
 
     public String img;
@@ -39,7 +39,6 @@ public class Recipe implements Parcelable {
         return ingredientCountable;
     }
 
-    //TODO:bug found when creating new Recipe: cause: Ingredient, check and fix
     public void setIngredientCountable(List<IngredientCountable> ingredientCountable) {
         this.ingredientCountable = ingredientCountable;
     }

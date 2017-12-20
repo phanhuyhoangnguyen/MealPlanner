@@ -1,5 +1,6 @@
 package com.example.myapp.mealplanner.Activity;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -8,11 +9,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
 
-import com.example.myapp.mealplanner.Fragment.CreateMenuFrag;
-import com.example.myapp.mealplanner.Fragment.CreateNewIngFrag;
-import com.example.myapp.mealplanner.Fragment.CreateNewRecipeFrag;
+import com.example.myapp.mealplanner.Fragment.EditRecipeInsFrag;
+import com.example.myapp.mealplanner.Fragment.NewIngFrag;
+import com.example.myapp.mealplanner.Fragment.NewMenuFrag;
+import com.example.myapp.mealplanner.Fragment.NewRecipeFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
-import com.example.myapp.mealplanner.Object.Ingredient;
 import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -22,10 +23,11 @@ import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
 
 import java.util.List;
 
-public class CreateMenuFragContainerAct extends AppCompatActivity implements CreateMenuFrag.OnFragInteractListener,
+public class CreateMenuFragContainerAct extends AppCompatActivity implements NewMenuFrag.OnFragInteractListener,
         FoodTypeTableFrag.OnFragInteractListener, RecipeListRowFrag.onFragInteractListener,
-        CreateNewRecipeFrag.OnFragInteractListener,
-        SelectIngFrag.OnFragInteractListener, CreateNewIngFrag.OnFragInteractListener {
+        NewRecipeFrag.OnFragInteractListener, SelectIngFrag.OnFragInteractListener,
+        NewIngFrag.OnFragInteractListener, EditRecipeInsFrag.OnFragmentInteractionListener,
+RecipeInsFrag.OnFragInteractListener{
 
     private FragmentManager manager;
 
@@ -49,11 +51,11 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     private void defaultFragment() {
-        CreateMenuFrag createMenuFrag = new CreateMenuFrag();
+        NewMenuFrag newMenuFrag = new NewMenuFrag();
         FragmentTransaction transaction;
         transaction = manager.beginTransaction();
-        transaction.add(R.id.frag_createMenu_Act, createMenuFrag, "CreateMenuFrag");
-        transaction.addToBackStack("CreateMenuFrag");
+        transaction.add(R.id.frag_createMenu_Act, newMenuFrag, "NewMenuFrag");
+        transaction.addToBackStack("NewMenuFrag");
         transaction.commit();
     }
 
@@ -114,7 +116,7 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
 
     @Override
     public void onCreateNewRecipeRequest() {
-        CreateNewRecipeFrag newRecipeFragment = new CreateNewRecipeFrag();
+        NewRecipeFrag newRecipeFragment = new NewRecipeFrag();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_createMenu_Act, newRecipeFragment, "AddNewRecipeFrag");
         transaction.addToBackStack("AddNewRecipeFrag");
@@ -132,17 +134,17 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     @Override
-    public void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountables) {
-        CreateNewRecipeFrag createNewRecipeFrag = (CreateNewRecipeFrag) manager.findFragmentByTag("AddNewRecipeFrag");
-        createNewRecipeFrag.addIngDataToFrag(ingredientCountables);
+    public void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountable) {
+        NewRecipeFrag newRecipeFrag = (NewRecipeFrag) manager.findFragmentByTag("AddNewRecipeFrag");
+        newRecipeFrag.addIngDataToFrag(ingredientCountable);
     }
 
     @Override
     public void OnCreateNewIngRequest() {
-        CreateNewIngFrag neIngredientFragment = new CreateNewIngFrag();
+        NewIngFrag neIngredientFragment = new NewIngFrag();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, neIngredientFragment, "CreateNewIngFrag");
-        transaction.addToBackStack("CreateNewIngFrag");
+        transaction.replace(R.id.frag_createMenu_Act, neIngredientFragment, "NewIngFrag");
+        transaction.addToBackStack("NewIngFrag");
         transaction.commit();
     }
 
@@ -156,5 +158,20 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
         //Nothing because there is no data need to be passed between these fragment
         //Can pass new IngredientUncountable to the previous fragment, however because this app use Firebase, real-time
         //database, hence the need is reduced
+    }
+
+    @Override
+    public void sendBackNewInfoRecipe() {
+        //TODO: this method maybe not needed, simplified this
+
+    }
+
+    @Override
+    public void OnEditRecipeRequest(Recipe targetRecipe) {
+        EditRecipeInsFrag editRecipeInsFrag = EditRecipeInsFrag.newInstance(targetRecipe);
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frag_createMenu_Act, editRecipeInsFrag, "editRecipeInsFrag");
+        transaction.addToBackStack("editRecipeInsFrag");
+        transaction.commit();
     }
 }
