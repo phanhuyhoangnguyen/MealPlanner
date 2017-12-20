@@ -40,7 +40,8 @@ import java.util.regex.Pattern;
 public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private String totalCalData, foodInsData;
-    private List<Ingredient> selectedIngList;
+    //Test: Ingredient -> IngredientCountable
+    private List<IngredientCountable> selectedIngList;
     private ArrayList<Recipe> recipeDatabase;
 
     public CreateNewRecipeFrag() {
@@ -369,7 +370,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     }
 
 
-    public void addIngDataToFrag(List<Ingredient> data) {
+    public void addIngDataToFrag(List<IngredientCountable> data) {
         //getView only able to called after onCreateView(), you can't use it inside onCreate() or onCreateView() methods of the fragment.
         //This method is called before onCreateView(), getView will always be null
 
@@ -377,7 +378,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         StringBuilder name = new StringBuilder("");
 
         for (Ingredient i : data) {
-            totalCal += Integer.valueOf(i.getCurrentCalories());
+            totalCal += Float.valueOf(i.getCurrentCalories());
             name.append(i.getName()).append(" ").append(i.getCurrentQuantity()).append("g").append("\n");
         }
 
@@ -396,7 +397,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     }
 
     public interface OnFragInteractListener {
-        void OnAddIngRequest(List<Ingredient> selectedIngList);
+        void OnAddIngRequest(List<IngredientCountable> selectedIngList);
         void OnRecipeCreated();
     }
 

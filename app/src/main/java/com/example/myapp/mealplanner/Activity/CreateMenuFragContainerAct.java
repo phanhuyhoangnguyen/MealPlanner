@@ -122,7 +122,7 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     @Override
-    public void OnAddIngRequest(List<Ingredient> data) {
+    public void OnAddIngRequest(List<IngredientCountable> data) {
         //Pass data to fragment
         SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
         FragmentTransaction transaction = manager.beginTransaction();
@@ -132,7 +132,7 @@ public class CreateMenuFragContainerAct extends AppCompatActivity implements Cre
     }
 
     @Override
-    public void OnRetrieveIngRequest(List<Ingredient> ingredientCountables) {
+    public void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountables) {
         CreateNewRecipeFrag createNewRecipeFrag = (CreateNewRecipeFrag) manager.findFragmentByTag("AddNewRecipeFrag");
         createNewRecipeFrag.addIngDataToFrag(ingredientCountables);
     }

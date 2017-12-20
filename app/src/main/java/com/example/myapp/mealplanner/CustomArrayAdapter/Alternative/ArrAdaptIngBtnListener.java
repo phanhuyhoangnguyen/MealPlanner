@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.myapp.mealplanner.Object.Ingredient;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.R;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Locale;
 
 public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnListener.IngredientRowHolder> {
 
-    private List<Ingredient> listItems;
+    private List<IngredientCountable> listItems;
     private LayoutInflater inflater;
 
     public int getPosition() {
@@ -50,7 +51,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
         void onBtnClick(View view, IngredientCountable ing);
     }*/
 
-    public ArrAdaptIngBtnListener(Context context, List<Ingredient> listItm, OnItmClickListener itmListener
+    public ArrAdaptIngBtnListener(Context context, List<IngredientCountable> listItm, OnItmClickListener itmListener
                                              /*OnBtnClickListener btnListener,*/ ) {
         this.inflater = LayoutInflater.from(context);
 
