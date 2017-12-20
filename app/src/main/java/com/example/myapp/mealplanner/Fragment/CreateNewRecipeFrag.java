@@ -56,24 +56,27 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         //Toolbar SetUp
         setHasOptionsMenu(true);
 
-        Button addRecipe = view.findViewById(R.id.addRecBtn_createNewRecipe_Frag);
-        addRecipe.setOnClickListener(mOnClickListener);
-
-        final Spinner fType = view.findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
+        final Spinner country = view.findViewById(R.id.countrySpn_createNewRecipe_Frag);
+        final Spinner foodCatType = view.findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
         Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
 
-        fType.setOnItemSelectedListener(this);
+        foodCatType.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> foodTypeAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.foodType_array));
+        ArrayAdapter<String> countrySpnAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.countryListName_array));
+
+        ArrayAdapter<String> foodCatSpnAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.foodCat_array));
 
         ArrayAdapter<String> menuItmTypeAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.menuItmType_array));
 
-        foodTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        countrySpnAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        foodCatSpnAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         menuItmTypeAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        fType.setAdapter(foodTypeAdapter);
+        country.setAdapter(countrySpnAdapter);
+        foodCatType.setAdapter(foodCatSpnAdapter);
         menuItmType.setAdapter(menuItmTypeAdapter);
 
         final EditText prepDuration = view.findViewById(R.id.prepDuInput_createNewRecipe_Frag);
@@ -112,8 +115,8 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
             @Override
             public void afterTextChanged(Editable editable) {
                 /*if (editable.length() == 5) {
-                    fType.requestFocus();
-                    fType.performClick();
+                    foodCatType.requestFocus();
+                    foodCatType.performClick();
                 }*/
 
             }
@@ -134,6 +137,9 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
 
         retrieveRecipeData();
 
+        Button addRecipe = view.findViewById(R.id.addRecBtn_createNewRecipe_Frag);
+        addRecipe.setOnClickListener(mOnClickListener);
+
         return view;
     }
 
@@ -144,7 +150,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         Matcher matcher = pattern.matcher(time);
         return matcher.matches();
 
-        //Check Time with text: 11:00 hour
+        //Check Time with text label "hours" or "min": 11:00 'hour'
         /*String expression = "([01]?[0-9]|2[0-3]):[0-5][0-9]\\s?(hours?|min)?";
         Pattern pattern = Pattern.compile(expression);
         Matcher matcher = pattern.matcher(time);
@@ -206,17 +212,20 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         final Button addIng = getView().findViewById(R.id.addIngBtn_createNewRecipe_Frag);
         addIng.setOnClickListener(mOnClickListener);
 
-        //setText of Edit Text can't reset on onCreateView, hence must put in onResume
+        // setText of Edit Text can't reset on onCreateView, hence must put in onResume,
+        // this is called every time the frag created or reopen
         updateInsWithIngData();
     }
 
     private void updateInsWithIngData() {
+        // this is called every time the frag created or reopen
         final EditText foodInsEdit = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
         final TextView calTxt = getView().findViewById(R.id.calInput_createNewRecipe_Frag);
 
         //Check if there is no existing IngredientUncountable data passed from the other Fragment
         if (foodInsData == null || totalCalData == null) {
-            foodInsData = "";
+            //Initialize text the first time
+            foodInsData = "Ingredients Required: \n";
         } else {
             calTxt.setVisibility(View.VISIBLE);
             StringBuilder strB = new StringBuilder("Calories Intake: ");
@@ -249,12 +258,14 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
     };
 
     private void createNewRecipe() {
-        EditText recipeName = getView().findViewById(R.id.newRecipe_dishNameEditTxt_frag);
+        EditText recipeName = getView().findViewById(R.id.dishNameEditTxt_createNewRecipe_Frag);
+        EditText recipeCity = getView().findViewById(R.id.cityEditTxt_createNewRecipe_Frag);
+        Spinner recipeCountry = getView().findViewById(R.id.countrySpn_createNewRecipe_Frag);
         EditText prepDuration = getView().findViewById(R.id.prepDuInput_createNewRecipe_Frag);
         TextView calTxt = getView().findViewById(R.id.calInput_createNewRecipe_Frag);
         EditText servings = getView().findViewById(R.id.servingNoInput_createNewRecipe_Frag);
         EditText insTxt = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
-        Spinner fType = getView().findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
+        Spinner foodCatType = getView().findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
         Spinner menuItmType = getView().findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
         Button addIng = getView().findViewById(R.id.addIngBtn_createNewRecipe_Frag);
 
@@ -262,6 +273,8 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         String id = recipeName.getText().toString().toLowerCase();
         if (TextUtils.isEmpty(recipeName.getText().toString())) {
             recipeName.setError("Enter Dish Name");
+        } else if (recipeCity.getText().toString().isEmpty()) {
+            prepDuration.setError("Enter City's Origin");
         } else if (prepDuration.getText().toString().isEmpty()) {
             prepDuration.setError("Enter Preparation Duration");
         } else if (servings.getText().toString().isEmpty()) {
@@ -278,12 +291,11 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
             } else {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
 
-                Recipe nRecipe = new Recipe(servings.getText().toString(), "test",
-                        calTxt.getText().toString(),
-                        prepDuration.getText().toString(),
-                        recipeName.getText().toString(),
-                        insTxt.getText().toString(),
-                        fType.getSelectedItem().toString(),
+                Recipe nRecipe = new Recipe( "test", recipeName.getText().toString(),
+                        recipeCity.getText().toString(), recipeCountry.getSelectedItem().toString(),
+                        servings.getText().toString(), calTxt.getText().toString(),
+                        prepDuration.getText().toString(), insTxt.getText().toString(),
+                        foodCatType.getSelectedItem().toString(),
                         menuItmType.getSelectedItem().toString(),
                         selectedIngList);
 
@@ -374,7 +386,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
         //getView only able to called after onCreateView(), you can't use it inside onCreate() or onCreateView() methods of the fragment.
         //This method is called before onCreateView(), getView will always be null
 
-        int totalCal = 0;
+        float totalCal = 0;
         StringBuilder name = new StringBuilder("");
 
         for (Ingredient i : data) {
@@ -384,8 +396,13 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
 
         selectedIngList = data;
 
-        foodInsData = name.toString();
-        totalCalData = String.valueOf(totalCal + "kj");
+        foodInsData += name.toString();
+
+        totalCalData = String.valueOf(totalCal + " Cal\n").concat(String.valueOf(convertCalToKj(convertCalToKj(totalCal))).concat(" kj"));
+    }
+
+    private float convertCalToKj(float totalCal) {
+        return totalCal * (float) 4.184;
     }
 
     private OnFragInteractListener mFragInteractListener;
@@ -398,6 +415,7 @@ public class CreateNewRecipeFrag extends Fragment implements AdapterView.OnItemS
 
     public interface OnFragInteractListener {
         void OnAddIngRequest(List<IngredientCountable> selectedIngList);
+
         void OnRecipeCreated();
     }
 
