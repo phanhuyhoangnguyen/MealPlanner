@@ -51,14 +51,14 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_create_new_recipe, container, false);
+        View view = inflater.inflate(R.layout.frag_new_recipe, container, false);
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
 
         final Spinner country = view.findViewById(R.id.countrySpn_createNewRecipe_Frag);
         final Spinner foodCatType = view.findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
-        Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
+        final Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
 
         foodCatType.setOnItemSelectedListener(this);
 
@@ -137,8 +137,8 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
 
         retrieveRecipeData();
 
-        Button addRecipe = view.findViewById(R.id.addRecBtn_createNewRecipe_Frag);
-        addRecipe.setOnClickListener(mOnClickListener);
+        TextView ingSelected = view.findViewById(R.id.ingSelected_createNewRecipe_Frag);
+        ingSelected.setOnClickListener(mOnClickListener);
 
         return view;
     }
@@ -209,9 +209,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
     public void onResume() {
         super.onResume();
 
-        final Button addIng = getView().findViewById(R.id.addIngBtn_createNewRecipe_Frag);
-        addIng.setOnClickListener(mOnClickListener);
-
         // setText of Edit Text can't reset on onCreateView, hence must put in onResume,
         // this is called every time the frag created or reopen
         updateInsWithIngData();
@@ -219,28 +216,27 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
 
     private void updateInsWithIngData() {
         // this is called every time the frag created or reopen
-        final EditText foodInsEdit = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
+        final TextView foodIngSelected = getView().findViewById(R.id.ingSelected_createNewRecipe_Frag);
         final TextView calTxt = getView().findViewById(R.id.calInput_createNewRecipe_Frag);
 
         //Check if there is no existing IngredientUncountable data passed from the other Fragment
-        if (foodInsData == null || totalCalData == null) {
+        if (foodInsData != null)
             //Initialize text the first time
-            foodInsData = "Ingredients Required: \n";
-        } else {
-            calTxt.setVisibility(View.VISIBLE);
-            StringBuilder strB = new StringBuilder("Calories Intake: ");
-            calTxt.setText(strB.append(totalCalData));
-        }
-
+            foodInsData += "+ Ingredients";
+            if (totalCalData != null) {
+                calTxt.setVisibility(View.VISIBLE);
+                StringBuilder strB = new StringBuilder("Calories Intake: ");
+                calTxt.setText(strB.append(totalCalData));
+            }
         //setText of Edit Text can't reset on onCreateView, hence must put in onResume
-        foodInsEdit.setText(foodInsData);
+        foodIngSelected.setText(foodInsData);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.addIngBtn_createNewRecipe_Frag:
+                case R.id.ingSelected_createNewRecipe_Frag:
                     //mListener: this is variable linked to Activity, this will be executed by Activity but not this Fragment
                     //check if the Activity is implemented this Fragment or not
                     if (mFragInteractListener != null) {
@@ -248,6 +244,15 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                         mFragInteractListener.OnAddIngRequest(selectedIngList);
                     }
                     break;
+
+                /*case R.id.addIngBtn_createNewRecipe_Frag:
+                    //mListener: this is variable linked to Activity, this will be executed by Activity but not this Fragment
+                    //check if the Activity is implemented this Fragment or not
+                    if (mFragInteractListener != null) {
+                        //Communicate to Activity request to open new Fragment
+                        mFragInteractListener.OnAddIngRequest(selectedIngList);
+                    }
+                    break;*/
 
                 case R.id.addRecBtn_createNewRecipe_Frag:
                     createNewRecipe();
@@ -267,8 +272,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         EditText insTxt = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
         Spinner foodCatType = getView().findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
         Spinner menuItmType = getView().findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
-        Button addIng = getView().findViewById(R.id.addIngBtn_createNewRecipe_Frag);
-
+        TextView ingSelected = getView().findViewById(R.id.ingSelected_createNewRecipe_Frag);
 
         String id = recipeName.getText().toString().toLowerCase();
         if (TextUtils.isEmpty(recipeName.getText().toString())) {
@@ -282,7 +286,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         } else if (insTxt.getText().toString().isEmpty()) {
             insTxt.setError("Enter Instruction and add IngredientUncountable Required");
         } else if (selectedIngList == null) {
-            addIng.setError("Please Add Ingredients!");
+            ingSelected.setError("Please Add Ingredients!");
             Toast.makeText(getActivity(), "Please Add Ingredients!", Toast.LENGTH_SHORT).show();
         } else {
             if (hasRecipe(id)) {
@@ -395,8 +399,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         }
 
         selectedIngList = data;
-
-        foodInsData += name.toString();
+        foodInsData = "Ingredients Required: \n".concat(name.toString().concat("\n"));
 
         totalCalData = String.valueOf(totalCal + " Cal\n").concat(String.valueOf(convertCalToKj(convertCalToKj(totalCal))).concat(" kj"));
     }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -83,11 +84,32 @@ public class EditRecipeInsFrag extends Fragment {
         nameRecipe.setText(existingRecipe.getName());
 
         EditText originCityRecipe = view.findViewById(R.id.originCity_editRecipeIns_Frag);
-        Spinner originCountryRecipe = view.findViewById(R.id.originCountry_editRecipeIns_Frag);
+        Spinner originCountryRecipeSpn = view.findViewById(R.id.originCountry_editRecipeIns_Frag);
 
         String origin[] = existingRecipe.getOrigin().split(",");
         originCityRecipe.setText(origin[0]);
-        originCountryRecipe.setText(origin[1]);
+        String countryName = origin[1];
+
+        ArrayAdapter<String> countrySpnAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.countryListName_array));
+
+        countrySpnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        originCountryRecipeSpn.setAdapter(countrySpnAdapter);
+
+        // Alternative method 1: Using for loop using i to check every value of spinner item,
+        // compare the value of every items (item.toString()), the matched value along with its index (i) is return and setSelection(i);
+        // or 2:  Using for loop using i to check every value of Adapter item,
+        // compare the value of every items (adapter.getItem(index).equals(value))), the matched value along with its index (i) is return and setSelection(i);
+        // or 3: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
+        // or 4: get position directly using adapter function: int selectionPosition= adapter.getPosition("YOUR_VALUE");
+        // or 5: Using the array Country Name[] to find index: String[] countryName = getResources().getStringArray(R.array.countryListName_array);
+        // mSpn.setSelection(Arrays.asList(countryName).indexOf(value_here));
+        // or 6: using List: mSpinner.setSelection(yourList.indexOf("value"));
+        // or 7:
+        if (countryName != null) {
+            int spinnerPosition = countrySpnAdapter.getPosition(countryName);
+            originCountryRecipeSpn.setSelection(spinnerPosition);
+        }
 
         EditText servingNo = view.findViewById(R.id.servingNo_editRecipeIns_Frag);
         servingNo.setText(existingRecipe.getServingYield());
@@ -102,7 +124,6 @@ public class EditRecipeInsFrag extends Fragment {
     private void saveRecipeInfo() {
         EditText nameRecipe = getView().findViewById(R.id.nameEditTxt_editRecipeIns_Frag);
         EditText originCityRecipe = getView().findViewById(R.id.originCity_editRecipeIns_Frag);
-        Spinner originCountryRecipe = getView().findViewById(R.id.originCountry_editRecipeIns_Frag);
 
         EditText servingNo = getView().findViewById(R.id.servingNo_editRecipeIns_Frag);
 

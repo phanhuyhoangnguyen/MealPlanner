@@ -1,4 +1,5 @@
 Current Working Resources:
+https://stackoverflow.com/questions/3741863/edittext-label
 
 https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
 https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
@@ -35,6 +36,9 @@ https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/
 
 4.Float vs Double:
 https://study.com/academy/lesson/java-float-vs-double.html
+
+5.Spinner:
+https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
 
 Todo List - Extension Idea:
 Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...

@@ -126,7 +126,8 @@ public class RecipeInsFrag extends Fragment {
                         return true;
 
                     case R.id.action_editRecipe:
-
+                        //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
+                        mFragListener.OnEditRecipeRequest(recipe);
                         return true;
 
                     default:

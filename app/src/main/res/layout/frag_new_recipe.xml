@@ -100,16 +100,23 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <Button
+        <!--<Button
             android:id="@+id/addIngBtn_createNewRecipe_Frag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/insLabel_createNewRecipe_Frag"
             android:text="@string/add_ingredient"
-            android:textSize="12sp" />
+            android:textSize="12sp" />-->
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ingSelected_createNewRecipe_Frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_ingredient"
+        android:textSize="22sp"/>
 
     <EditText
         android:id="@+id/insInput_createNewRecipe_Frag"
