@@ -148,7 +148,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
         public void bind(final Ingredient listItems/*, final OnItmClickListener itmListener /*, final OnBtnClickListener btnListener*/) {
             getIngName().setText(listItems.getName());
-            getIngQuantity().setText(listItems.getCurrentQuantity().concat(listItems.getCurrentMeasurement()));
+            getIngQuantity().setText(listItems.getCurrentQuantity().concat(" ").concat(listItems.getCurrentMeasurement()));
             String cal = String.format(Locale.US, "%.2f", Double.valueOf(listItems.getCurrentCalories()));
             getInsCalories().setText(cal.concat( " Cal"));
 

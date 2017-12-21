@@ -58,9 +58,9 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginTop="32dp"
                     android:hint="@string/no_of_servings"
-                    android:textSize="18sp"
+                    android:inputType="number"
                     android:labelFor="@id/servingNo_editRecipeIns_Frag"
-                    android:inputType="number" />
+                    android:textSize="18sp" />
             </FrameLayout>
 
             <FrameLayout
@@ -71,13 +71,13 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/foodType_editRecipeIns_Frag"
+                    android:id="@+id/foodTypeSpn_editRecipeIns_Frag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/food_type" />
 
                 <Spinner
-                    android:id="@+id/menuType_editRecipeIns_Frag"
+                    android:id="@+id/menuTypeSpn_editRecipeIns_Frag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="64dp"
@@ -90,7 +90,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="32dp"
                     android:text="@string/food_calories"
-                    android:visibility="visible"/>
+                    android:visibility="visible" />
             </FrameLayout>
 
         </LinearLayout>
@@ -164,6 +164,13 @@
 
     </android.support.v7.widget.CardView>
 
+    <!--Alternative method 1: using Frame Layout with
+    <Button
+        ...
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="40dp"/>-->
+
+    <!-- or 2: -->
     <Button
         android:id="@+id/saveBtn_editRecipeIns_Frag"
         android:layout_width="wrap_content"

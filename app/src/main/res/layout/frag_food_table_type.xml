@@ -28,14 +28,12 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp">
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/saladImgVw_foodTableType_Frag"
@@ -61,8 +59,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/soupImgVw_foodTableType_Frag"
@@ -90,6 +87,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp">
 
+            <!--todo: remove orientation later if this is not affect FrameLayout-->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

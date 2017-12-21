@@ -86,7 +86,7 @@ public class SelectIngFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            ingSelectedData = new ArrayList<>();  //TODO: try to delete this line of code
+            //ingSelectedData = new ArrayList<>();  //deleted
             ingSelectedData = getArguments().getParcelableArrayList(ARG_INGLIST);
         }
         //If call from here, this method will be only called once but not again when resume
@@ -551,13 +551,13 @@ public class SelectIngFrag extends Fragment {
 
     private boolean ingredientAdded(String ingName) {
         for (Ingredient i : ingSelectedData) {
-            Log.i("addSelectedIngredient", "size > 0");
-            Log.i("addSelectedIngredient", i.getName());
+            //Log.i("addSelectedIngredient", "size > 0");
+            //Log.i("addSelectedIngredient", i.getName());
             if (i.getName().equalsIgnoreCase(ingName)) {
-                Log.i("addSelectedIngredient", "existed!");
+                //Log.i("addSelectedIngredient", "existed!");
                 return true;
             }
-            Log.i("addSelectedIngredient", "don't have");
+            //Log.i("addSelectedIngredient", "don't have");
         }
         return false;
     }

@@ -83,12 +83,12 @@ public class EditRecipeInsFrag extends Fragment {
         EditText nameRecipe = view.findViewById(R.id.nameEditTxt_editRecipeIns_Frag);
         nameRecipe.setText(existingRecipe.getName());
 
+        String origin[] = existingRecipe.getOrigin().replaceAll("\\s+", "").split(",");
+
         EditText originCityRecipe = view.findViewById(R.id.originCity_editRecipeIns_Frag);
         Spinner originCountryRecipeSpn = view.findViewById(R.id.originCountry_editRecipeIns_Frag);
 
-        String origin[] = existingRecipe.getOrigin().split(",");
         originCityRecipe.setText(origin[0]);
-        String countryName = origin[1];
 
         ArrayAdapter<String> countrySpnAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.countryListName_array));
@@ -96,20 +96,37 @@ public class EditRecipeInsFrag extends Fragment {
         countrySpnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         originCountryRecipeSpn.setAdapter(countrySpnAdapter);
 
+        Spinner foodTypeSpn = view.findViewById(R.id.foodTypeSpn_editRecipeIns_Frag);
+        ArrayAdapter<String> foodTypeAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.foodType_array));
+
+        foodTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foodTypeSpn.setAdapter(foodTypeAdapter);
+
+        Spinner menuTypeSpn = view.findViewById(R.id.menuTypeSpn_editRecipeIns_Frag);
+        ArrayAdapter<String> menuTypeAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.menuItmType_array));
+
+        menuTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        menuTypeSpn.setAdapter(menuTypeAdapter);
+
         // Alternative method 1: Using for loop using i to check every value of spinner item,
         // compare the value of every items (item.toString()), the matched value along with its index (i) is return and setSelection(i);
         // or 2:  Using for loop using i to check every value of Adapter item,
         // compare the value of every items (adapter.getItem(index).equals(value))), the matched value along with its index (i) is return and setSelection(i);
-        // or 3: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
-        // or 4: get position directly using adapter function: int selectionPosition= adapter.getPosition("YOUR_VALUE");
-        // or 5: Using the array Country Name[] to find index: String[] countryName = getResources().getStringArray(R.array.countryListName_array);
+        // or 3: Using the array Country Name[] to find index: String[] countryName = getResources().getStringArray(R.array.countryListName_array);
         // mSpn.setSelection(Arrays.asList(countryName).indexOf(value_here));
-        // or 6: using List: mSpinner.setSelection(yourList.indexOf("value"));
-        // or 7:
+        // or 4: using List: mSpinner.setSelection(yourList.indexOf("value"));
+        // or 5 (Seem to be the best):
+        String countryName = origin[1];
         if (countryName != null) {
-            int spinnerPosition = countrySpnAdapter.getPosition(countryName);
+            int spinnerPosition = countrySpnAdapter.getPosition(countryName);         // or: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
             originCountryRecipeSpn.setSelection(spinnerPosition);
         }
+        if (existingRecipe.getFoodType() != null)
+            foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getFoodType()));
+        if (existingRecipe.getMenuType() != null)
+            foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getMenuType()));
 
         EditText servingNo = view.findViewById(R.id.servingNo_editRecipeIns_Frag);
         servingNo.setText(existingRecipe.getServingYield());

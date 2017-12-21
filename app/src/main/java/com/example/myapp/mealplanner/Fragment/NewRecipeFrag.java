@@ -57,8 +57,8 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         setHasOptionsMenu(true);
 
         final Spinner country = view.findViewById(R.id.countrySpn_createNewRecipe_Frag);
-        final Spinner foodCatType = view.findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
-        final Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
+        final Spinner foodCatType = view.findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
+        final Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpn_createNewRecipe_Frag);
 
         foodCatType.setOnItemSelectedListener(this);
 
@@ -66,7 +66,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.countryListName_array));
 
         ArrayAdapter<String> foodCatSpnAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.foodCat_array));
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.foodType_array));
 
         ArrayAdapter<String> menuItmTypeAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.menuItmType_array));
@@ -106,7 +106,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                 if (prepDuration.isFocused() && !time.isEmpty()) {
                     if (!isTimeValid(time)) {
                         prepDuration.setError("Please Input with HH:mm Format");
-                        Toast.makeText(getActivity(), time, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), time, Toast.LENGTH_SHORT).show();
                     } else
                         prepDuration.setError(null);
                 }
@@ -139,6 +139,9 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
 
         TextView ingSelected = view.findViewById(R.id.ingSelected_createNewRecipe_Frag);
         ingSelected.setOnClickListener(mOnClickListener);
+
+        Button addRecBtn = view.findViewById(R.id.addRecBtn_createNewRecipe_Frag);
+        addRecBtn.setOnClickListener(mOnClickListener);
 
         return view;
     }
@@ -223,11 +226,11 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         if (foodInsData != null)
             //Initialize text the first time
             foodInsData += "+ Ingredients";
-            if (totalCalData != null) {
-                calTxt.setVisibility(View.VISIBLE);
-                StringBuilder strB = new StringBuilder("Calories Intake: ");
-                calTxt.setText(strB.append(totalCalData));
-            }
+        if (totalCalData != null) {
+            calTxt.setVisibility(View.VISIBLE);
+            StringBuilder strB = new StringBuilder("Calories Intake: ");
+            calTxt.setText(strB.append(totalCalData));
+        }
         //setText of Edit Text can't reset on onCreateView, hence must put in onResume
         foodIngSelected.setText(foodInsData);
     }
@@ -245,15 +248,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                     }
                     break;
 
-                /*case R.id.addIngBtn_createNewRecipe_Frag:
-                    //mListener: this is variable linked to Activity, this will be executed by Activity but not this Fragment
-                    //check if the Activity is implemented this Fragment or not
-                    if (mFragInteractListener != null) {
-                        //Communicate to Activity request to open new Fragment
-                        mFragInteractListener.OnAddIngRequest(selectedIngList);
-                    }
-                    break;*/
-
                 case R.id.addRecBtn_createNewRecipe_Frag:
                     createNewRecipe();
                     //addTestRecipeDataToFb();
@@ -270,19 +264,25 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         TextView calTxt = getView().findViewById(R.id.calInput_createNewRecipe_Frag);
         EditText servings = getView().findViewById(R.id.servingNoInput_createNewRecipe_Frag);
         EditText insTxt = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
-        Spinner foodCatType = getView().findViewById(R.id.foodTypeSpin_createNewRecipe_Frag);
-        Spinner menuItmType = getView().findViewById(R.id.menuItmTypeSpin_createNewRecipe_Frag);
+        Spinner foodCatType = getView().findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
+        Spinner menuItmType = getView().findViewById(R.id.menuItmTypeSpn_createNewRecipe_Frag);
         TextView ingSelected = getView().findViewById(R.id.ingSelected_createNewRecipe_Frag);
 
-        String id = recipeName.getText().toString().toLowerCase();
+        String id = recipeName.getText().toString().replaceAll("\\s+", "").toLowerCase();
         if (TextUtils.isEmpty(recipeName.getText().toString())) {
             recipeName.setError("Enter Dish Name");
         } else if (recipeCity.getText().toString().isEmpty()) {
             prepDuration.setError("Enter Food's Original City");
+        } else if (recipeCountry.getSelectedItemPosition() == 0) {
+            Toast.makeText(getActivity(), "Please Select Food's Original Country", Toast.LENGTH_SHORT).show();
         } else if (prepDuration.getText().toString().isEmpty()) {
             prepDuration.setError("Enter Preparation Duration");
         } else if (servings.getText().toString().isEmpty()) {
             servings.setError("Enter Number of Servings");
+        } else if (foodCatType.getSelectedItemPosition() == 0) {
+            Toast.makeText(getActivity(), "Please Select Food Type", Toast.LENGTH_SHORT).show();
+        } else if (menuItmType.getSelectedItemPosition() == 0) {
+            Toast.makeText(getActivity(), "Please Select Menu Item Type", Toast.LENGTH_SHORT).show();
         } else if (insTxt.getText().toString().isEmpty()) {
             insTxt.setError("Enter Instruction and add IngredientUncountable Required");
         } else if (selectedIngList == null) {
@@ -295,14 +295,13 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
             } else {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
 
-                Recipe nRecipe = new Recipe( "test", recipeName.getText().toString(),
+                Recipe nRecipe = new Recipe("test", recipeName.getText().toString(),
                         recipeCity.getText().toString(), recipeCountry.getSelectedItem().toString(),
-                        servings.getText().toString(), calTxt.getText().toString(),
-                        prepDuration.getText().toString(), insTxt.getText().toString(),
+                        calTxt.getText().toString(), prepDuration.getText().toString(),
+                        servings.getText().toString(), insTxt.getText().toString(),
                         foodCatType.getSelectedItem().toString(),
                         menuItmType.getSelectedItem().toString(),
                         selectedIngList);
-
                 Map<String, Object> newRecipe = new HashMap<>();
                 newRecipe.put(id, nRecipe);
                 mDatabase.updateChildren(newRecipe);
@@ -395,7 +394,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
 
         for (Ingredient i : data) {
             totalCal += Float.valueOf(i.getCurrentCalories());
-            name.append(i.getName()).append(" ").append(i.getCurrentQuantity()).append("g").append("\n");
+            name.append(i.getName()).append(" ").append(i.getCurrentQuantity()).append(" ").append(i.getCurrentMeasurement()).append("\n");
         }
 
         selectedIngList = data;
