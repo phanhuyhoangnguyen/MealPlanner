@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -55,7 +56,7 @@ public class EditRecipeInsFrag extends Fragment {
         //Set up the button to be ready, able to execute the method when it is clicked
         saveBtn.setOnClickListener(mOnClickListener);
 
-        Button addIngBtn = view.findViewById(R.id.addIngBtn_editRecipeIns_Frag);
+        TextView addIngBtn = view.findViewById(R.id.addIngTxtVw_editRecipeIns_Frag);
         addIngBtn.setOnClickListener(mOnClickListener);
 
         return view;
@@ -69,7 +70,7 @@ public class EditRecipeInsFrag extends Fragment {
                     saveRecipeInfo();
                     break;
 
-                case R.id.addIngBtn_editRecipeIns_Frag:
+                case R.id.addIngTxtVw_editRecipeIns_Frag:
                     changeIngredients();
                     break;
 
@@ -127,6 +128,9 @@ public class EditRecipeInsFrag extends Fragment {
             foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getFoodType()));
         if (existingRecipe.getMenuType() != null)
             foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getMenuType()));
+
+        TextView foodCal = view.findViewById(R.id.cal_editRecipeIns_Frag);
+        foodCal.setText(existingRecipe.getCalories());
 
         EditText servingNo = view.findViewById(R.id.servingNo_editRecipeIns_Frag);
         servingNo.setText(existingRecipe.getServingYield());

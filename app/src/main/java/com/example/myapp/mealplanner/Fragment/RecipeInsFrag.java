@@ -67,11 +67,13 @@ public class RecipeInsFrag extends Fragment {
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
         Button addRecipeBtn = view.findViewById(R.id.addRecipeBtn_recipeIns_Frag);
 
+        cal.setOnClickListener(mOnClickListener);
+
         recipe = getArguments().getParcelable("RECIPE");
 
         name.setText(recipe.getName());
         country.setText(recipe.getOrigin());
-        cal.setText(recipe.getCalories());
+        cal.setText(recipe.getCalories().concat(" Cal"));
         String foodDuration = duration.getText().toString().concat("\n").concat(recipe.getDuration());
         duration.setText(foodDuration);
         instruction.setText(recipe.getInstruction());
@@ -95,13 +97,42 @@ public class RecipeInsFrag extends Fragment {
             }
         });
 
-        addRecipeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addMenu(recipe);
-            }
-        });
+        addRecipeBtn.setOnClickListener(mOnClickListener);
     }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.addRecipeBtn_recipeIns_Frag:
+                    addMenu(recipe);
+                    break;
+
+                case R.id.cal_recipeIns_Frag:
+                    //by default, recipe will displayed in Calories
+                    TextView calTxtVw = view.findViewById(R.id.cal_recipeIns_Frag);
+                    String cal[] = calTxtVw.getText().toString().split(" ");
+                    if (cal[1] != null) {
+                        calTxtVw.setText(recipe.changeCalToKjTest(cal[1]));
+                    }
+
+                    /*String cal[] = calTxtVw.getText().toString().split(" ");
+                    if (cal[1] != null){
+                        if (cal[1].equalsIgnoreCase("Cal")){
+                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(true)).concat(" kj"));
+                        }
+                        else{
+                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(false)).concat(" Cal"));
+                        }
+                    }*/
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+    };
 
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
@@ -164,9 +195,10 @@ public class RecipeInsFrag extends Fragment {
 
     private OnFragInteractListener mFragListener;
 
-    public interface OnFragInteractListener {
-        void OnEditRecipeRequest(Recipe passRecipe);
-    }
+public interface OnFragInteractListener {
+    void OnEditRecipeRequest(Recipe passRecipe);
+
+}
 
     @Override
     public final void onAttach(Context context) {

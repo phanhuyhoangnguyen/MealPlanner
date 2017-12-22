@@ -159,6 +159,26 @@ public class Recipe implements Parcelable {
         return servingYield;
     }
 
+
+    public float changeCalToKj(boolean request) {
+        if (request){
+            return Float.valueOf(getCalories()) * (float) 4.184;
+        }
+        else {
+            return Float.valueOf(getCalories());
+        }
+    }
+
+    public String changeCalToKjTest(String compare) {
+        if (compare.equalsIgnoreCase("cal")){
+            return String.valueOf(Float.valueOf(getCalories())  * (float) 4.184/1000).concat(" kj");
+        }
+        else {
+            return String.valueOf(getCalories()).concat(" Cal");
+        }
+    }
+
+
     public void setServingYield(String servingYield) {
         this.servingYield = servingYield;
     }

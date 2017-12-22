@@ -229,7 +229,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         if (totalCalData != null) {
             calTxt.setVisibility(View.VISIBLE);
             StringBuilder strB = new StringBuilder("Calories Intake: ");
-            calTxt.setText(strB.append(totalCalData));
+            calTxt.setText(strB.append(totalCalData).append(" Cal"));
         }
         //setText of Edit Text can't reset on onCreateView, hence must put in onResume
         foodIngSelected.setText(foodInsData);
@@ -261,7 +261,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         EditText recipeCity = getView().findViewById(R.id.cityEditTxt_createNewRecipe_Frag);
         Spinner recipeCountry = getView().findViewById(R.id.countrySpn_createNewRecipe_Frag);
         EditText prepDuration = getView().findViewById(R.id.prepDuInput_createNewRecipe_Frag);
-        TextView calTxt = getView().findViewById(R.id.calInput_createNewRecipe_Frag);
         EditText servings = getView().findViewById(R.id.servingNoInput_createNewRecipe_Frag);
         EditText insTxt = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
         Spinner foodCatType = getView().findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
@@ -272,7 +271,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         if (TextUtils.isEmpty(recipeName.getText().toString())) {
             recipeName.setError("Enter Dish Name");
         } else if (recipeCity.getText().toString().isEmpty()) {
-            prepDuration.setError("Enter Food's Original City");
+            recipeCity.setError("Enter Food's Original City");
         } else if (recipeCountry.getSelectedItemPosition() == 0) {
             Toast.makeText(getActivity(), "Please Select Food's Original Country", Toast.LENGTH_SHORT).show();
         } else if (prepDuration.getText().toString().isEmpty()) {
@@ -297,7 +296,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
 
                 Recipe nRecipe = new Recipe("test", recipeName.getText().toString(),
                         recipeCity.getText().toString(), recipeCountry.getSelectedItem().toString(),
-                        calTxt.getText().toString(), prepDuration.getText().toString(),
+                        totalCalData, prepDuration.getText().toString(),
                         servings.getText().toString(), insTxt.getText().toString(),
                         foodCatType.getSelectedItem().toString(),
                         menuItmType.getSelectedItem().toString(),
@@ -400,11 +399,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         selectedIngList = data;
         foodInsData = "Ingredients Required: \n".concat(name.toString().concat("\n"));
 
-        totalCalData = String.valueOf(totalCal + " Cal\n").concat(String.valueOf(convertCalToKj(convertCalToKj(totalCal))).concat(" kj"));
-    }
-
-    private float convertCalToKj(float totalCal) {
-        return totalCal * (float) 4.184;
+        totalCalData = String.valueOf(totalCal);
     }
 
     private OnFragInteractListener mFragInteractListener;
