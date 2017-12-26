@@ -29,7 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MainActivity" />
         </activity>
-        <activity android:name=".Activity.CreateNewRecipeFragCtn" />
+        <activity android:name=".Activity.CreateNewRecipeFragCtn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.CreateMenuFragCtn" />
+        </activity>
         <activity android:name=".Activity.CreateNewIngFragCtn"></activity>
     </application>
 

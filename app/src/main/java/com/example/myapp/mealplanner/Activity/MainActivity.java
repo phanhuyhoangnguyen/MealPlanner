@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.act_main);
 
         //Fireapp Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -120,9 +120,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;*/
 
             default:
-                break;
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

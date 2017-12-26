@@ -40,8 +40,6 @@ public class FoodTypeTableFrag extends Fragment {
         ImageView imageDessert = view.findViewById(R.id.dessertImgVw_foodTableType_Frag);
         TextView textDessert = view.findViewById(R.id.dessertLabel_foodTableType_Frag);
 
-        //populateMyData();
-
         imageSalad.setOnClickListener(mOnclickListener);
         imageSoup.setOnClickListener(mOnclickListener);
         imageDessert.setOnClickListener(mOnclickListener);
@@ -54,6 +52,7 @@ public class FoodTypeTableFrag extends Fragment {
 
         //Tool SetUp
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
+        //call to inform this Fragment will modify its Parent's Toolbar
         setHasOptionsMenu(true);
 
         //1st Way

@@ -3,9 +3,11 @@ package com.example.myapp.mealplanner.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.example.myapp.mealplanner.Fragment.NewRecipeFrag;
 import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
@@ -29,8 +31,24 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         defaultFragment();
 
         //Toolbar Set Up
-        Toolbar mToolbar = findViewById(R.id.toolbar_createMenu_Act);
+        Toolbar mToolbar = findViewById(R.id.toolbar_createRecipe_Act);
         setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                // Alternative: NavUtils.navigateUpFromSameTask(this); //this finish the current Activity and recreate the Parent Act
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -38,7 +56,6 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
         //change menu will be handle in Fragment, alternative method: change method from Activity
-        //TODO: establish menu from here and able to move back to its previous Activity
         return true;
     }
 

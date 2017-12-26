@@ -63,7 +63,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
     @Override
     public IngredientRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.layout_ingredient_list_item_btn_qun, parent, false);
+        View v = inflater.inflate(R.layout.layout_ing_list_item_btn_qun, parent, false);
         return new IngredientRowHolder(v, new MyViewClickListener());
     }
 

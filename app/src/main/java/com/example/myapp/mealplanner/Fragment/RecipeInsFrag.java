@@ -42,7 +42,7 @@ public class RecipeInsFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_recipe_instruction, container, false);
+        View view = inflater.inflate(R.layout.frag_recipe_ins, container, false);
 
         initializeUI(view);
 
@@ -137,7 +137,7 @@ public class RecipeInsFrag extends Fragment {
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.cookingins_menu_items, menu);
+        inflater.inflate(R.menu.recipe_ins_menu_items, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
@@ -153,9 +153,6 @@ public class RecipeInsFrag extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_addNewDish:
-                        return true;
-
                     case R.id.action_editRecipe:
                         //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
                         mFragListener.OnEditRecipeRequest(recipe);

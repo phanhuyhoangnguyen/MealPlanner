@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.myapp.mealplanner.Object.Ingredient;
-import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.R;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
 
     @Override
     public ArrAdaptIngEditTxt.IngredientRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.layout_ingredient_list_item_edit_text_qun, parent, false);
+        View v = inflater.inflate(R.layout.layout_ing_list_item_edit_text_qun, parent, false);
         return new ArrAdaptIngEditTxt.IngredientRowHolder(v, new MyCustomEditTextListener());
     }
 

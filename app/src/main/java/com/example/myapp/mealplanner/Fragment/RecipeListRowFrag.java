@@ -99,7 +99,9 @@ public class RecipeListRowFrag extends Fragment {
         inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
-        menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe");
+        //add(int groupId, int itemId, int order, CharSequence title) == menuItem
+        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1 + 1, Menu.NONE, "Log Out");
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));

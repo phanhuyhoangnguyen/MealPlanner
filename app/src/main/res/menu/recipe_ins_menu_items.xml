@@ -13,10 +13,4 @@
         android:title="@string/log_out"
         android:orderInCategory="100"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_addNewDish"
-        android:icon="@drawable/ic_add"
-        android:title="@string/add_new_dish"
-        app:showAsAction="ifRoom"/>
 </menu>
