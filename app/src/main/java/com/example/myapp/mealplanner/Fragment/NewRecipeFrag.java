@@ -118,7 +118,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                     foodCatType.requestFocus();
                     foodCatType.performClick();
                 }*/
-
             }
         });
 
@@ -384,7 +383,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
     }
 
 
-    public void addIngDataToFrag(List<IngredientCountable> data) {
+    public void passIngDataToFrag(List<IngredientCountable> data) {
         //getView only able to called after onCreateView(), you can't use it inside onCreate() or onCreateView() methods of the fragment.
         //This method is called before onCreateView(), getView will always be null
 

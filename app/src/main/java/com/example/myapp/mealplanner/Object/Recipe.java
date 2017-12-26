@@ -14,9 +14,28 @@ public class Recipe implements Parcelable {
     //TODO: try to convert to private to see how Firebase react
     public String servingYield;
 
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
     public String img;
+
+    public void setCalories(String calories) {
+        this.calories = calories;
+    }
+
     public String calories;
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     public String duration;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String name;
     public String instruction;
     public String foodType;
@@ -26,8 +45,14 @@ public class Recipe implements Parcelable {
         return origin;
     }
 
+    //this is related to Firebase, when the server retrieve data from DataSnapShot, this will be triggered as well as the other setter
+    //to transfer every variables to new Object one by one.
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public void setOrigin(String city, String country) {
+        this.origin = city.concat(", ").concat(country);
     }
 
     public String origin;
@@ -82,7 +107,7 @@ public class Recipe implements Parcelable {
         this.servingYield = servingYield;
         this.img = img;
         this.name = name;
-        this.origin = city.concat(", ").concat(country);
+        setOrigin(city, country);
         this.duration = duration;
         this.calories = calories;
         this.instruction = instruction;
@@ -157,16 +182,6 @@ public class Recipe implements Parcelable {
 
     public String getServingYield() {
         return servingYield;
-    }
-
-
-    public float changeCalToKj(boolean request) {
-        if (request){
-            return Float.valueOf(getCalories()) * (float) 4.184;
-        }
-        else {
-            return Float.valueOf(getCalories());
-        }
     }
 
     public String changeCalToKjTest(String compare) {

@@ -84,7 +84,7 @@
                     android:hint="@string/food_type" />
 
                 <TextView
-                    android:id="@+id/cal_editRecipeIns_Frag"
+                    android:id="@+id/calTxt_editRecipeIns_Frag"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

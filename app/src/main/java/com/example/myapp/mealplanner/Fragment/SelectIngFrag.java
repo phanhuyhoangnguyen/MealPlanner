@@ -198,8 +198,8 @@ public class SelectIngFrag extends Fragment {
                 if (ingSelectedData.size() > 0) {
                     if (mFragListener != null) {
                         //this will be called in the activity but not this fragment
-                        mFragListener.OnRetrieveIngRequest(ingSelectedData);
                         getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        mFragListener.OnFinishedAddingIng(ingSelectedData);
                     }
                 } else {
                     Toast.makeText(getActivity(), "The List is Empty! Please Add IngredientUncountable", Toast.LENGTH_SHORT).show();
@@ -235,6 +235,7 @@ public class SelectIngFrag extends Fragment {
         inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
+        //Alternative method: setTag("someName".concat(String.valueOf(customNumber)));
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Ingredient");
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
@@ -583,7 +584,7 @@ public class SelectIngFrag extends Fragment {
     private OnFragInteractListener mFragListener;
 
     public interface OnFragInteractListener {
-        void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountable);
+        void OnFinishedAddingIng(List<IngredientCountable> ingredientCountable);
 
         void OnCreateNewIngRequest();
     }

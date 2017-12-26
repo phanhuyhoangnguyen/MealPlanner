@@ -3,6 +3,7 @@ package com.example.myapp.mealplanner.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.myapp.mealplanner.Object.Ingredient;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EditRecipeInsFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,7 +31,7 @@ public class EditRecipeInsFrag extends Fragment {
 
     private Recipe existingRecipe;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mFragInteractListener;
 
     public EditRecipeInsFrag() {
         // Required empty public constructor
@@ -71,7 +81,7 @@ public class EditRecipeInsFrag extends Fragment {
                     break;
 
                 case R.id.addIngTxtVw_editRecipeIns_Frag:
-                    changeIngredients();
+                    changeIngredientsRequest();
                     break;
 
                 default:
@@ -124,12 +134,14 @@ public class EditRecipeInsFrag extends Fragment {
             int spinnerPosition = countrySpnAdapter.getPosition(countryName);         // or: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
             originCountryRecipeSpn.setSelection(spinnerPosition);
         }
-        if (existingRecipe.getFoodType() != null)
-            foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getFoodType()));
-        if (existingRecipe.getMenuType() != null)
-            foodTypeSpn.setSelection(countrySpnAdapter.getPosition(existingRecipe.getMenuType()));
 
-        TextView foodCal = view.findViewById(R.id.cal_editRecipeIns_Frag);
+        if (existingRecipe.getFoodType() != null)
+            foodTypeSpn.setSelection(foodTypeAdapter.getPosition(existingRecipe.getFoodType()));
+
+        if (existingRecipe.getMenuType() != null)
+            menuTypeSpn.setSelection(menuTypeAdapter.getPosition(existingRecipe.getMenuType()));
+
+        TextView foodCal = view.findViewById(R.id.calTxt_editRecipeIns_Frag);
         foodCal.setText(existingRecipe.getCalories());
 
         EditText servingNo = view.findViewById(R.id.servingNo_editRecipeIns_Frag);
@@ -138,50 +150,94 @@ public class EditRecipeInsFrag extends Fragment {
         EditText prepDur = view.findViewById(R.id.duration_editRecipeIns_Frag);
         prepDur.setText(existingRecipe.getDuration());
 
+        TextView ingSelected = view.findViewById(R.id.addIngTxtVw_editRecipeIns_Frag);
+
         EditText ins = view.findViewById(R.id.insBody_editRecipeIns_Frag);
         ins.setText(existingRecipe.getInstruction());
+
+        String ingList = ingSelected.getText().toString();
+
+        for (Ingredient ing : existingRecipe.getIngredientCountable()) {
+             ingList = ing.getName().concat(ingList);
+        }
+
+        ingSelected.setText(ingList);
     }
 
     private void saveRecipeInfo() {
         EditText nameRecipe = getView().findViewById(R.id.nameEditTxt_editRecipeIns_Frag);
         EditText originCityRecipe = getView().findViewById(R.id.originCity_editRecipeIns_Frag);
+        Spinner originCountryRecipe = getView().findViewById(R.id.originCountry_editRecipeIns_Frag);
+        TextView totalCalData = getView().findViewById(R.id.calTxt_editRecipeIns_Frag);
 
-        EditText servingNo = getView().findViewById(R.id.servingNo_editRecipeIns_Frag);
+        EditText servings = getView().findViewById(R.id.servingNo_editRecipeIns_Frag);
 
         EditText prepDur = getView().findViewById(R.id.duration_editRecipeIns_Frag);
 
+        Spinner foodType = getView().findViewById(R.id.foodTypeSpn_editRecipeIns_Frag);
+        Spinner menuType = getView().findViewById(R.id.menuTypeSpn_editRecipeIns_Frag);
+
         EditText ins = getView().findViewById(R.id.insBody_editRecipeIns_Frag);
+
 
         if (nameRecipe.getText().toString().isEmpty()) {
             nameRecipe.setError("Please Enter Recipe Name.");
-        } else if (servingNo.getText().toString().isEmpty()) {
-            originCityRecipe.setError("Please Enter Serving Number.");
+        } else if (originCityRecipe.getText().toString().isEmpty()) {
+            originCityRecipe.setError("Please Enter Origin City of Recipe.");
+        } else if (originCountryRecipe.getSelectedItemPosition() == 0) {
+            Toast.makeText(getActivity(), "Please Select Origin Country of Recipe", Toast.LENGTH_SHORT).show();
+        } else if (totalCalData.getText().toString().isEmpty()) {
+            Log.i("", "");
+            //.setError("Please Add Ingredients to Recipe.");
         } else if (prepDur.getText().toString().isEmpty()) {
             prepDur.setError("Please Enter Preparation Time.");
+        } else if (servings.getText().toString().isEmpty()) {
+            servings.setError("Please Enter Servings for this recipe");
         } else if (ins.getText().toString().isEmpty()) {
             ins.setError("Please Add Ingredients and Instruction");
-        } else {
-            onButtonPressed();
+        } else if (foodType.getSelectedItemPosition() == 0) {
+            ins.setError("Please Select Food Type");
+        } else if (menuType.getSelectedItemPosition() == 0) {
+            ins.setError("Please Select Menu Type");
+        } /*else if (selectedIngList.size() < 1) {
+            ins.setError("Please Select Menu Type");
+        } */else {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
+
+            existingRecipe.setName(nameRecipe.getText().toString());
+            existingRecipe.setOrigin(originCityRecipe.getText().toString(), originCountryRecipe.getSelectedItem().toString());
+            existingRecipe.setCalories(totalCalData.getText().toString());
+            existingRecipe.setDuration(prepDur.getText().toString());
+            existingRecipe.setServingYield(servings.getText().toString());
+            existingRecipe.setInstruction(ins.getText().toString());
+            existingRecipe.setFoodType(foodType.getSelectedItem().toString());
+            existingRecipe.setMenuType(menuType.getSelectedItem().toString());
+            //existingRecipe.setIngredientCountable();
+
+            /*Recipe nRecipe = new Recipe(selectedIngList);
+
+            Map<String, Object> newRecipe = new HashMap<>();
+            newRecipe.put(id, nRecipe);
+            mDatabase.updateChildren(newRecipe);*/
         }
     }
 
-    private void changeIngredients() {
+    private void changeIngredientsRequest() {
+        if (mFragInteractListener != null) {
+            //Communicate to Activity request to open new Fragment
+            mFragInteractListener.OnChangeIngRequest(existingRecipe.getIngredientCountable());
+        }
     }
 
-    public void onButtonPressed() {
-        //TODO: update info to object directly, without the need to pass it, this method should be void and/or receving parameter
-        if (mListener != null) {
-            // this method can just be finish editing without the having pass any data back
-            // since the object is update directly into memory location ref
-            mListener.sendBackNewInfoRecipe();
-        }
+    public void changeIngredients(List<IngredientCountable> newIngs){
+        existingRecipe.setIngredientCountable(newIngs);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            mFragInteractListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -191,10 +247,10 @@ public class EditRecipeInsFrag extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mFragInteractListener = null;
     }
 
     public interface OnFragmentInteractionListener {
-        void sendBackNewInfoRecipe();
+        void OnChangeIngRequest(List<IngredientCountable> existingList);
     }
 }

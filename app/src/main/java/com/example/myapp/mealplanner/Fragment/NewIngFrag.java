@@ -260,11 +260,11 @@ public class NewIngFrag extends Fragment {
                 //Alternative method: using List instead of HashMap<String, Measurement>
                 HashMap<String, Measurement> melCal = new HashMap<>();
                 Measurement measurement = measurementsMap.get(gramsLabel.getText().toString());
-                Log.i( "measurementsMap Size: ", String.valueOf(measurementsMap.size()));
-                for (String i: measurementsMap.keySet()){
+                Log.i("measurementsMap Size: ", String.valueOf(measurementsMap.size()));
+                for (String i : measurementsMap.keySet()) {
                     Log.i("Key Set", i);
                     Log.i("search: ", gramsLabel.getText().toString());
-                    if (i.equalsIgnoreCase(gramsLabel.getText().toString())){
+                    if (i.equalsIgnoreCase(gramsLabel.getText().toString())) {
                         measurement = measurementsMap.get(gramsLabel.getText().toString());
                         Log.i("Matched: ", "add");
                     }
@@ -275,20 +275,18 @@ public class NewIngFrag extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "Calories is null", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
-                    Log.i("Measurement","is null");
+                } else {
+                    Log.i("Measurement", "is null");
                 }
                 melCal.put(measurement.getName(), measurement);
 
-                for (int i = 1; i < measurementInput; i++){
+                for (int i = 1; i < measurementInput; i++) {
                     Spinner newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i)));
                     EditText newInputCal = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i)));
 
-                    if (newSpinner == null || newInputCal == null){
-                        Log.i("null found", ""+i);
-                    }
-                    else {
+                    if (newSpinner == null || newInputCal == null) {
+                        Log.i("null found", "" + i);
+                    } else {
                         if (newInputCal.getText().toString().equals("")) {
                             newInputCal.setError("Please Enter Ingredient Calories!");
                             //Turn off Switch
@@ -387,6 +385,7 @@ public class NewIngFrag extends Fragment {
     }
 
     public void onAddIngBtnClicked() {
+        // this method suppose to return new created Ingredient
         if (mFragInteractListener != null) {
             mFragInteractListener.onAddIngBtnClicked();
             getActivity().getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);

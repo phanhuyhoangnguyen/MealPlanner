@@ -61,7 +61,7 @@ public class RecipeInsFrag extends Fragment {
     private void initializeUI(View view) {
         TextView name = view.findViewById(R.id.name_recipeIns_Frag);
         TextView country = view.findViewById(R.id.origin_recipeIns_Frag);
-        TextView cal = view.findViewById(R.id.cal_recipeIns_Frag);
+        TextView cal = view.findViewById(R.id.calTxt_recipeIns_Frag);
         TextView duration = view.findViewById(R.id.duration_recipeIns_Frag);
         TextView instruction = view.findViewById(R.id.insBody_recipeIns_Frag);
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
@@ -108,9 +108,9 @@ public class RecipeInsFrag extends Fragment {
                     addMenu(recipe);
                     break;
 
-                case R.id.cal_recipeIns_Frag:
+                case R.id.calTxt_recipeIns_Frag:
                     //by default, recipe will displayed in Calories
-                    TextView calTxtVw = view.findViewById(R.id.cal_recipeIns_Frag);
+                    TextView calTxtVw = view.findViewById(R.id.calTxt_recipeIns_Frag);
                     String cal[] = calTxtVw.getText().toString().split(" ");
                     if (cal[1] != null) {
                         calTxtVw.setText(recipe.changeCalToKjTest(cal[1]));
@@ -195,10 +195,9 @@ public class RecipeInsFrag extends Fragment {
 
     private OnFragInteractListener mFragListener;
 
-public interface OnFragInteractListener {
-    void OnEditRecipeRequest(Recipe passRecipe);
-
-}
+    public interface OnFragInteractListener {
+        void OnEditRecipeRequest(Recipe passRecipe);
+    }
 
     @Override
     public final void onAttach(Context context) {

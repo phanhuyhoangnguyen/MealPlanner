@@ -1,6 +1,5 @@
 package com.example.myapp.mealplanner.Activity;
 
-import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -10,9 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.*;
 
 import com.example.myapp.mealplanner.Fragment.EditRecipeInsFrag;
-import com.example.myapp.mealplanner.Fragment.NewIngFrag;
 import com.example.myapp.mealplanner.Fragment.NewMenuFrag;
-import com.example.myapp.mealplanner.Fragment.NewRecipeFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
 import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
@@ -23,18 +20,16 @@ import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
 
 import java.util.List;
 
-public class CreateMenuFragContainerAct extends AppCompatActivity implements NewMenuFrag.OnFragInteractListener,
+public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.OnFragInteractListener,
         FoodTypeTableFrag.OnFragInteractListener, RecipeListRowFrag.onFragInteractListener,
-        NewRecipeFrag.OnFragInteractListener, SelectIngFrag.OnFragInteractListener,
-        NewIngFrag.OnFragInteractListener, EditRecipeInsFrag.OnFragmentInteractionListener,
-RecipeInsFrag.OnFragInteractListener{
+        EditRecipeInsFrag.OnFragmentInteractionListener, RecipeInsFrag.OnFragInteractListener {
 
     private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_menu);
+        setContentView(R.layout.act_create_menu);
 
         //Set Up Fragment
         manager = getSupportFragmentManager();
@@ -115,63 +110,20 @@ RecipeInsFrag.OnFragInteractListener{
     }
 
     @Override
-    public void onCreateNewRecipeRequest() {
-        NewRecipeFrag newRecipeFragment = new NewRecipeFrag();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, newRecipeFragment, "AddNewRecipeFrag");
-        transaction.addToBackStack("AddNewRecipeFrag");
-        transaction.commit();
-    }
-
-    @Override
-    public void OnAddIngRequest(List<IngredientCountable> data) {
-        //Pass data to fragment
-        SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, addIngredientsFragment, "selectIngFrag");
-        transaction.addToBackStack("selectIngFrag");
-        transaction.commit();
-    }
-
-    @Override
-    public void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountable) {
-        NewRecipeFrag newRecipeFrag = (NewRecipeFrag) manager.findFragmentByTag("AddNewRecipeFrag");
-        newRecipeFrag.addIngDataToFrag(ingredientCountable);
-    }
-
-    @Override
-    public void OnCreateNewIngRequest() {
-        NewIngFrag neIngredientFragment = new NewIngFrag();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, neIngredientFragment, "NewIngFrag");
-        transaction.addToBackStack("NewIngFrag");
-        transaction.commit();
-    }
-
-    @Override
-    public void OnRecipeCreated() {
-        getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
-    @Override
-    public void onAddIngBtnClicked() {
-        //Nothing because there is no data need to be passed between these fragment
-        //Can pass new IngredientUncountable to the previous fragment, however because this app use Firebase, real-time
-        //database, hence the need is reduced
-    }
-
-    @Override
-    public void sendBackNewInfoRecipe() {
-        //TODO: this method maybe not needed, simplified this
-
-    }
-
-    @Override
     public void OnEditRecipeRequest(Recipe targetRecipe) {
         EditRecipeInsFrag editRecipeInsFrag = EditRecipeInsFrag.newInstance(targetRecipe);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_createMenu_Act, editRecipeInsFrag, "editRecipeInsFrag");
         transaction.addToBackStack("editRecipeInsFrag");
+        transaction.commit();
+    }
+
+    @Override
+    public void OnChangeIngRequest(List<IngredientCountable> data) {
+        SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frag_createMenu_Act, addIngredientsFragment, "selectIngFrag");
+        transaction.addToBackStack("selectIngFrag");
         transaction.commit();
     }
 }
