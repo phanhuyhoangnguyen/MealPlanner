@@ -137,7 +137,7 @@
     <Button
         ...
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="59dp"/>-->
 
     <!-- or 2: -->

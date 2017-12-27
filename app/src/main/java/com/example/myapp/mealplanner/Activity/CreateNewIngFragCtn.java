@@ -26,10 +26,17 @@ public class CreateNewIngFragCtn extends AppCompatActivity
         Toolbar mToolbar = findViewById(R.id.toolbar_createIng_Act);
         setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         defaultFragment();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -102,6 +103,11 @@ public class SelectIngFrag extends Fragment {
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
+        // disabled the "<-" arrow of Parent Activity
+        /*if ( ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }*/
 
         //IngredientUncountable AutoCompletion Code
         ingNameData = new ArrayList<>();
@@ -231,18 +237,22 @@ public class SelectIngFrag extends Fragment {
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.empty_menu_items, menu);
+        //getActivity().invalidateOptionsMenu();
+        //menu.clear(); //use to clear to apply the new toolbar design
+        //inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
         //Alternative method: setTag("someName".concat(String.valueOf(customNumber)));
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Ingredient");
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createRecipe_Act);
+        /*final Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createRecipe_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toolbar.setNavigationIcon(null);
+                toolbar.setNavigationOnClickListener(null);
+                toolbar.setOnMenuItemClickListener(null);
                 getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
@@ -253,13 +263,33 @@ public class SelectIngFrag extends Fragment {
                 switch (item.getItemId()) {
                     case MENU_ITEM_ITEM1:
                         mFragListener.OnCreateNewIngRequest();
-                        return true;
+                    return true;
 
                     default:
                         return false;
                 }
             }
-        });
+        });*/
+    }
+
+    //Alternative method: above
+    //this toolbar here in Fragment and its Activity are the same toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            //TODO: check program if it still function well when using back button
+            case android.R.id.home:
+                //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
+                getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                return true;
+
+            case MENU_ITEM_ITEM1:
+                mFragListener.OnCreateNewIngRequest();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private final View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {

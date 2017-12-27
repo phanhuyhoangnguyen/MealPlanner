@@ -9,7 +9,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -52,6 +54,8 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_new_recipe, container, false);
+
+        setHasOptionsMenu(true);
 
         final Spinner country = view.findViewById(R.id.countrySpn_createNewRecipe_Frag);
         final Spinner foodCatType = view.findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
@@ -140,6 +144,18 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
         addRecBtn.setOnClickListener(mOnClickListener);
 
         return view;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private boolean isTimeValid(String time) {

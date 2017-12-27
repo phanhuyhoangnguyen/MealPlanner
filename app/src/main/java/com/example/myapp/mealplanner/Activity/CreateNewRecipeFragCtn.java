@@ -30,20 +30,28 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         defaultFragment();
 
         //Toolbar Set Up
+        //invalidateOptionsMenu(); //Declare that the options menu has changed, so should be recreated.
+
         Toolbar mToolbar = findViewById(R.id.toolbar_createRecipe_Act);
         setSupportActionBar(mToolbar);
+    }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //this condition is true if we have called setSupportActionBar(mToolbar)
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
-                // Alternative: NavUtils.navigateUpFromSameTask(this); //this finish the current Activity and recreate the Parent Act
-                return true;
+                return false; //this will be implemented in Fragment
 
             default:
                 return super.onOptionsItemSelected(item);
