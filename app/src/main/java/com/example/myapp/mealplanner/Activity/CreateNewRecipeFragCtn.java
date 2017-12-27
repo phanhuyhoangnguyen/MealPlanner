@@ -3,7 +3,6 @@ package com.example.myapp.mealplanner.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -86,9 +85,8 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
 
     @Override
     public void OnCreateNewIngRequest() {
-        Intent createNewIngIntent = new Intent(CreateNewRecipeFragCtn.this, CreateNewIngFragCtn.class);
         //This suppose to be startActivityForResult() and return new Ingredient to this Activity
-        startActivity(createNewIngIntent);
+        startActivity(new Intent(this, CreateNewIngFragCtn.class));
     }
 
     @Override

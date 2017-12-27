@@ -238,7 +238,7 @@ public class SelectIngFrag extends Fragment {
         //Alternative method: setTag("someName".concat(String.valueOf(customNumber)));
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Ingredient");
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createRecipe_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

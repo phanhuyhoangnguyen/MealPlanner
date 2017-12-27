@@ -76,9 +76,6 @@ public class NewIngFrag extends Fragment {
 
         retrieveData();
 
-        //Toolbar SetUp
-        setHasOptionsMenu(true);
-
         //push HashMap of Multi-Measurement Dictionary Database to server
         //pushMultiMeasureDict();
 
@@ -366,22 +363,6 @@ public class NewIngFrag extends Fragment {
             }
         }*/
         return false;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.empty_menu_items, menu);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
     }
 
     public void onAddIngBtnClicked() {

@@ -53,9 +53,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_new_recipe, container, false);
 
-        //Toolbar SetUp
-        //setHasOptionsMenu(true);
-
         final Spinner country = view.findViewById(R.id.countrySpn_createNewRecipe_Frag);
         final Spinner foodCatType = view.findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
         final Spinner menuItmType = view.findViewById(R.id.menuItmTypeSpn_createNewRecipe_Frag);
@@ -364,22 +361,6 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        /*menu.clear();
-        inflater.inflate(R.menu.empty_menu_items, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createRecipe_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("AddNewRecipeFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });*/
     }
 
 
