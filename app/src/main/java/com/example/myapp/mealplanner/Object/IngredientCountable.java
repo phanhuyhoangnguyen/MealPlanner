@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by John.nguyen on 07/12/2017.
  */
 
-public class IngredientCountable extends Ingredient {
+public class IngredientCountable extends Ingredient{
     public IngredientCountable() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }

@@ -21,9 +21,7 @@ import com.example.myapp.mealplanner.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EditRecipeInsFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -129,10 +127,18 @@ public class EditRecipeInsFrag extends Fragment {
         // mSpn.setSelection(Arrays.asList(countryName).indexOf(value_here));
         // or 4: using List: mSpinner.setSelection(yourList.indexOf("value"));
         // or 5 (Seem to be the best):
-        String countryName = origin[1];
-        if (countryName != null) {
-            int spinnerPosition = countrySpnAdapter.getPosition(countryName);         // or: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
-            originCountryRecipeSpn.setSelection(spinnerPosition);
+        Log.i("Origin", existingRecipe.getOrigin());
+        Log.i("Origin Array Length", String.valueOf(origin.length));
+        Log.i("Origin Array 0", origin[0]);
+        if (origin.length > 1) {
+            Log.i("Origin Array", origin[1]);
+
+            String countryName = origin[1];
+
+            if (countryName != null) {
+                int spinnerPosition = countrySpnAdapter.getPosition(countryName);         // or: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
+                originCountryRecipeSpn.setSelection(spinnerPosition);
+            }
         }
 
         if (existingRecipe.getFoodType() != null)

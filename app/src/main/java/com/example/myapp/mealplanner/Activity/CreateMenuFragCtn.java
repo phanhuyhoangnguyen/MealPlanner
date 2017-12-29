@@ -111,11 +111,13 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
     @Override
     public void OnEditRecipeRequest(Recipe targetRecipe) {
-        EditRecipeInsFrag editRecipeInsFrag = EditRecipeInsFrag.newInstance(targetRecipe);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, editRecipeInsFrag, "editRecipeInsFrag");
-        transaction.addToBackStack("editRecipeInsFrag");
-        transaction.commit();
+        Intent editRecipeIns = new Intent(this, EditRecipeFragInsCtn.class);
+
+        Bundle data = new Bundle();
+        data.putParcelable("EDIT_RECIPE", targetRecipe);
+        editRecipeIns.putExtras(data);
+
+        startActivity(editRecipeIns);
     }
 
     @Override

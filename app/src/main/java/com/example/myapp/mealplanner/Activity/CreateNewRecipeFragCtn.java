@@ -27,7 +27,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
 
         //Set Up Fragment
         manager = getSupportFragmentManager();
-        defaultFragment();
+        setDefaultFragment();
 
         //Toolbar Set Up
         //invalidateOptionsMenu(); //Declare that the options menu has changed, so should be recreated.
@@ -66,7 +66,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         return true;
     }
 
-    private void defaultFragment() {
+    private void setDefaultFragment() {
         NewRecipeFrag newRecipeFragment = new NewRecipeFrag();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.createRecipeFrgCtn_Act, newRecipeFragment, "AddNewRecipeFrag");

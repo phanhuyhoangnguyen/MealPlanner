@@ -1,5 +1,4 @@
 Current Working Resources:
-https://stackoverflow.com/questions/3741863/edittext-label
 
 https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
 https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places

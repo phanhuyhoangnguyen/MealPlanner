@@ -3,6 +3,7 @@ package com.example.myapp.mealplanner.Object;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,16 +105,16 @@ public class Recipe implements Parcelable {
     public Recipe(String img, String name, String city, String country, String calories, String duration,
                   String servingYield, String instruction, String fType, String mType,
                   List<IngredientCountable> ingredientCountable) {
-        this.servingYield = servingYield;
-        this.img = img;
-        this.name = name;
+        setServingYield(servingYield);
+        setImg(img);
+        setName(name);
         setOrigin(city, country);
-        this.duration = duration;
-        this.calories = calories;
-        this.instruction = instruction;
-        this.foodType = fType;
-        this.menuType = mType;
-        this.ingredientCountable = ingredientCountable;
+        setDuration(duration);
+        setCalories(calories);
+        setInstruction(instruction);
+        setFoodType(fType);
+        setMenuType(mType);
+        setIngredientCountable(ingredientCountable);
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR =
@@ -127,28 +128,38 @@ public class Recipe implements Parcelable {
                 }
             };
 
+    // this will be called and new Object will be created to be passed between Activity, origin object and the object send by Intent
+    // are different but not the same one.
     private Recipe(Parcel in) {
-        name = in.readString();
-        duration = in.readString();
-        calories = in.readString();
-        instruction = in.readString();
-        img = in.readString();
-        foodType = in.readString();
-        menuType = in.readString();
-        servingYield = in.readString();
-        //ingredientCountable = in.readList(ingredientCountable, CREATOR);
+        //if variable is missing to be written in here, it will display as null when object is received from target Activity
+        setImg(in.readString());
+        setName(in.readString());
+        setOrigin(in.readString());
+        setServingYield(in.readString());
+        setFoodType(in.readString());
+        setMenuType(in.readString());
+        setCalories(in.readString());
+
+        setDuration(in.readString());
+        // Alternative 1: Read Type List: in.readTypedList(ingredientCountable, IngredientCountable.CREATOR); // dest.writeTypedList(products);
+        // or 2: read Value: in.readValue(this.getClass().getClassLoader()); // parcel.writeValue(**list**);
+        ingredientCountable = new ArrayList<>();
+        in.readList(ingredientCountable, IngredientCountable.class.getClassLoader()); //this method will pass the list value direct to the list variable
+        setInstruction(in.readString());
     }
 
     public void writeToParcel(Parcel out, int flags) {
-        out.writeString(name);
-        out.writeString(duration);
-        out.writeString(instruction);
-        out.writeString(calories);
-        out.writeString(img);
-        out.writeString(foodType);
-        out.writeString(menuType);
-        out.writeString(servingYield);
-        //out.writeList(ingredientCountable);
+        out.writeString(getImg());
+        out.writeString(getName());
+        out.writeString(getOrigin());
+        out.writeString(getServingYield());
+        out.writeString(getFoodType());
+        out.writeString(getMenuType());
+        out.writeString(getCalories());
+
+        out.writeString(getDuration());
+        out.writeList(getIngredientCountable());
+        out.writeString(getInstruction());
     }
 
     public String getName() {
@@ -185,10 +196,9 @@ public class Recipe implements Parcelable {
     }
 
     public String changeCalToKjTest(String compare) {
-        if (compare.equalsIgnoreCase("cal")){
-            return String.valueOf(Float.valueOf(getCalories())  * (float) 4.184/1000).concat(" kj");
-        }
-        else {
+        if (compare.equalsIgnoreCase("cal")) {
+            return String.valueOf(Float.valueOf(getCalories()) * (float) 4.184 / 1000).concat(" kj");
+        } else {
             return String.valueOf(getCalories()).concat(" Cal");
         }
     }

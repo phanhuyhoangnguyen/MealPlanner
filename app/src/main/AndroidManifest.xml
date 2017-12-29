@@ -39,6 +39,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.CreateNewRecipeFragCtn" />
         </activity>
+        <activity android:name=".Activity.EditRecipeFragInsCtn"></activity>
     </application>
 
 </manifest>
