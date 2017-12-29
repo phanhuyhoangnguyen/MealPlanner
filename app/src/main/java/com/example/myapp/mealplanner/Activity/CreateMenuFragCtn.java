@@ -8,21 +8,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
 
-import com.example.myapp.mealplanner.Fragment.EditRecipeInsFrag;
 import com.example.myapp.mealplanner.Fragment.NewMenuFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
-import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
 import com.example.myapp.mealplanner.Fragment.RecipeInsFrag;
 import com.example.myapp.mealplanner.Fragment.RecipeListRowFrag;
-import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
-
-import java.util.List;
 
 public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.OnFragInteractListener,
         FoodTypeTableFrag.OnFragInteractListener, RecipeListRowFrag.onFragInteractListener,
-        EditRecipeInsFrag.OnFragmentInteractionListener, RecipeInsFrag.OnFragInteractListener {
+        RecipeInsFrag.OnFragInteractListener {
 
     private FragmentManager manager;
 
@@ -118,14 +113,5 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         editRecipeIns.putExtras(data);
 
         startActivity(editRecipeIns);
-    }
-
-    @Override
-    public void OnChangeIngRequest(List<IngredientCountable> data) {
-        SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_createMenu_Act, addIngredientsFragment, "selectIngFrag");
-        transaction.addToBackStack("selectIngFrag");
-        transaction.commit();
     }
 }

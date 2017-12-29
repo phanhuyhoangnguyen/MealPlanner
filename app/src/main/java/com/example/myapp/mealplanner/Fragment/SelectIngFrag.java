@@ -103,11 +103,7 @@ public class SelectIngFrag extends Fragment {
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
-        // disabled the "<-" arrow of Parent Activity
-        /*if ( ((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        }*/
+
 
         //IngredientUncountable AutoCompletion Code
         ingNameData = new ArrayList<>();
