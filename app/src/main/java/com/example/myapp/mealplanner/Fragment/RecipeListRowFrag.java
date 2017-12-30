@@ -100,6 +100,7 @@ public class RecipeListRowFrag extends Fragment {
 
         //Add Menu Item into Empty Menu Programmatically
         //add(int groupId, int itemId, int order, CharSequence title) == menuItem
+        //todo: fix id, using function to create unique id
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1 + 1, Menu.NONE, "Log Out");
 

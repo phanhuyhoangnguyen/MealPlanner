@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +38,14 @@ public class RecipeInsFrag extends Fragment {
     private Menu mMenu;
     private DatabaseReference mDatabase;
     private String id;
+    private static final int addImgBtnId = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recipe_ins, container, false);
 
-        loadDatatoView(view);
+        loadDataToView(view);
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
@@ -53,21 +53,59 @@ public class RecipeInsFrag extends Fragment {
         return view;
     }
 
-    private void logOut() {
-        Intent startIntent = new Intent(getActivity(), StartActivity.class);
-        startActivity(startIntent);
-        getActivity().finish();
+    @Override
+    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.recipe_ins_menu_items, menu);
+        menu.add(android.view.Menu.NONE, addImgBtnId, android.view.Menu.NONE, "Add New Recipe").setIcon(R.drawable.ic_playlist_add_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        //todo: fix this later
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_editRecipe:
+                        //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
+                        mFragListener.OnEditRecipeRequest(recipe);
+                        return true;
+
+                    case addImgBtnId:
+                        addMenu(recipe);
+                        return true;
+
+                    default:
+                        Log.i("onMenuItemClick", "default");
+                        return false;
+                }
+            }
+        });
     }
 
-    private void loadDatatoView(View view) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void loadDataToView(View view) {
         TextView name = view.findViewById(R.id.name_recipeIns_Frag);
         TextView country = view.findViewById(R.id.origin_recipeIns_Frag);
         TextView cal = view.findViewById(R.id.calTxt_recipeIns_Frag);
         TextView duration = view.findViewById(R.id.duration_recipeIns_Frag);
         TextView instruction = view.findViewById(R.id.insBody_recipeIns_Frag);
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
-        Button addRecipeBtn = view.findViewById(R.id.addRecipeBtn_recipeIns_Frag);
-
         cal.setOnClickListener(mOnClickListener);
 
         recipe = getArguments().getParcelable("RECIPE");
@@ -107,18 +145,12 @@ public class RecipeInsFrag extends Fragment {
 
             }
         });
-
-        addRecipeBtn.setOnClickListener(mOnClickListener);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.addRecipeBtn_recipeIns_Frag:
-                    addMenu(recipe);
-                    break;
-
                 case R.id.calTxt_recipeIns_Frag:
                     //by default, recipe will displayed in Calories
                     TextView calTxtVw = view.findViewById(R.id.calTxt_recipeIns_Frag);
@@ -145,38 +177,6 @@ public class RecipeInsFrag extends Fragment {
         }
     };
 
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.recipe_ins_menu_items, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_editRecipe:
-                        //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
-                        mFragListener.OnEditRecipeRequest(recipe);
-                        return true;
-
-                    default:
-                        Log.i("onMenuItemClick", "default");
-                        return false;
-                }
-            }
-        });
-    }
-
     private void addMenu(Recipe recipe) {
         if (mMenu != null && mMenu.getId().equalsIgnoreCase(id)) {
             mMenu.getRecipes().add(recipe);
@@ -199,6 +199,13 @@ public class RecipeInsFrag extends Fragment {
 
     public RecipeInsFrag() {
         // Required empty public constructor
+    }
+
+
+    private void logOut() {
+        Intent startIntent = new Intent(getActivity(), StartActivity.class);
+        startActivity(startIntent);
+        getActivity().finish();
     }
 
     private OnFragInteractListener mFragListener;
