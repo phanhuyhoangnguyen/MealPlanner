@@ -28,7 +28,7 @@ public class RecipeListRowFrag extends Fragment {
     private RecyclerView mRecycleView;
     private ArrayList<Recipe> items;
 
-    private static final int MENU_ITEM_ITEM1 = 1;
+    private static final int ADD_RECIPE_MENU_ITEM_ID = View.generateViewId();
 
     private ArrAdaptRecRwVwClickListener adapter;
 
@@ -95,14 +95,14 @@ public class RecipeListRowFrag extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
         //add(int groupId, int itemId, int order, CharSequence title) == menuItem
-        //todo: fix id, using function to create unique id
-        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1 + 1, Menu.NONE, "Log Out");
+        menu.add(Menu.NONE, ADD_RECIPE_MENU_ITEM_ID, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(android.view.Menu.NONE, ADD_RECIPE_MENU_ITEM_ID + 1, Menu.NONE, "Log Out");
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
@@ -116,24 +116,24 @@ public class RecipeListRowFrag extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case MENU_ITEM_ITEM1:
-                        // When data is modified but only affect a certain activity and only happen once instead of a whole application
-                        // it should be putted and handled with the use of Fragment
-                        // On the other hand, when the data is modified and affect the whole application (update local/remote database)
-                        // it should be handled in another separate Activity, since the scope of this act is affect more than just this certain activity
+                int id = item.getItemId();
 
-                        Intent createRecipeIntent = new Intent(getActivity(), CreateNewRecipeFragCtn.class);
-                        //This suppose to be startActivityForResult() and return new Recipe to this Activity
-                        startActivity(createRecipeIntent);
-                        return true;
+                if (id == ADD_RECIPE_MENU_ITEM_ID) {
 
-                    default:
-                        return false;
+                    // When data is modified but only affect a certain activity and only happen once instead of a whole application
+                    // it should be putted and handled with the use of Fragment
+                    // On the other hand, when the data is modified and affect the whole application (update local/remote database)
+                    // it should be handled in another separate Activity, since the scope of this act is affect more than just this certain activity
+
+                    Intent createRecipeIntent = new Intent(getActivity(), CreateNewRecipeFragCtn.class);
+                    //This suppose to be startActivityForResult() and return new Recipe to this Activity
+                    startActivity(createRecipeIntent);
+                    return true;
+                } else {
+                    return false;
                 }
             }
         });
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

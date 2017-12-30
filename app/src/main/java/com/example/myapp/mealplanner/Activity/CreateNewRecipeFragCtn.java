@@ -50,10 +50,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //TODO: delete this later
-            case android.R.id.home:
-                return false; //this will be implemented in Fragment
-
+            //todo: add LogOut button later
             default:
                 return super.onOptionsItemSelected(item);
         }

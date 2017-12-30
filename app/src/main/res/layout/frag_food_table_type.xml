@@ -87,12 +87,10 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp">
 
-            <!--todo: remove orientation later if this is not affect FrameLayout-->
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/panFryingImgVw_foodTableType_Frag"
@@ -118,8 +116,7 @@
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/dessertImgVw_foodTableType_Frag"
