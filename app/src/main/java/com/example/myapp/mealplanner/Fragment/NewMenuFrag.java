@@ -33,7 +33,7 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CreateMenuFrag extends Fragment {
+public class NewMenuFrag extends Fragment {
 
     //String will allow better performance but Recipe will allow object being able to passed between Fragments
     private ArrayList<Recipe> appetizer;
@@ -44,7 +44,7 @@ public class CreateMenuFrag extends Fragment {
     private ListView mListViewEntree;
     private ListView mListViewDessert;
 
-    public CreateMenuFrag() {
+    public NewMenuFrag() {
         // Required empty public constructor
     }
 

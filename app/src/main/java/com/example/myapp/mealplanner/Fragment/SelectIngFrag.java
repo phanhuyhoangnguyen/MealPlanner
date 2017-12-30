@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +36,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 
 public class SelectIngFrag extends Fragment {
@@ -87,7 +87,7 @@ public class SelectIngFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            ingSelectedData = new ArrayList<>();
+            //ingSelectedData = new ArrayList<>();  //deleted
             ingSelectedData = getArguments().getParcelableArrayList(ARG_INGLIST);
         }
         //If call from here, this method will be only called once but not again when resume
@@ -99,10 +99,11 @@ public class SelectIngFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_select_ingredient, container, false);
+        View view = inflater.inflate(R.layout.frag_select_ing, container, false);
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
+
 
         //IngredientUncountable AutoCompletion Code
         ingNameData = new ArrayList<>();
@@ -199,8 +200,8 @@ public class SelectIngFrag extends Fragment {
                 if (ingSelectedData.size() > 0) {
                     if (mFragListener != null) {
                         //this will be called in the activity but not this fragment
-                        mFragListener.OnRetrieveIngRequest(ingSelectedData);
-                        getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        mFragListener.OnFinishedAddingIng(ingSelectedData);
                     }
                 } else {
                     Toast.makeText(getActivity(), "The List is Empty! Please Add IngredientUncountable", Toast.LENGTH_SHORT).show();
@@ -232,18 +233,23 @@ public class SelectIngFrag extends Fragment {
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.empty_menu_items, menu);
+        //getActivity().invalidateOptionsMenu();
+        //menu.clear(); //use to clear to apply the new toolbar design
+        //inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
+        //Alternative method: setTag("someName".concat(String.valueOf(customNumber)));
         menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Ingredient");
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
+        /*final Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createRecipe_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                toolbar.setNavigationIcon(null);
+                toolbar.setNavigationOnClickListener(null);
+                toolbar.setOnMenuItemClickListener(null);
+                getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -253,13 +259,33 @@ public class SelectIngFrag extends Fragment {
                 switch (item.getItemId()) {
                     case MENU_ITEM_ITEM1:
                         mFragListener.OnCreateNewIngRequest();
-                        return true;
+                    return true;
 
                     default:
                         return false;
                 }
             }
-        });
+        });*/
+    }
+
+    //Alternative method: above
+    //this toolbar here in Fragment and its Activity are the same toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            //TODO: check program if it still function well when using back button
+            case android.R.id.home:
+                //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
+                getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                return true;
+
+            case MENU_ITEM_ITEM1:
+                mFragListener.OnCreateNewIngRequest();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private final View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
@@ -552,13 +578,13 @@ public class SelectIngFrag extends Fragment {
 
     private boolean ingredientAdded(String ingName) {
         for (Ingredient i : ingSelectedData) {
-            Log.i("addSelectedIngredient", "size > 0");
-            Log.i("addSelectedIngredient", i.getName());
+            //Log.i("addSelectedIngredient", "size > 0");
+            //Log.i("addSelectedIngredient", i.getName());
             if (i.getName().equalsIgnoreCase(ingName)) {
-                Log.i("addSelectedIngredient", "existed!");
+                //Log.i("addSelectedIngredient", "existed!");
                 return true;
             }
-            Log.i("addSelectedIngredient", "don't have");
+            //Log.i("addSelectedIngredient", "don't have");
         }
         return false;
     }
@@ -584,7 +610,7 @@ public class SelectIngFrag extends Fragment {
     private OnFragInteractListener mFragListener;
 
     public interface OnFragInteractListener {
-        void OnRetrieveIngRequest(List<IngredientCountable> ingredientCountables);
+        void OnFinishedAddingIng(List<IngredientCountable> ingredientCountable);
 
         void OnCreateNewIngRequest();
     }

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.act_main);
 
         //Fireapp Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent createMenuIntent = new Intent(MainActivity.this, CreateMenuFragContainerAct.class);
+                Intent createMenuIntent = new Intent(MainActivity.this, CreateMenuFragCtn.class);
                 startActivity(createMenuIntent);
             }
         });
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.main_view_menu_btn:
-                Intent createMenuIntent = new Intent(MainActivity.this, CreateMenuFragContainerAct.class);
+                Intent createMenuIntent = new Intent(MainActivity.this, CreateMenuFragCtn.class);
                 startActivity(createMenuIntent);
                 return true;
 
@@ -120,9 +120,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;*/
 
             default:
-                break;
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class ArrAdaptRecipeRow extends ArrayAdapter<Recipe> {
         // check if the existing view is being reused, otherwise inflate the view
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_meal_list_item_menu, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.layout_recipe_list_item_menu, parent, false);
         }
 
         //Get the Word object located at this position in the list

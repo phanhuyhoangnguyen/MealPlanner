@@ -1,6 +1,7 @@
 package com.example.myapp.mealplanner.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.*;
 import android.view.Menu;
 
+import com.example.myapp.mealplanner.Activity.CreateNewRecipeFragCtn;
 import com.example.myapp.mealplanner.CustomArrayAdapter.ArrAdaptRecRwVwClickListener;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -34,7 +36,6 @@ public class RecipeListRowFrag extends Fragment {
         //After the onAttack is called, every time this is executed, this will be perform by Activity,
         //with the parameter of this Fragment
         void onRecipeItmClicked(Recipe item);
-        void onCreateNewRecipeRequest();
     }
 
     private onFragInteractListener mFragListener;
@@ -98,7 +99,10 @@ public class RecipeListRowFrag extends Fragment {
         inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
-        menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe");
+        //add(int groupId, int itemId, int order, CharSequence title) == menuItem
+        //todo: fix id, using function to create unique id
+        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(android.view.Menu.NONE, MENU_ITEM_ITEM1 + 1, Menu.NONE, "Log Out");
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
@@ -114,8 +118,16 @@ public class RecipeListRowFrag extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case MENU_ITEM_ITEM1:
-                        mFragListener.onCreateNewRecipeRequest();
+                        // When data is modified but only affect a certain activity and only happen once instead of a whole application
+                        // it should be putted and handled with the use of Fragment
+                        // On the other hand, when the data is modified and affect the whole application (update local/remote database)
+                        // it should be handled in another separate Activity, since the scope of this act is affect more than just this certain activity
+
+                        Intent createRecipeIntent = new Intent(getActivity(), CreateNewRecipeFragCtn.class);
+                        //This suppose to be startActivityForResult() and return new Recipe to this Activity
+                        startActivity(createRecipeIntent);
                         return true;
+
                     default:
                         return false;
                 }

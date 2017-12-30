@@ -63,7 +63,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
     @Override
     public IngredientRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = inflater.inflate(R.layout.layout_ingredient_list_item_btn_qun, parent, false);
+        View v = inflater.inflate(R.layout.layout_ing_list_item_btn_qun, parent, false);
         return new IngredientRowHolder(v, new MyViewClickListener());
     }
 
@@ -148,7 +148,7 @@ public class ArrAdaptIngBtnListener extends RecyclerView.Adapter<ArrAdaptIngBtnL
 
         public void bind(final Ingredient listItems/*, final OnItmClickListener itmListener /*, final OnBtnClickListener btnListener*/) {
             getIngName().setText(listItems.getName());
-            getIngQuantity().setText(listItems.getCurrentQuantity().concat(listItems.getCurrentMeasurement()));
+            getIngQuantity().setText(listItems.getCurrentQuantity().concat(" ").concat(listItems.getCurrentMeasurement()));
             String cal = String.format(Locale.US, "%.2f", Double.valueOf(listItems.getCurrentCalories()));
             getInsCalories().setText(cal.concat( " Cal"));
 

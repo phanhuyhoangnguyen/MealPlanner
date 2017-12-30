@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_cookingIns_frag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardVwHeader_recipeIns_Frag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp">
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/name_recipeIns_Frag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
                 android:hint="@string/food_name"
                 android:textSize="22sp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:id="@+id/origin_recipeIns_Frag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
                     android:hint="@string/origin"
                     android:textSize="18sp" />
 
@@ -46,8 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginTop="32dp"
                     android:text="@string/no_of_servings"
                     android:textSize="18sp" />
             </FrameLayout>
@@ -56,8 +51,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginStart="32dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -67,78 +60,77 @@
                     android:hint="@string/food_type" />
 
                 <TextView
-                    android:id="@+id/cal_recipeIns_Frag"
+                    android:id="@+id/calTxt_recipeIns_Frag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="32dp"
                     android:text="@string/food_calories" />
             </FrameLayout>
-
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
-
+    <!-- FrameLayout with border and shadow -->
+    <!--refactor all the layout-->
     <android.support.v7.widget.CardView
         android:id="@+id/cardVwBody_recipeIns_Frag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/cardVwHeader_recipeIns_Frag"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp">
+        android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/linear2_recipeIns_Frag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/insLabel_recipeIns_Frag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_weight="4"
-                    android:text="@string/instruction_label" />
-
-                <TextView
-                    android:id="@+id/duration_recipeIns_Frag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="32dp"
-                    android:layout_weight="1"
-                    android:text="@string/prepare_duration_label" />
-
-            </LinearLayout>
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <TextView
-                android:id="@+id/insBody_recipeIns_Frag"
+                android:id="@+id/insLabel_recipeIns_Frag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/instruction_label"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/duration_recipeIns_Frag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/prepare_duration_label"
+                android:textSize="18sp" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:hint="@string/test_passage" />
-        </LinearLayout>
+                android:layout_marginTop="32dp"
+                android:layout_below="@id/insLabel_recipeIns_Frag">
+
+                <TextView
+                    android:id="@+id/insBody_recipeIns_Frag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="@string/test_passage"
+                    android:textSize="18sp" />
+            </ScrollView>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 
-    <Button
-        android:id="@+id/addRecipedBtn_recipeIns_Frag"
+    <!--<Button
+        android:id="@+id/addRecipeBtn_recipeIns_Frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginBottom="59dp"
-        android:text="@string/add" />
+        android:text="@string/add" />-->
 
 </RelativeLayout>

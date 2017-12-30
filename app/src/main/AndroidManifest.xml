@@ -24,11 +24,22 @@
         <activity
             android:name=".Activity.RegisterActivity"
             android:parentActivityName=".Activity.StartActivity" />
-        <activity android:name=".Activity.CreateMenuFragContainerAct">
+        <activity android:name=".Activity.CreateMenuFragCtn">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activity.MainActivity" />
         </activity>
+        <activity android:name=".Activity.CreateNewRecipeFragCtn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.CreateMenuFragCtn" />
+        </activity>
+        <activity android:name=".Activity.CreateNewIngFragCtn">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.CreateNewRecipeFragCtn" />
+        </activity>
+        <activity android:name=".Activity.EditRecipeFragInsCtn"></activity>
     </application>
 
 </manifest>

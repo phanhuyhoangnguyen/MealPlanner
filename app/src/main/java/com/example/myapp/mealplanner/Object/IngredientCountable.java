@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by John.nguyen on 07/12/2017.
  */
 
-public class IngredientCountable extends Ingredient {
+public class IngredientCountable extends Ingredient{
     public IngredientCountable() {
         // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
@@ -53,7 +53,6 @@ public class IngredientCountable extends Ingredient {
         // or 2: List<String> keys = (List<String>) getMeasurementDictMultiMap().keySet();
         // or 3: List<String> keys = new ArrayList<>(getMeasurementDictMultiMap().keySet());
         // or 4: List<String> yourList = new ArrayList<>(allInfo);
-        // TODO: update alternative method with resources file
         // or 5:
         // Collection allInfo = (Collection) getMeasurementDictMultiMap().entrySet(); //[Gram, 139, Cup, 205];
         // Alternative we can use List<String> instead of array: List<String> values = getMeasurementDictMultiMap().values;

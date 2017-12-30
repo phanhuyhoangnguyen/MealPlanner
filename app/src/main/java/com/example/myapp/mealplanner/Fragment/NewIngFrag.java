@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateNewIngFrag extends Fragment {
+public class NewIngFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String newCalInputTag = "newCalInput";
@@ -47,12 +47,12 @@ public class CreateNewIngFrag extends Fragment {
 
     private OnFragInteractListener mFragInteractListener;
 
-    public CreateNewIngFrag() {
+    public NewIngFrag() {
         // Required empty public constructor
     }
 
-    public static CreateNewIngFrag newInstance(String param1, String param2) {
-        CreateNewIngFrag fragment = new CreateNewIngFrag();
+    public static NewIngFrag newInstance(String param1, String param2) {
+        NewIngFrag fragment = new NewIngFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,12 +72,9 @@ public class CreateNewIngFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_create_new_ing, container, false);
+        View view = inflater.inflate(R.layout.frag_new_ing, container, false);
 
         retrieveData();
-
-        //Toolbar SetUp
-        setHasOptionsMenu(true);
 
         //push HashMap of Multi-Measurement Dictionary Database to server
         //pushMultiMeasureDict();
@@ -241,7 +238,6 @@ public class CreateNewIngFrag extends Fragment {
     }
 
     private void createNewIng() {
-        //TODO: autocomplete text with calories and spinner
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
 
@@ -261,11 +257,11 @@ public class CreateNewIngFrag extends Fragment {
                 //Alternative method: using List instead of HashMap<String, Measurement>
                 HashMap<String, Measurement> melCal = new HashMap<>();
                 Measurement measurement = measurementsMap.get(gramsLabel.getText().toString());
-                Log.i( "measurementsMap Size: ", String.valueOf(measurementsMap.size()));
-                for (String i: measurementsMap.keySet()){
+                Log.i("measurementsMap Size: ", String.valueOf(measurementsMap.size()));
+                for (String i : measurementsMap.keySet()) {
                     Log.i("Key Set", i);
                     Log.i("search: ", gramsLabel.getText().toString());
-                    if (i.equalsIgnoreCase(gramsLabel.getText().toString())){
+                    if (i.equalsIgnoreCase(gramsLabel.getText().toString())) {
                         measurement = measurementsMap.get(gramsLabel.getText().toString());
                         Log.i("Matched: ", "add");
                     }
@@ -276,20 +272,18 @@ public class CreateNewIngFrag extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "Calories is null", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
-                    Log.i("Measurement","is null");
+                } else {
+                    Log.i("Measurement", "is null");
                 }
                 melCal.put(measurement.getName(), measurement);
 
-                for (int i = 1; i < measurementInput; i++){
+                for (int i = 1; i < measurementInput; i++) {
                     Spinner newSpinner = getView().findViewWithTag(newSpinnerTag.concat(String.valueOf(i)));
                     EditText newInputCal = getView().findViewWithTag(newCalInputTag.concat(String.valueOf(i)));
 
-                    if (newSpinner == null || newInputCal == null){
-                        Log.i("null found", ""+i);
-                    }
-                    else {
+                    if (newSpinner == null || newInputCal == null) {
+                        Log.i("null found", "" + i);
+                    } else {
                         if (newInputCal.getText().toString().equals("")) {
                             newInputCal.setError("Please Enter Ingredient Calories!");
                             //Turn off Switch
@@ -371,26 +365,11 @@ public class CreateNewIngFrag extends Fragment {
         return false;
     }
 
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.empty_menu_items, menu);
-
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("CreateNewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-    }
-
     public void onAddIngBtnClicked() {
+        // this method suppose to return new created Ingredient
         if (mFragInteractListener != null) {
             mFragInteractListener.onAddIngBtnClicked();
-            getActivity().getSupportFragmentManager().popBackStack("CreateNewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getActivity().getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 

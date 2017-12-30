@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FoodMenuFrag extends Fragment {
     private ListView mListViewAppetizer;
     private ListView mListViewEntree;
