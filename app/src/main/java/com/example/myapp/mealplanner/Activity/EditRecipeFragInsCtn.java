@@ -3,6 +3,7 @@ package com.example.myapp.mealplanner.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -85,8 +86,8 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
 
             EditRecipeInsFrag editRecipeInsFrag = EditRecipeInsFrag.newInstance(targetRecipe);
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.frag_editRecipeFrgCtn_Act, editRecipeInsFrag, "editRecipeInsFrag");
-            transaction.addToBackStack("editRecipeInsFrag");
+            transaction.replace(R.id.frag_editRecipeFrgCtn_Act, editRecipeInsFrag, "EditRecipeInsFrag");
+            transaction.addToBackStack("EditRecipeInsFrag");
             transaction.commit();
         }
         else {
@@ -99,8 +100,8 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
     public void OnChangeIngRequest(List<IngredientCountable> existingList) {
         SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(existingList);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_editRecipeFrgCtn_Act, addIngredientsFragment, "selectIngFrag");
-        transaction.addToBackStack("selectIngFrag");
+        transaction.replace(R.id.frag_editRecipeFrgCtn_Act, addIngredientsFragment, "SelectIngFrag");
+        transaction.addToBackStack("SelectIngFrag");
         transaction.commit();
     }
 
@@ -112,7 +113,7 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
     @Override
     public void OnFinishedAddingIng(List<IngredientCountable> ingredientCountable) {
         //After finished selecting Ingredients, the Fragment kills itself and locate existing Fragment and pass this value to it
-        EditRecipeInsFrag editRecipeFrag = (EditRecipeInsFrag) manager.findFragmentByTag("editRecipeInsFrag");
+        EditRecipeInsFrag editRecipeFrag = (EditRecipeInsFrag) manager.findFragmentByTag("EditRecipeInsFrag");
         editRecipeFrag.passIngDataToFrag(ingredientCountable);
     }
 

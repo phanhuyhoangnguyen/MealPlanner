@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Activity.StartActivity;
+import com.example.myapp.mealplanner.Object.Ingredient;
 import com.example.myapp.mealplanner.Object.Menu;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -44,7 +45,7 @@ public class RecipeInsFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recipe_ins, container, false);
 
-        initializeUI(view);
+        loadDatatoView(view);
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
@@ -52,13 +53,13 @@ public class RecipeInsFrag extends Fragment {
         return view;
     }
 
-    private void sendUserToStart() {
+    private void logOut() {
         Intent startIntent = new Intent(getActivity(), StartActivity.class);
         startActivity(startIntent);
         getActivity().finish();
     }
 
-    private void initializeUI(View view) {
+    private void loadDatatoView(View view) {
         TextView name = view.findViewById(R.id.name_recipeIns_Frag);
         TextView country = view.findViewById(R.id.origin_recipeIns_Frag);
         TextView cal = view.findViewById(R.id.calTxt_recipeIns_Frag);
@@ -76,7 +77,17 @@ public class RecipeInsFrag extends Fragment {
         cal.setText(recipe.getCalories().concat(" Cal"));
         String foodDuration = duration.getText().toString().concat("\n").concat(recipe.getDuration());
         duration.setText(foodDuration);
-        instruction.setText(recipe.getInstruction());
+
+        String ingAndIns = "Ingredient Required:\n";
+
+        for (Ingredient i : recipe.getIngredientCountable()) {
+            ingAndIns = ingAndIns.concat(i.getName()).concat(" x ")
+                    .concat(i.getCurrentQuantity().concat(i.getCurrentMeasurement()).concat("\n"));
+        }
+
+        ingAndIns = ingAndIns.concat("\n").concat(recipe.getInstruction());
+
+        instruction.setText(ingAndIns);
         type.setText(recipe.getFoodType().concat("/").concat(recipe.getMenuType()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");

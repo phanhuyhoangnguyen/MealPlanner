@@ -1,5 +1,7 @@
 Current Working Resources:
 
+https://stackoverflow.com/questions/2486934/programmatically-relaunch-recreate-an-activity
+
 https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
 https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
 https://stackoverflow.com/questions/8819842/best-way-to-format-a-double-value-to-2-decimal-places

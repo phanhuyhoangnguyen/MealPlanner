@@ -200,7 +200,7 @@ public class SelectIngFrag extends Fragment {
                 if (ingSelectedData.size() > 0) {
                     if (mFragListener != null) {
                         //this will be called in the activity but not this fragment
-                        getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         mFragListener.OnFinishedAddingIng(ingSelectedData);
                     }
                 } else {
@@ -249,7 +249,7 @@ public class SelectIngFrag extends Fragment {
                 toolbar.setNavigationIcon(null);
                 toolbar.setNavigationOnClickListener(null);
                 toolbar.setOnMenuItemClickListener(null);
-                getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -276,7 +276,7 @@ public class SelectIngFrag extends Fragment {
             //TODO: check program if it still function well when using back button
             case android.R.id.home:
                 //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
-                getActivity().getSupportFragmentManager().popBackStack("selectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return true;
 
             case MENU_ITEM_ITEM1:

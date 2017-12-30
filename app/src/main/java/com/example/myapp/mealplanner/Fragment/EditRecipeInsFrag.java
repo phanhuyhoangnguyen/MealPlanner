@@ -74,7 +74,7 @@ public class EditRecipeInsFrag extends Fragment {
         //Set up the button to be ready, able to execute the method when it is clicked
         saveBtn.setOnClickListener(mOnClickListener);
 
-        TextView addIngBtn = view.findViewById(R.id.addIngTxtVw_editRecipeIns_Frag);
+        TextView addIngBtn = view.findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
         addIngBtn.setOnClickListener(mOnClickListener);
 
         return view;
@@ -103,53 +103,69 @@ public class EditRecipeInsFrag extends Fragment {
     }
 
     private void saveRecipeWithNewInfo() {
-        EditText recipeName = getView().findViewById(R.id.dishNameEditTxt_createNewRecipe_Frag);
-        EditText recipeCity = getView().findViewById(R.id.cityEditTxt_createNewRecipe_Frag);
-        Spinner recipeCountry = getView().findViewById(R.id.countrySpn_createNewRecipe_Frag);
-        EditText prepDuration = getView().findViewById(R.id.prepDuInput_createNewRecipe_Frag);
-        EditText servings = getView().findViewById(R.id.servingNoInput_createNewRecipe_Frag);
-        EditText insTxt = getView().findViewById(R.id.insInput_createNewRecipe_Frag);
-        Spinner foodCatType = getView().findViewById(R.id.foodTypeSpn_createNewRecipe_Frag);
-        Spinner menuItmType = getView().findViewById(R.id.menuItmTypeSpn_createNewRecipe_Frag);
-        TextView ingSelected = getView().findViewById(R.id.ingSelected_createNewRecipe_Frag);
+        EditText nameRecipe = getView().findViewById(R.id.nameEditTxt_editRecipeIns_Frag);
+        EditText cityRecipe = getView().findViewById(R.id.originCity_editRecipeIns_Frag);
+        Spinner countryRecipe = getView().findViewById(R.id.originCountry_editRecipeIns_Frag);
+        TextView totalCalData = getView().findViewById(R.id.calTxt_editRecipeIns_Frag);
 
-        String id = recipeName.getText().toString().replaceAll("\\s+", "").toLowerCase();
-        if (TextUtils.isEmpty(recipeName.getText().toString())) {
-            recipeName.setError("Enter Dish Name");
-        } else if (recipeCity.getText().toString().isEmpty()) {
-            recipeCity.setError("Enter Food's Original City");
-        } else if (recipeCountry.getSelectedItemPosition() == 0) {
-            Toast.makeText(getActivity(), "Please Select Food's Original Country", Toast.LENGTH_SHORT).show();
+        EditText servings = getView().findViewById(R.id.servingNo_editRecipeIns_Frag);
+
+        EditText prepDuration = getView().findViewById(R.id.duration_editRecipeIns_Frag);
+
+        Spinner foodType = getView().findViewById(R.id.foodTypeSpn_editRecipeIns_Frag);
+        Spinner menuType = getView().findViewById(R.id.menuTypeSpn_editRecipeIns_Frag);
+
+        TextView ingSelected = getView().findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
+
+        EditText ins = getView().findViewById(R.id.insBody_editRecipeIns_Frag);
+        String id = nameRecipe.getText().toString().replaceAll("\\s+", "").toLowerCase();
+
+        if (nameRecipe.getText().toString().isEmpty()) {
+            nameRecipe.setError("Please Enter Recipe Name.");
+        } else if (cityRecipe.getText().toString().isEmpty()) {
+            cityRecipe.setError("Please Enter Recipe's Origin City.");
+        } else if (countryRecipe.getSelectedItemPosition() == 0) {
+            Toast.makeText(getActivity(), "Please Select Recipe's Original Country", Toast.LENGTH_SHORT).show();
+        } else if (totalCalData.getText().toString().isEmpty()) {
+            Log.i("", "");
+            //.setError("Please Add Ingredients to Recipe.");
         } else if (prepDuration.getText().toString().isEmpty()) {
-            prepDuration.setError("Enter Preparation Duration");
+            prepDuration.setError("Please Enter Preparation Time.");
         } else if (servings.getText().toString().isEmpty()) {
-            servings.setError("Enter Number of Servings");
-        } else if (foodCatType.getSelectedItemPosition() == 0) {
-            Toast.makeText(getActivity(), "Please Select Food Type", Toast.LENGTH_SHORT).show();
-        } else if (menuItmType.getSelectedItemPosition() == 0) {
-            Toast.makeText(getActivity(), "Please Select Menu Item Type", Toast.LENGTH_SHORT).show();
-        } else if (insTxt.getText().toString().isEmpty()) {
-            insTxt.setError("Enter Instruction and add IngredientUncountable Required");
-        } else if (existingRecipe.getIngredientCountable() == null) {
+            servings.setError("Please Enter Number of Servings");
+        } else if (foodType.getSelectedItemPosition() == 0) {
+            ins.setError("Please Select Food Type");
+        } else if (menuType.getSelectedItemPosition() == 0) {
+            ins.setError("Please Select Menu Type");
+        } /*else if (selectedIngList.size() < 1) {
+            ins.setError("Please Select Menu Type");
+        } */ else if (existingRecipe.getIngredientCountable() == null) {
             ingSelected.setError("Please Add Ingredients!");
-            Toast.makeText(getActivity(), "Please Add Ingredients!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Please Add Ingredients!", Toast.LENGTH_SHORT).show();
+        } else if (ins.getText().toString().isEmpty()) {
+            ins.setError("Please Add Ingredients and Instruction");
         } else {
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
 
-                Recipe nRecipe = new Recipe("test", recipeName.getText().toString(),
-                        recipeCity.getText().toString(), recipeCountry.getSelectedItem().toString(),
-                        existingRecipe.getCalories(), prepDuration.getText().toString(),
-                        servings.getText().toString(), insTxt.getText().toString(),
-                        foodCatType.getSelectedItem().toString(),
-                        menuItmType.getSelectedItem().toString(),
-                        existingRecipe.getIngredientCountable());
-                Map<String, Object> newRecipe = new HashMap<>();
-                newRecipe.put(id, nRecipe);
-                mDatabase.updateChildren(newRecipe);
+            existingRecipe.setName(nameRecipe.getText().toString());
+            existingRecipe.setOrigin(cityRecipe.getText().toString(), countryRecipe.getSelectedItem().toString());
+            existingRecipe.setServingYield(servings.getText().toString());
+            existingRecipe.setFoodType(foodType.getSelectedItem().toString());
+            existingRecipe.setMenuType(menuType.getSelectedItem().toString());
+            //existingRecipe.setCalories(totalCalData.getText().toString());  //this is update from above
 
-                Toast.makeText(getActivity(), "New Recipe is added!", Toast.LENGTH_SHORT).show();
-                getActivity().getSupportFragmentManager().popBackStack("AddNewRecipeFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                mFragInteractListener.OnRecipeModified();
+            existingRecipe.setDuration(prepDuration.getText().toString());
+            //existingRecipe.setIngredientCountable(); this is update from above
+            existingRecipe.setInstruction(ins.getText().toString());
+
+
+            Map<String, Object> newRecipe = new HashMap<>();
+            newRecipe.put(id, existingRecipe);
+            mDatabase.updateChildren(newRecipe);
+
+            Toast.makeText(getActivity(), "Recipe is updated!", Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().popBackStack("EditRecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            mFragInteractListener.OnRecipeModified();
         }
     }
 
@@ -174,7 +190,7 @@ public class EditRecipeInsFrag extends Fragment {
         String origin[] = existingRecipe.getOrigin().replaceAll("\\s+", "").split(",");
 
         EditText originCityRecipe = view.findViewById(R.id.originCity_editRecipeIns_Frag);
-        Spinner originCountryRecipeSpn = view.findViewById(R.id.originCountry_editRecipeIns_Frag);
+        Spinner countryRecipeSpn = view.findViewById(R.id.originCountry_editRecipeIns_Frag);
 
         originCityRecipe.setText(origin[0]);
 
@@ -182,7 +198,7 @@ public class EditRecipeInsFrag extends Fragment {
                 android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.countryListName_array));
 
         countrySpnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        originCountryRecipeSpn.setAdapter(countrySpnAdapter);
+        countryRecipeSpn.setAdapter(countrySpnAdapter);
 
         Spinner foodTypeSpn = view.findViewById(R.id.foodTypeSpn_editRecipeIns_Frag);
         ArrayAdapter<String> foodTypeAdapter = new ArrayAdapter<>(getActivity(),
@@ -213,7 +229,7 @@ public class EditRecipeInsFrag extends Fragment {
 
             if (countryName != null) {
                 int spinnerPosition = countrySpnAdapter.getPosition(countryName);         // or: mySpinner.setSelection(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(countryName));
-                originCountryRecipeSpn.setSelection(spinnerPosition);
+                countryRecipeSpn.setSelection(spinnerPosition);
             }
         }
 
@@ -229,10 +245,10 @@ public class EditRecipeInsFrag extends Fragment {
         EditText servingNo = view.findViewById(R.id.servingNo_editRecipeIns_Frag);
         servingNo.setText(existingRecipe.getServingYield());
 
-        EditText prepDur = view.findViewById(R.id.duration_editRecipeIns_Frag);
-        prepDur.setText(existingRecipe.getDuration());
+        EditText prepDuration = view.findViewById(R.id.duration_editRecipeIns_Frag);
+        prepDuration.setText(existingRecipe.getDuration());
 
-        TextView ingSelected = view.findViewById(R.id.addIngTxtVw_editRecipeIns_Frag);
+        TextView ingSelected = view.findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
 
         EditText ins = view.findViewById(R.id.insBody_editRecipeIns_Frag);
         ins.setText(existingRecipe.getInstruction());
@@ -240,7 +256,8 @@ public class EditRecipeInsFrag extends Fragment {
         String ingList = ingSelected.getText().toString();
 
         for (Ingredient ing : existingRecipe.getIngredientCountable()) {
-            ingList = ing.getName().concat(ingList);
+            ingList = ("\n").concat(ing.getCurrentQuantity()).concat(" ")
+                    .concat(ing.getCurrentMeasurement()).concat(" x ").concat(ing.getName()).concat(ingList);
         }
 
         ingSelected.setText(ingList);
@@ -250,77 +267,20 @@ public class EditRecipeInsFrag extends Fragment {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.saveBtn_createNewIng_Frag:
-                    saveRecipeInfo();
+                case R.id.saveBtn_editRecipeIns_Frag:
+                    saveRecipeWithNewInfo();
                     break;
 
-                case R.id.addIngTxtVw_editRecipeIns_Frag:
+                case R.id.ingSelectedTxtVw_editRecipeIns_Frag:
                     changeIngredientsRequest();
                     break;
 
                 default:
+                    Log.i("EditRecipeInsFrag", "Default Switch");
                     break;
             }
         }
     };
-
-    private void saveRecipeInfo() {
-        EditText nameRecipe = getView().findViewById(R.id.nameEditTxt_editRecipeIns_Frag);
-        EditText originCityRecipe = getView().findViewById(R.id.originCity_editRecipeIns_Frag);
-        Spinner originCountryRecipe = getView().findViewById(R.id.originCountry_editRecipeIns_Frag);
-        TextView totalCalData = getView().findViewById(R.id.calTxt_editRecipeIns_Frag);
-
-        EditText servings = getView().findViewById(R.id.servingNo_editRecipeIns_Frag);
-
-        EditText prepDur = getView().findViewById(R.id.duration_editRecipeIns_Frag);
-
-        Spinner foodType = getView().findViewById(R.id.foodTypeSpn_editRecipeIns_Frag);
-        Spinner menuType = getView().findViewById(R.id.menuTypeSpn_editRecipeIns_Frag);
-
-        EditText ins = getView().findViewById(R.id.insBody_editRecipeIns_Frag);
-
-
-        if (nameRecipe.getText().toString().isEmpty()) {
-            nameRecipe.setError("Please Enter Recipe Name.");
-        } else if (originCityRecipe.getText().toString().isEmpty()) {
-            originCityRecipe.setError("Please Enter Origin City of Recipe.");
-        } else if (originCountryRecipe.getSelectedItemPosition() == 0) {
-            Toast.makeText(getActivity(), "Please Select Origin Country of Recipe", Toast.LENGTH_SHORT).show();
-        } else if (totalCalData.getText().toString().isEmpty()) {
-            Log.i("", "");
-            //.setError("Please Add Ingredients to Recipe.");
-        } else if (prepDur.getText().toString().isEmpty()) {
-            prepDur.setError("Please Enter Preparation Time.");
-        } else if (servings.getText().toString().isEmpty()) {
-            servings.setError("Please Enter Servings for this recipe");
-        } else if (ins.getText().toString().isEmpty()) {
-            ins.setError("Please Add Ingredients and Instruction");
-        } else if (foodType.getSelectedItemPosition() == 0) {
-            ins.setError("Please Select Food Type");
-        } else if (menuType.getSelectedItemPosition() == 0) {
-            ins.setError("Please Select Menu Type");
-        } /*else if (selectedIngList.size() < 1) {
-            ins.setError("Please Select Menu Type");
-        } */ else {
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Recipes");
-
-            existingRecipe.setName(nameRecipe.getText().toString());
-            existingRecipe.setOrigin(originCityRecipe.getText().toString(), originCountryRecipe.getSelectedItem().toString());
-            existingRecipe.setCalories(totalCalData.getText().toString());
-            existingRecipe.setDuration(prepDur.getText().toString());
-            existingRecipe.setServingYield(servings.getText().toString());
-            existingRecipe.setInstruction(ins.getText().toString());
-            existingRecipe.setFoodType(foodType.getSelectedItem().toString());
-            existingRecipe.setMenuType(menuType.getSelectedItem().toString());
-            //existingRecipe.setIngredientCountable();
-
-            /*Recipe nRecipe = new Recipe(selectedIngList);
-
-            Map<String, Object> newRecipe = new HashMap<>();
-            newRecipe.put(id, nRecipe);
-            mDatabase.updateChildren(newRecipe);*/
-        }
-    }
 
     private void changeIngredientsRequest() {
         if (mFragInteractListener != null) {

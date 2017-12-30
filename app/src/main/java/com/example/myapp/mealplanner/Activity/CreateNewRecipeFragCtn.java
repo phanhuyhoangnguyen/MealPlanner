@@ -80,8 +80,8 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         //Pass data to fragment
         SelectIngFrag addIngredientsFragment = SelectIngFrag.newInstance(data);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.createRecipeFrgCtn_Act, addIngredientsFragment, "selectIngFrag");
-        transaction.addToBackStack("selectIngFrag");
+        transaction.replace(R.id.createRecipeFrgCtn_Act, addIngredientsFragment, "SelectIngFrag");
+        transaction.addToBackStack("SelectIngFrag");
         transaction.commit();
     }
 

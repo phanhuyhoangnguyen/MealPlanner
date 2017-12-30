@@ -13,6 +13,7 @@ import java.util.List;
 public class Recipe implements Parcelable {
 
     //TODO: try to convert to private to see how Firebase react
+    //todo: add author field later
     public String servingYield;
 
     public void setInstruction(String instruction) {
