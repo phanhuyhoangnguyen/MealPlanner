@@ -71,8 +71,8 @@ public class EditRecipeInsFrag extends Fragment {
 
         loadDataToView(view);
 
-        TextView addIngBtn = view.findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
-        addIngBtn.setOnClickListener(mOnClickListener);
+        TextView ingsSelectedTxt = view.findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
+        ingsSelectedTxt.setOnClickListener(mOnClickListener);
 
         return view;
     }
@@ -130,6 +130,7 @@ public class EditRecipeInsFrag extends Fragment {
         menuTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         menuTypeSpn.setAdapter(menuTypeAdapter);
 
+        //todo: take all of these into note with proper structure
         // Alternative method 1: Using for loop using i to check every value of spinner item,
         // compare the value of every items (item.toString()), the matched value along with its index (i) is return and setSelection(i);
         // or 2:  Using for loop using i to check every value of Adapter item,
@@ -198,7 +199,9 @@ public class EditRecipeInsFrag extends Fragment {
                 case R.id.ingSelectedTxtVw_editRecipeIns_Frag:
                     TextView ingSelected = view.findViewById(R.id.ingSelectedTxtVw_editRecipeIns_Frag);
                     if (ingSelected.getText().toString().contains("...")) {
+                        EditText ins = getView().findViewById(R.id.insBody_editRecipeIns_Frag);
                         displaySelectedIng(saveIngs);
+                        ins.clearFocus();
                     } else {
                         changeIngredientsRequest();
                     }

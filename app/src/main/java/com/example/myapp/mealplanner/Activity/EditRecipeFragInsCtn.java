@@ -3,17 +3,16 @@ package com.example.myapp.mealplanner.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Fragment.EditRecipeInsFrag;
-import com.example.myapp.mealplanner.Fragment.NewRecipeFrag;
 import com.example.myapp.mealplanner.Fragment.SelectIngFrag;
 import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Recipe;
@@ -22,10 +21,10 @@ import com.example.myapp.mealplanner.R;
 import java.util.List;
 
 public class EditRecipeFragInsCtn extends AppCompatActivity
-        implements EditRecipeInsFrag.OnFragmentInteractionListener, SelectIngFrag.OnFragInteractListener{
+        implements EditRecipeInsFrag.OnFragmentInteractionListener, SelectIngFrag.OnFragInteractListener {
 
     private FragmentManager manager;
-    private static final int MENU_ITEM_ITEM1 = 1;
+    private static final int LOG_OUT_MENU_ITEM_ID = View.generateViewId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
 
         //Inflate menu layout to this Activity Layout, without this line of code, the Activity Toolbar will be empty just like its layout xml
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
-        menu.add(Menu.NONE, MENU_ITEM_ITEM1, Menu.NONE, "Log Out");
+        menu.add(Menu.NONE, LOG_OUT_MENU_ITEM_ID, Menu.NONE, "Log Out");
         //change menu will be handle in Fragment, alternative method: change method from Activity
         return true;
     }
@@ -62,20 +61,20 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+
     }
 
     // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int id = item.getItemId();
 
-            //todo: check this later, be careful with the same id with fragment, this may call problem
-            case MENU_ITEM_ITEM1:
-                Toast.makeText(this, "Log Out!", Toast.LENGTH_SHORT).show();
-
-            default:
-                return super.onOptionsItemSelected(item);
-
+        if (id == LOG_OUT_MENU_ITEM_ID) {
+            Toast.makeText(this, "Log Out!", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -89,11 +88,9 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
             transaction.replace(R.id.frag_editRecipeFrgCtn_Act, editRecipeInsFrag, "EditRecipeInsFrag");
             transaction.addToBackStack("EditRecipeInsFrag");
             transaction.commit();
-        }
-        else {
+        } else {
             Log.i("EditRecipeFragInsCtn", "dataBundle is null");
         }
-
     }
 
     @Override
