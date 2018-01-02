@@ -3,6 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.myapp.mealplanner.Fragment.RecipeListRowFrag">
+
+    <!-- method 1: using Animation to rotate, making image into progress bar -->
+    <ImageView
+        android:id="@+id/progressImage_recipeListRow_Frag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_swap_vertical_circle_black_48dp"
+        android:visibility="visible"
+        android:contentDescription="@string/progress_circular_bar" />
+
+    <!-- method 2: create custom drawable for provided progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar1_recipeListRow_Frag"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:progressDrawable="@drawable/custom_circular_progress_bar"
+        android:visibility="gone" />
+
+    <!-- method 3: create custom layout for provided progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar_recipeListRow_Frag"
+        style="@style/CustomProgressSpinnerBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleVw_recipeListRow_Frag"
         android:layout_width="match_parent"

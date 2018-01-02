@@ -1,5 +1,11 @@
 Current Working Resources:
 
+http://custom-android-dn.blogspot.com.au/2013/01/how-to-create-custom-progress-bar-and.html
+https://stackoverflow.com/questions/16893209/how-to-customize-a-progress-bar-in-android
+https://stackoverflow.com/questions/11322740/custom-progress-bar-android
+https://stackoverflow.com/questions/12559461/how-to-show-progress-barcircle-in-an-activity-having-a-listview-before-loading
+http://www.tutorialspoint.com/android/android_loading_spinner.htm
+
 https://stackoverflow.com/questions/2486934/programmatically-relaunch-recreate-an-activity
 
 https://stackoverflow.com/questions/153724/how-to-round-a-number-to-n-decimal-places-in-java
@@ -21,6 +27,7 @@ Good Resources For Reviewing:
 Foundation Knowledge Books:
 Beginning Android 4 Application Development Wei-Meng Lee
 Professional Android Application Development Retro Meier
+http://www.wrox.com/WileyCDA/
 
 1. String Components:
 https://stackoverflow.com/questions/38913836/java-how-to-see-if-a-string-contains-multiple-words
@@ -40,6 +47,15 @@ https://study.com/academy/lesson/java-float-vs-double.html
 
 5.Spinner:
 https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
+
+6.AsyncTask: Take note later
+http://programmerguru.com/android-tutorial/what-is-asynctask-in-android/		good explaination
+http://programmerguru.com/android-tutorial/android-asynctask-example/			good code explaination
+https://www.concretepage.com/android/android-asynctask-example-with-progress-bar
+
+7.Animation:
+https://developer.android.com/guide/topics/resources/animation-resource.html
+https://www.androidhive.info/2013/06/android-working-with-xml-animations/	animation tutorial take note later
 
 Todo List - Extension Idea:
 Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...

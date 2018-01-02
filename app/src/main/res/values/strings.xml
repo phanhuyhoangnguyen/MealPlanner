@@ -90,4 +90,5 @@
     <string name="countable_cup">Countable (cup,…)</string>
     <string name="uncountable_grams">Uncountable (grams,…)</string>
     <string name="city_name">City Name</string>
+    <string name="progress_circular_bar">progress circular bar</string>
 </resources>
