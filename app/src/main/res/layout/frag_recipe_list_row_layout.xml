@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.myapp.mealplanner.Fragment.RecipeListRowFrag">
 
+    <!-- todo: modify all the layout according to the design guideline -->
     <!-- method 1: using Animation to rotate, making image into progress bar -->
     <ImageView
         android:id="@+id/progressImage_recipeListRow_Frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:contentDescription="@string/progress_circular_bar"
         android:src="@drawable/ic_swap_vertical_circle_black_48dp"
-        android:visibility="visible"
-        android:contentDescription="@string/progress_circular_bar" />
+        android:visibility="visible" />
 
     <!-- method 2: create custom drawable for provided progress bar -->
     <ProgressBar

@@ -114,4 +114,24 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
         startActivity(editRecipeIns);
     }
+
+    // todo: Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...
+    // todo: Update with my own menu database
+    // todo: Code search function based on Countries, city or ingrdients, comdiments (eggs, black soya sauce, oyster sauce)
+    // todo: Timer widget for cooking preparation
+    // todo: Update Ingredient Other Nutrition data: carb, vitamin A...
+    // todo: Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
+    //  + Random pick healthy food to add the meal to be fully healthy and nutritions: e.g. banana, nut, batiso tea...
+    // todo: Health Checker Function: allow users to check their symptomp according to their body parts:
+    //  e.g. hurt in lower part of belly, make a assumptions based on unhealthy diet check, recommended for food intakes.
+    // todo: Organs Improvements: allow users to specific enhance their target body parts/organ including muscles, eyes, livers, kiddney...
+    //  + Recommended healthy food intakes including banana, vegestable, cranberry, nuts... for extra health benefits.
+    //  Recommendation for vital intake (AI for further enhance): no vegestable -> drink or alternative
+    //  Supplement Recommendation for healthier life: medicine, fish oil (with correct usage) - advertisements with big brand medicine in future (or pro-edition to unlock)
+    //  e.g. Ural
+    // todo: Chart: display food nutrition intakes
+    // todo: Taking out Food Option
+    // todo: Taking out Drink Option
+    // todo: Drink Recipe
+    // todo: AI: recommended meal set
 }
