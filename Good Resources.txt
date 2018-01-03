@@ -57,22 +57,3 @@ https://www.concretepage.com/android/android-asynctask-example-with-progress-bar
 https://developer.android.com/guide/topics/resources/animation-resource.html
 https://www.androidhive.info/2013/06/android-working-with-xml-animations/	animation tutorial take note later
 
-Todo List - Extension Idea:
-Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...
-Update with my own menu database
-Timer widget for cooking preparation
-Update Ingredient Other Nutrition data: carb, vitamin A...
-Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
- + Random pick healthy food to add the meal to be fully healthy and nutritions: e.g. banana, nut, batiso tea...
-Health Checker Function: allow users to check their symptomp according to their body parts: 
-e.g. hurt in lower part of belly, make a assumptions based on unhealthy diet check, recommended for food intakes.
-Organs Improvements: allow users to specific enhance their target body parts/organ including muscles, eyes, livers, kiddney...
- + Recommended healthy food intakes including banana, vegestable, cranberry, nuts... for extra health benefits.
-Recommdation for vital intake (AI for further enhance): no vegestable -> drink or alternative
-Supplement Recommendation for healthier life: medicine, fish oil (with correct usage) - advertisements with big brand medicine in future (or pro-edition to unlock)
-e.g. Ural
-Chart: display food nutrition intakes
-Taking out Food Option
-Taking out Drink Option
-Drink Recipe
-AI: recommended meal set

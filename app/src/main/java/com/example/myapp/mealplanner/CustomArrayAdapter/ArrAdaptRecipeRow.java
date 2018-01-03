@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class ArrAdaptRecipeRow extends ArrayAdapter<Recipe> {
 
-
     public ArrAdaptRecipeRow(Activity context, ArrayList<Recipe> wordsList) {
         super(context, 0, wordsList);
     }
@@ -37,8 +36,8 @@ public class ArrAdaptRecipeRow extends ArrayAdapter<Recipe> {
         //Get the Word object located at this position in the list
         Recipe current = getItem(position);
 
-        //Find the TextView in the list_item_food_list_food_list.xml with the ID verson_name
-        TextView nameTextView = (TextView) listItemView.findViewById(R.id.name_recipeListItmRow_Layout);
+        //Find the TextView in the list_item_food_list_food_list.xml with the ID version_name
+        TextView nameTextView = listItemView.findViewById(R.id.name_recipeListItmRow_Layout);
 
         //Get the version name from the current Word object and
         //set this text on the name TextView
