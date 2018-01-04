@@ -24,13 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mDisplayName;
     private TextInputLayout mEmail;
     private TextInputLayout mPassword;
-    private Button mCreateBtn;
-    private Toolbar mToolbar;
 
-    //Progress Dialog
-    private ProgressBar mRegProgress;
-
-    //Fireapp
+    //Firebase
     private FirebaseAuth mAuth;
 
     @Override
@@ -38,22 +33,23 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_register);
 
-        //Fireapp
+        //Firebase
         mAuth = FirebaseAuth.getInstance();
 
         //Find Widget
-        mDisplayName = (TextInputLayout) findViewById(R.id.nameInput_register_Act);
-        mEmail = (TextInputLayout) findViewById(R.id.emailInput_register_Act);
-        mPassword = (TextInputLayout) findViewById(R.id.passwordInput_login_Act);
-        mCreateBtn = (Button) findViewById(R.id.regBtn_register_Act);
+        mDisplayName = findViewById(R.id.nameInput_register_Act);
+        mEmail = findViewById(R.id.emailInput_register_Act);
+        mPassword = findViewById(R.id.passwordInput_login_Act);
+        Button mCreateBtn = findViewById(R.id.regBtn_register_Act);
 
         //ToolBar Set
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
         //getSupportActionBar().setTitle("Recipe Planner");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mRegProgress = new ProgressBar(this);
+        //todo: fix this later
+        ProgressBar mRegProgress = new ProgressBar(this);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override

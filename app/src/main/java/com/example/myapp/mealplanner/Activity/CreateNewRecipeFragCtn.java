@@ -30,8 +30,6 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
         setDefaultFragment();
 
         //Toolbar Set Up
-        //invalidateOptionsMenu(); //Declare that the options menu has changed, so should be recreated.
-
         Toolbar mToolbar = findViewById(R.id.toolbar_createRecipe_Act);
         setSupportActionBar(mToolbar);
     }
@@ -42,7 +40,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
 
         //this condition is true if we have called setSupportActionBar(mToolbar)
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -60,6 +58,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
+        //todo: fix menu for fragments and activities later
         //change menu will be handle in Fragment, alternative method: change method from Activity
         return true;
     }
@@ -98,7 +97,6 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
     @Override
     public void OnRecipeCreated() {
         //Pop back to the base fragments: Select Recipe: RecipeListRowFrag and finish this Activity
-        //redundant: getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         finish(); //this will kill the base Fragment as well
     }
 }

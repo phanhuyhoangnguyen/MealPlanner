@@ -38,8 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         //ToolBar Set
         Toolbar mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setTitle("Recipe Planner");
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

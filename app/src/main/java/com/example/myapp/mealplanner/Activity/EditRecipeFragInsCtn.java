@@ -36,18 +36,14 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
         setDefaultFragment();
 
         Toolbar mToolbar = findViewById(R.id.toolbar_editRecipeFragCtn_Act);
-        //set Support Action Bar to allow modify its component
         setSupportActionBar(mToolbar);
     }
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        //Inflate menu layout to this Activity Layout, without this line of code, the Activity Toolbar will be empty just like its layout xml
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
         menu.add(Menu.NONE, LOG_OUT_MENU_ITEM_ID, Menu.NONE, "Log Out");
-        //change menu will be handle in Fragment, alternative method: change method from Activity
         return true;
     }
 
@@ -58,11 +54,9 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
 
         //this condition is true if we have called setSupportActionBar(mToolbar)
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-
     }
 
     // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu

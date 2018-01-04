@@ -20,6 +20,7 @@ public class StartActivity extends AppCompatActivity {
         mRegBtn = findViewById(R.id.regBtn_start_Act);
         mLogBtn = findViewById(R.id.loginBtn_start_Act);
 
+        //todo: group these 2 together later
         mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
