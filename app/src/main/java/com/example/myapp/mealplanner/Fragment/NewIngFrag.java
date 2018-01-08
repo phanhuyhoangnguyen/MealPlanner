@@ -241,8 +241,8 @@ public class NewIngFrag extends Fragment {
         TextInputLayout ingName = getView().findViewById(R.id.ingNameInput_createNewIng_Frag);
         TextInputLayout ingCal = getView().findViewById(R.id.ingCalInput_createNewIng_Frag);
 
-        //TODO: fix all these warning
-        //TODO: put format constraint for name to be camelCase
+        //TODO: before testing fix all these warning
+        //TODO: when testing: put format constraint for name to be camelCase
         String name = ingName.getEditText().getText().toString();
         String cal = ingCal.getEditText().getText().toString();
         TextView gramsLabel = getView().findViewById(R.id.measurementTxtVw_createNewIng_Frag);
@@ -289,7 +289,7 @@ public class NewIngFrag extends Fragment {
                             //Turn off Switch
                             i = measurementInput;
                         } else {
-                            //TODO: Check this: re-allocate memory location, override the new value but not affect the existing value
+                            //TODO: when testing: Check this: re-allocate memory location, override the new value but not affect the existing value
                             measurement = measurementsMap.get(newSpinner.getSelectedItem().toString());
                             measurement.setCalories(newInputCal.getText().toString());
                             melCal.put(measurement.getName(), measurement);

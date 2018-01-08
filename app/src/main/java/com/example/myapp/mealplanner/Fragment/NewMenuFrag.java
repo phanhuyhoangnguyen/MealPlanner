@@ -76,7 +76,6 @@ public class NewMenuFrag extends Fragment {
                 DisplayFoodMenuData();
                 return true;
 
-            //TODO: fix this, editing database
             case R.id.action_editMenu:
                 return false;
 

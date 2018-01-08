@@ -61,7 +61,7 @@ public class CreateNewIngFragCtn extends AppCompatActivity
                 finish();
                 return true;
 
-            //todo: implement button save here later
+            //todo: implement save item icon here later
 
             default:
                 return super.onOptionsItemSelected(item);

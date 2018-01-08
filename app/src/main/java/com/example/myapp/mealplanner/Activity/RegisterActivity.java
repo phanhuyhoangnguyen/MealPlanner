@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         //getSupportActionBar().setTitle("Recipe Planner");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //todo: fix this later
+        //todo: add progress bar
         ProgressBar mRegProgress = new ProgressBar(this);
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {

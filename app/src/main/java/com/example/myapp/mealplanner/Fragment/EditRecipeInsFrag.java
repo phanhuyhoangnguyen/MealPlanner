@@ -130,7 +130,7 @@ public class EditRecipeInsFrag extends Fragment {
         menuTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         menuTypeSpn.setAdapter(menuTypeAdapter);
 
-        //todo: take all of these into note with proper structure
+        // todo: whenever possible: take all of these into note with proper structure
         // Alternative method 1: Using for loop using i to check every value of spinner item,
         // compare the value of every items (item.toString()), the matched value along with its index (i) is return and setSelection(i);
         // or 2:  Using for loop using i to check every value of Adapter item,

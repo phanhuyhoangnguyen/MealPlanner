@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void loginUser(String email, String password) {
         try {
-            // todo: fix later
+            // todo: when testing: fix firebase
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

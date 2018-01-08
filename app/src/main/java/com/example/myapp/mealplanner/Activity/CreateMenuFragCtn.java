@@ -146,7 +146,7 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     // todo: Chart: display food nutrition intakes
     // todo: Taking out Food Option
     // todo: Taking out Drink Option
-    // todo: Drink Recipe
+    // todo: add drink Recipe
     // todo: AI: recommended meal set
     // todo: continue taking note
     // todo: after finish coding all basic function, perform comprehensive testing to improve both layout (UI) and experience (UX)

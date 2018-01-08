@@ -48,7 +48,7 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            //todo: add LogOut button later
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -58,8 +58,6 @@ public class CreateNewRecipeFragCtn extends AppCompatActivity
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
-        //todo: fix menu for fragments and activities later
-        //change menu will be handle in Fragment, alternative method: change method from Activity
         return true;
     }
 

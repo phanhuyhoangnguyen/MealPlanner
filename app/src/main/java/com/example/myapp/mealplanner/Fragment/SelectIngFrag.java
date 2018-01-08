@@ -123,7 +123,7 @@ public class SelectIngFrag extends Fragment {
         //If called in here, this might be called more than once, so remember to clear the data, otherwise the data might duplicated
         retrieveIngredientData();
 
-        //TODO: create custom ArrayAdapter for Auto-complete text, showing no result
+        //TODO: before testing: create custom ArrayAdapter for Auto-complete text, showing no result
         itemsAvailAdapter = new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_dropdown_item_1line, ingNameData);
 
@@ -273,7 +273,7 @@ public class SelectIngFrag extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            //TODO: check program if it still function well when using back button
+            //TODO: when testing: check program if it still function well when using back button
             case android.R.id.home:
                 //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
                 getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -339,7 +339,7 @@ public class SelectIngFrag extends Fragment {
                 itemsAvailAdapter.clear();
 
                 for (DataSnapshot ingredientSnapshot : dataSnapshot.getChildren()) {
-                    //TODO: review this, abstract class
+                    //TODO: after testing: review this, abstract class
                     Ingredient ingObj = (IngredientCountable) ingredientSnapshot.getValue(IngredientCountable.class);
                     if (ingObj != null) {
                         ingNameData.add(ingObj.getName());
@@ -436,7 +436,7 @@ public class SelectIngFrag extends Fragment {
             //This is only triggered when the button with set onClickListener is clicked
             //Toast.makeText(getActivity(), "Short Click", Toast.LENGTH_SHORT).show();
             switch (view.getId()) {
-                //TODO: reformat number quantity to be correct: 1.0 -> 1
+                //TODO: when testing fix: reformat number quantity to be correct: 1.0 -> 1
                 case R.id.ingQunBtnInc_listItm_Layout:
                     Log.i("locItm currentQty + i: ", localItm.getCurrentQuantity() + "+" + i);
                     localItm.setCurrentCalories(String.valueOf((Float.valueOf(localItm.getCurrentCalories()) *
@@ -531,7 +531,7 @@ public class SelectIngFrag extends Fragment {
         //1st method: Using switch
         switch (item.getItemId()) {
             case R.id.delete_option:
-                //TODO: fix this, check why the item removed but still recorded in memory but not creating new
+                //TODO: when testing fix: check why the item removed but still recorded in memory but not creating new
                 ingSelectedData.remove(ingredientUncountable);
                 Toast.makeText(getActivity(), "Delete!", Toast.LENGTH_SHORT).show();
                 updateList();

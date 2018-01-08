@@ -132,8 +132,7 @@ public class RecipeListRowFrag extends Fragment {
         // start the animation
         if (swt) {
             loading.startAnimation(animRotate);
-        }
-        else {
+        } else {
             loading.clearAnimation();
             loading.setVisibility(View.GONE);
         }
@@ -149,37 +148,24 @@ public class RecipeListRowFrag extends Fragment {
         //add(int groupId, int itemId, int order, CharSequence title) == menuItem
         menu.add(Menu.NONE, ADD_RECIPE_MENU_ITEM_ID, Menu.NONE, "Add Recipe").setIcon(R.drawable.ic_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(android.view.Menu.NONE, ADD_RECIPE_MENU_ITEM_ID + 1, Menu.NONE, "Log Out");
+    }
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("FoodTypeListRowFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().getSupportFragmentManager().popBackStack("FoodTypeListRowFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            return true;
+        } else if (id == ADD_RECIPE_MENU_ITEM_ID) {
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
 
-                if (id == ADD_RECIPE_MENU_ITEM_ID) {
-
-                    // When data is modified but only affect a certain activity and only happen once instead of a whole application
-                    // it should be putted and handled with the use of Fragment
-                    // On the other hand, when the data is modified and affect the whole application (update local/remote database)
-                    // it should be handled in another separate Activity, since the scope of this act is affect more than just this certain activity
-
-                    Intent createRecipeIntent = new Intent(getActivity(), CreateNewRecipeFragCtn.class);
-                    //This suppose to be startActivityForResult() and return new Recipe to this Activity
-                    startActivity(createRecipeIntent);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
+            Intent createRecipeIntent = new Intent(getActivity(), CreateNewRecipeFragCtn.class);
+            //This suppose to be startActivityForResult() and return new Recipe to this Activity
+            startActivity(createRecipeIntent);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -200,7 +186,7 @@ public class RecipeListRowFrag extends Fragment {
     }
 
     // Starting a new asynctask to show custom two progress bars working when click on button.
-    // One horizontal style and one spinner style.
+// One horizontal style and one spinner style.
     public class ShowCustomProgressBarAsyncTask extends AsyncTask<Void, Integer, Void> {
         int myProgress;
 

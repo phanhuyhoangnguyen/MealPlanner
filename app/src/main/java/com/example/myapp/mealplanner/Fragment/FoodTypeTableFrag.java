@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -52,25 +53,7 @@ public class FoodTypeTableFrag extends Fragment {
 
         //Tool SetUp
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        //call to inform this Fragment will modify its Parent's Toolbar
         setHasOptionsMenu(true);
-
-        //1st Way
-        //getActivity().setSupportActionBar(toolbar);
-        //getActivity().getSupportActionBar().setHomeButtonEnabled(true);
-        //getActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Inform the menu has changed and need to be redrawn
-        //getActivity().invalidateOptionsMenu();
-
-        //2nd way
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack( "FoodTypeTableFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
 
         return view;
     }
@@ -82,6 +65,18 @@ public class FoodTypeTableFrag extends Fragment {
         menu.findItem(R.id.action_editMenu).setVisible(false);
 
         super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().getSupportFragmentManager().popBackStack("FoodTypeTableFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private View.OnClickListener mOnclickListener = new View.OnClickListener() {
