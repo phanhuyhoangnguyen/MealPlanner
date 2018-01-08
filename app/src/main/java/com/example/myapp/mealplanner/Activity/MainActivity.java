@@ -78,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null) {
+        // todo: after fix finebase bugs, uncomment this
+        /*if (currentUser == null) {
             sendUserToStart();
-        }
+        }*/
 
         if (getSupportActionBar() != null){
             //getSupportActionBar().setTitle("Create Account");
@@ -114,13 +115,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent createMenuIntent = new Intent(MainActivity.this, CreateMenuFragCtn.class);
                 startActivity(createMenuIntent);
                 return true;
-
-            //todo: fix and delete this later
-            /*case R.id.action_addMenu:
-            case R.id.action_editMenu:
-            case R.id.custom_logout_btn:
-            case R.id.action_addNewDish:
-                return false;*/
 
             default:
                 return super.onOptionsItemSelected(item);

@@ -39,8 +39,7 @@ public class ArrAdaptRecipeRow extends ArrayAdapter<Recipe> {
         //Find the TextView in the list_item_food_list_food_list.xml with the ID version_name
         TextView nameTextView = listItemView.findViewById(R.id.name_recipeListItmRow_Layout);
 
-        //Get the version name from the current Word object and
-        //set this text on the name TextView
+        //Get the version name from the current object and set this text on the name TextView
         nameTextView.setText(current.getName());
 
         return listItemView;

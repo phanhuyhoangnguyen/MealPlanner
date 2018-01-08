@@ -43,28 +43,31 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
+        // Implement this here because the Act handle general action
         menu.add(Menu.NONE, LOG_OUT_MENU_ITEM_ID, Menu.NONE, "Log Out");
         return true;
     }
 
-    // Implement this here because the Act handle general action
     @Override
     protected void onStart() {
         super.onStart();
 
-        //this condition is true if we have called setSupportActionBar(mToolbar)
+        // this condition is true if we have called setSupportActionBar(mToolbar)
+        // this need to put here because this method need to be called again
+        // and onStart will be triggered again when Activity is navigated back
+        // from any other Activity or Fragment called again when
         if (getSupportActionBar() != null) {
             //getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
-    // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == LOG_OUT_MENU_ITEM_ID) {
+            // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu
             Toast.makeText(this, "Log Out!", Toast.LENGTH_SHORT).show();
             return true;
         } else {

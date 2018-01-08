@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,15 +28,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecipeInsFrag extends Fragment {
     private Recipe recipe;
     private Menu mMenu;
     private DatabaseReference mDatabase;
     private String id;
-    private static final int addImgBtnId = 1;
+    private static final int addImgBtnId = View.generateViewId();
+    private static final int editRecipe = View.generateViewId();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,45 +53,26 @@ public class RecipeInsFrag extends Fragment {
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.recipe_ins_menu_items, menu);
+        inflater.inflate(R.menu.empty_menu_items, menu);
         menu.add(android.view.Menu.NONE, addImgBtnId, android.view.Menu.NONE, "Add New Recipe").setIcon(R.drawable.ic_playlist_add_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-        //todo: fix this later
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_editRecipe:
-                        //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
-                        mFragListener.OnEditRecipeRequest(recipe);
-                        return true;
-
-                    case addImgBtnId:
-                        addMenu(recipe);
-                        return true;
-
-                    default:
-                        Log.i("onMenuItemClick", "default");
-                        return false;
-                }
-            }
-        });
+        menu.add(android.view.Menu.NONE, editRecipe, android.view.Menu.NONE, "Edit Recipe").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            return true;
+        } else if (id == editRecipe) {
+            //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
+            mFragListener.OnEditRecipeRequest(recipe);
+            return true;
+        } else if (id == addImgBtnId) {
+            addMenu(recipe);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -201,7 +178,6 @@ public class RecipeInsFrag extends Fragment {
         // Required empty public constructor
     }
 
-
     private void logOut() {
         Intent startIntent = new Intent(getActivity(), StartActivity.class);
         startActivity(startIntent);
@@ -212,6 +188,7 @@ public class RecipeInsFrag extends Fragment {
 
     public interface OnFragInteractListener {
         void OnEditRecipeRequest(Recipe passRecipe);
+
     }
 
     @Override

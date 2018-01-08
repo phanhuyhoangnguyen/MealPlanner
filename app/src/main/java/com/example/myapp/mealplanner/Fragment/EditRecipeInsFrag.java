@@ -83,7 +83,7 @@ public class EditRecipeInsFrag extends Fragment {
         menu.add(Menu.NONE, saveImgBtnId, Menu.NONE, "Save").setIcon(R.drawable.ic_save_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
-    // implement this in Fragment instead of Activity because the Activity handle general actions but not specific Fragment's Menu
+    // implement this in Fragment instead of Activity because the Activity only handle general actions but not specific Fragment's Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

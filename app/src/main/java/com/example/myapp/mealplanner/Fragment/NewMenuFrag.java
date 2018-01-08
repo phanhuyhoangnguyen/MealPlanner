@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class NewMenuFrag extends Fragment {
 
     //String will allow better performance but Recipe will allow object being able to passed between Fragments
@@ -56,48 +52,8 @@ public class NewMenuFrag extends Fragment {
         /*FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.setVisibility(View.GONE);*/
 
-        Toolbar mToolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-
-        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            /*FragmentManager manager = getActivity().getFragmentManager();
-            FragmentTransaction transaction;
-            FoodTypeTableFrag foodTypeTableFragment;*/
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_addMenu:
-                        onCreateNewMenuRequestedListener.onCreateNewMenuRequested(null, "onMenuItemClick: Create Menu clicked!");
-                        return true;
-
-                    case R.id.action_createMenu:
-                        createNewMenu();
-                        DisplayFoodMenuData();
-                        return true;
-
-                    //TODO: fix this, editing database
-                    case R.id.action_editMenu:
-                        return false;
-
-                    case R.id.custom_logout_btn:
-                        FirebaseAuth.getInstance().signOut();
-                        sendUserToStart();
-                        return true;
-
-                    default:
-                        Log.i("onMenuItemClick", "default");
-                        return false;
-                }
-            }
-        });
+        //Toolbar SetUp
+        setHasOptionsMenu(true);
 
         mListViewAppetizer = view.findViewById(R.id.appetizerItm_menuListRow_Frag);
         mListViewEntree = view.findViewById(R.id.entreeListItm_menuListRow_Frag);
@@ -107,6 +63,34 @@ public class NewMenuFrag extends Fragment {
 
         return view;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_addMenu:
+                onCreateNewMenuRequestedListener.onCreateNewMenuRequested(null, "onMenuItemClick: Create Menu clicked!");
+                return true;
+
+            case R.id.action_createMenu:
+                createNewMenu();
+                DisplayFoodMenuData();
+                return true;
+
+            //TODO: fix this, editing database
+            case R.id.action_editMenu:
+                return false;
+
+            case R.id.action_logout:
+                FirebaseAuth.getInstance().signOut();
+                sendUserToStart();
+                return true;
+
+            default:
+                Log.i("onMenuItemClick", "default");
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     private void createNewMenu() {
         //TODO: must update this instead of assign it to null, using data from fragment
@@ -127,23 +111,6 @@ public class NewMenuFrag extends Fragment {
 
         Toast.makeText(getActivity(), "New Menu Created!", Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //Toolbar SetUp
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        menu.clear(); // clears all menu items..
-        //getActivity().getMenuInflater().inflate(R.menu.create_menu_items, menu);
-        inflater.inflate(R.menu.create_menu_items, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
 
     private void sendUserToStart() {
         Intent startIntent = new Intent(getActivity(), StartActivity.class);
@@ -216,6 +183,7 @@ public class NewMenuFrag extends Fragment {
         //After the onAttack is called, every time this is executed, this will be perform by Activity,
         //with the parameter of this Fragment
         void onCreateNewMenuRequested(Menu newMenu, String msg);
+
     }
 
     private OnFragInteractListener onCreateNewMenuRequestedListener;

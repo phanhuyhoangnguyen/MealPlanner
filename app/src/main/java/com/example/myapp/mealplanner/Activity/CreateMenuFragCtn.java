@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Fragment.NewMenuFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
@@ -31,19 +33,37 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
         // Toolbar Set Up
         Toolbar mToolbar = findViewById(R.id.toolbar_createMenu_Act);
-        // set Support Action Bar to allow getSupportActionBar() to modify action bar's
-        // component later via provided functions
         setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (getSupportActionBar() != null) {
+            //getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        // Inflate menu layout to this Activity Layout, without this line of code,
-        // the Activity Toolbar will be empty just like its layout xml
+        //Inflate new layout menu
         getMenuInflater().inflate(R.menu.create_menu_items, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                Toast.makeText(this, "Log Out Clicked!", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void defaultFragment() {
@@ -112,6 +132,7 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     // todo: Update with my own menu database
     // todo: Search function based on Countries, city or ingredients, condiments (eggs, black Soy sauce, oyster sauce)
     // todo: Timer widget for cooking preparation
+    // todo: alternative ingredients
     // todo: Update Ingredient Other Nutrition data: carbs, vitamin A...
     // todo: Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
     //  + Random pick healthy food to add the meal to be fully healthy and nutrition: e.g. banana, nut, Atiso tea...
@@ -127,4 +148,6 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     // todo: Taking out Drink Option
     // todo: Drink Recipe
     // todo: AI: recommended meal set
+    // todo: continue taking note
+    // todo: after finish coding all basic function, perform comprehensive testing to improve both layout (UI) and experience (UX)
 }
