@@ -36,41 +36,38 @@ public class EditRecipeFragInsCtn extends AppCompatActivity
         setDefaultFragment();
 
         Toolbar mToolbar = findViewById(R.id.toolbar_editRecipeFragCtn_Act);
-        //set Support Action Bar to allow modify its component
         setSupportActionBar(mToolbar);
     }
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        //Inflate menu layout to this Activity Layout, without this line of code, the Activity Toolbar will be empty just like its layout xml
         getMenuInflater().inflate(R.menu.empty_menu_items, menu);
+        // Implement this here because the Act handle general action
         menu.add(Menu.NONE, LOG_OUT_MENU_ITEM_ID, Menu.NONE, "Log Out");
-        //change menu will be handle in Fragment, alternative method: change method from Activity
         return true;
     }
 
-    // Implement this here because the Act handle general action
     @Override
     protected void onStart() {
         super.onStart();
 
-        //this condition is true if we have called setSupportActionBar(mToolbar)
+        // this condition is true if we have called setSupportActionBar(mToolbar)
+        // this need to put here because this method need to be called again
+        // and onStart will be triggered again when Activity is navigated back
+        // from any other Activity or Fragment called again when
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-
     }
 
-    // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == LOG_OUT_MENU_ITEM_ID) {
+            // implement this in Activity because the Activity handle general actions but not specific Fragment's Menu
             Toast.makeText(this, "Log Out!", Toast.LENGTH_SHORT).show();
             return true;
         } else {

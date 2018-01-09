@@ -83,7 +83,7 @@ public class EditRecipeInsFrag extends Fragment {
         menu.add(Menu.NONE, saveImgBtnId, Menu.NONE, "Save").setIcon(R.drawable.ic_save_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
-    // implement this in Fragment instead of Activity because the Activity handle general actions but not specific Fragment's Menu
+    // implement this in Fragment instead of Activity because the Activity only handle general actions but not specific Fragment's Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -130,7 +130,7 @@ public class EditRecipeInsFrag extends Fragment {
         menuTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         menuTypeSpn.setAdapter(menuTypeAdapter);
 
-        //todo: take all of these into note with proper structure
+        // todo: whenever possible: take all of these into note with proper structure
         // Alternative method 1: Using for loop using i to check every value of spinner item,
         // compare the value of every items (item.toString()), the matched value along with its index (i) is return and setSelection(i);
         // or 2:  Using for loop using i to check every value of Adapter item,

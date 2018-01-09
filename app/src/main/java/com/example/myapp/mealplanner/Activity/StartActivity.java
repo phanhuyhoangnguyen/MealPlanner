@@ -9,31 +9,34 @@ import android.widget.Button;
 import com.example.myapp.mealplanner.R;
 
 public class StartActivity extends AppCompatActivity {
-    Button mRegBtn;
-    Button mLogBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_start);
 
-        mRegBtn = findViewById(R.id.regBtn_start_Act);
-        mLogBtn = findViewById(R.id.loginBtn_start_Act);
+        Button mRegBtn = findViewById(R.id.regBtn_start_Act);
+        Button mLogBtn = findViewById(R.id.loginBtn_start_Act);
 
-        mRegBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent registerIntent = new Intent(StartActivity.this, RegisterActivity.class);
-                startActivity(registerIntent);
-            }
-        });
+        mRegBtn.setOnClickListener(mOnClickListener);
 
-        mLogBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent loginIntent = new Intent(StartActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-            }
-        });
+        mLogBtn.setOnClickListener(mOnClickListener);
     }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.regBtn_start_Act:
+                    Intent registerIntent = new Intent(StartActivity.this, RegisterActivity.class);
+                    startActivity(registerIntent);
+                    break;
+
+                case R.id.loginBtn_start_Act:
+                    Intent loginIntent = new Intent(StartActivity.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                    break;
+            }
+        }
+    };
 }

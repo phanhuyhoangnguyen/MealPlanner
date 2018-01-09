@@ -71,9 +71,9 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
         public IngredientRowHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
 
-            ingName = (TextView) itemView.findViewById(R.id.ingName_listItm_Layout);
-            ingCal = (TextView) itemView.findViewById(R.id.ingCal_listItm_Layout);
-            ingQunEditTxt = (EditText) itemView.findViewById(R.id.ingQunInput_listItm_Layout);
+            ingName = itemView.findViewById(R.id.ingName_listItm_Layout);
+            ingCal = itemView.findViewById(R.id.ingCal_listItm_Layout);
+            ingQunEditTxt = itemView.findViewById(R.id.ingQunInput_listItm_Layout);
 
             this.myCustomEditTextListener = myCustomEditTextListener;
             this.ingQunEditTxt.addTextChangedListener(myCustomEditTextListener);
@@ -82,9 +82,11 @@ public class ArrAdaptIngEditTxt extends RecyclerView.Adapter<ArrAdaptIngEditTxt.
         public void bind(final Ingredient currentItm, final OnEditTextFinishedListener mListener, final int position) {
             myCustomEditTextListener.updatePosition(getAdapterPosition(), currentItm);
             if (text == null) {
-                getInsCalories().setText(Integer.valueOf(currentItm.getCurrentCalories()) * Integer.valueOf(currentItm.getCurrentQuantity()) / 100 + "kj");
+                getInsCalories().setText(String.valueOf(Integer.valueOf(currentItm.getCurrentCalories())
+                        * Integer.valueOf(currentItm.getCurrentQuantity()) / 100).concat("kj"));
             } else {
-                ingQunEditTxt.setText(Integer.valueOf(text) * Integer.valueOf(currentItm.getCurrentQuantity()) / 100 + "kj");
+                ingQunEditTxt.setText(String.valueOf(Integer.valueOf(text)
+                        * Integer.valueOf(currentItm.getCurrentQuantity()) / 100).concat("kj"));
             }
             //ingQunEditTxt.setText(mDataset[getAdapterPosition()]);
 

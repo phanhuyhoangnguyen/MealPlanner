@@ -34,7 +34,7 @@ public class CreateNewIngFragCtn extends AppCompatActivity
         super.onStart();
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -58,9 +58,10 @@ public class CreateNewIngFragCtn extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                //todo: implement button save here later
                 finish();
                 return true;
+
+            //todo: implement save item icon here later
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,11 +71,11 @@ public class CreateNewIngFragCtn extends AppCompatActivity
     @Override
     public void onAddIngBtnClicked() {
         //Finish this Activity and pass return new Ingredient to its previous Activity
-        //redundant: getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        finish(); //this will kill the base Fragment as well
-
         //Nothing because there is no data need to be passed between these fragment
-        //Can pass new IngredientUncountable to the previous fragment, however because this app use Firebase, real-time
-        //database, hence the need is reduced
+        //Can pass new IngredientUncountable to the previous fragment,
+        // however because this app use Firebase, real-time database, hence the need is reduced
+
+        finish(); // this will kill the base Fragment as well no need to call:
+        // getSupportFragmentManager().popBackStack("NewIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 }

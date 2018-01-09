@@ -23,37 +23,3 @@ http://www.fitnessforweightloss.com/calories-how-to-read-a-food-label/ - Standar
 http://www.foodiefiasco.com/how-to-correctly-count-calories/ - Net Carb, Net Calories, Improved Formular
 https://www.exploratorium.edu/cooking/convert/measurements.html convert formula
 
-Good Resources For Reviewing:
-Foundation Knowledge Books:
-Beginning Android 4 Application Development Wei-Meng Lee
-Professional Android Application Development Retro Meier
-http://www.wrox.com/WileyCDA/
-
-1. String Components:
-https://stackoverflow.com/questions/38913836/java-how-to-see-if-a-string-contains-multiple-words
-https://stackoverflow.com/questions/18885043/better-way-to-detect-if-a-string-contains-multiple-words
-https://stackoverflow.com/questions/8992100/test-if-a-string-contains-any-of-the-strings-from-an-array
-2. Regex:
-https://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149
-http://www.mkyong.com/regular-expressions/10-java-regular-expression-examples-you-should-know/
-http://www.vogella.com/tutorials/JavaRegularExpressions/article.html
-tool for checking regrex
-https://regex101.com/
-3. Static:
-https://beginnersbook.com/2013/04/java-static-class-block-methods-variables/
-
-4.Float vs Double:
-https://study.com/academy/lesson/java-float-vs-double.html
-
-5.Spinner:
-https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
-
-6.AsyncTask: Take note later
-http://programmerguru.com/android-tutorial/what-is-asynctask-in-android/		good explaination
-http://programmerguru.com/android-tutorial/android-asynctask-example/			good code explaination
-https://www.concretepage.com/android/android-asynctask-example-with-progress-bar
-
-7.Animation:
-https://developer.android.com/guide/topics/resources/animation-resource.html
-https://www.androidhive.info/2013/06/android-working-with-xml-animations/	animation tutorial take note later
-

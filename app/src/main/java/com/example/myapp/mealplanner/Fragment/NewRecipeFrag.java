@@ -88,7 +88,7 @@ public class NewRecipeFrag extends Fragment implements AdapterView.OnItemSelecte
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //String time = prepDuration.getText().toString();
-                //TODO: implement ":" if possible
+                //TODO: before testing: implement ":" if possible
                 /*if (time.length() == 2) {
                     time = time.concat(":");
                     prepDuration.setText(time);

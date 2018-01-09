@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Activity.StartActivity;
 import com.example.myapp.mealplanner.Object.Ingredient;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Menu;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -30,20 +29,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RecipeInsFrag extends Fragment {
     private Recipe recipe;
     private Menu mMenu;
-    private DatabaseReference mDatabase;
     private String id;
-    private static final int addImgBtnId = 1;
+    private static final int addImgBtnId = View.generateViewId();
+    private static final int editRecipe = View.generateViewId();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recipe_ins, container, false);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        Calendar calendar = Calendar.getInstance();
+        id = sdf.format(calendar.getTime());
+
+        retrieveMenu(id);
 
         loadDataToView(view);
 
@@ -53,49 +55,48 @@ public class RecipeInsFrag extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.recipe_ins_menu_items, menu);
-        menu.add(android.view.Menu.NONE, addImgBtnId, android.view.Menu.NONE, "Add New Recipe").setIcon(R.drawable.ic_playlist_add_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    private void retrieveMenu(String id) {
+        //todo: write function create menu for future
+        //check if menu is existed, if menu is existed, add recipe, else create new menu and add recipe
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        //todo: fix this later
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar_createMenu_Act);
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mMenu = dataSnapshot.getValue(Menu.class);
             }
-        });
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_editRecipe:
-                        //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
-                        mFragListener.OnEditRecipeRequest(recipe);
-                        return true;
+            public void onCancelled(DatabaseError databaseError) {
 
-                    case addImgBtnId:
-                        addMenu(recipe);
-                        return true;
-
-                    default:
-                        Log.i("onMenuItemClick", "default");
-                        return false;
-                }
             }
         });
     }
 
     @Override
+    public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.empty_menu_items, menu);
+        menu.add(android.view.Menu.NONE, addImgBtnId, android.view.Menu.NONE, "Add New Recipe").setIcon(R.drawable.ic_playlist_add_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(android.view.Menu.NONE, editRecipe, android.view.Menu.NONE, "Edit Recipe").setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            getActivity().getSupportFragmentManager().popBackStack("RecipeInsFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            return true;
+        } else if (id == editRecipe) {
+            //this mFragListener variable is ref to Activity -> the method is executed in activity but not this Fragment
+            mFragListener.OnEditRecipeRequest(recipe);
+            return true;
+        } else if (id == addImgBtnId) {
+            addMenu(recipe);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -127,24 +128,6 @@ public class RecipeInsFrag extends Fragment {
 
         instruction.setText(ingAndIns);
         type.setText(recipe.getFoodType().concat("/").concat(recipe.getMenuType()));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        Calendar calendar = Calendar.getInstance();
-        id = sdf.format(calendar.getTime());
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mMenu = dataSnapshot.getValue(Menu.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -158,16 +141,6 @@ public class RecipeInsFrag extends Fragment {
                     if (cal[1] != null) {
                         calTxtVw.setText(recipe.changeCalToKjTest(cal[1]));
                     }
-
-                    /*String cal[] = calTxtVw.getText().toString().split(" ");
-                    if (cal[1] != null){
-                        if (cal[1].equalsIgnoreCase("Cal")){
-                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(true)).concat(" kj"));
-                        }
-                        else{
-                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(false)).concat(" Cal"));
-                        }
-                    }*/
                     break;
 
                 default:
@@ -178,9 +151,13 @@ public class RecipeInsFrag extends Fragment {
     };
 
     private void addMenu(Recipe recipe) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
+
+        //if menu is already existed with existed recipe list, then new recipe is added
         if (mMenu != null && mMenu.getId().equalsIgnoreCase(id)) {
             mMenu.getRecipes().add(recipe);
         } else {
+            //else, if menu is new, we replace null menu with completely new Menu
             ArrayList<Recipe> recipes = new ArrayList<>();
             recipes.clear();
             recipes.add(recipe);
@@ -201,7 +178,6 @@ public class RecipeInsFrag extends Fragment {
         // Required empty public constructor
     }
 
-
     private void logOut() {
         Intent startIntent = new Intent(getActivity(), StartActivity.class);
         startActivity(startIntent);
@@ -212,6 +188,7 @@ public class RecipeInsFrag extends Fragment {
 
     public interface OnFragInteractListener {
         void OnEditRecipeRequest(Recipe passRecipe);
+
     }
 
     @Override

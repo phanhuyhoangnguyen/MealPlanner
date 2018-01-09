@@ -27,7 +27,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         HomeFrag.OnFragmentInteractionListener {
     private FirebaseAuth mAuth;
-    private Toolbar mToolbar;
     private FloatingActionButton fab;
 
     @Override
@@ -35,17 +34,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
 
-        //Fireapp Authentication
+        //Firebase app Authentication
         mAuth = FirebaseAuth.getInstance();
 
         //Toolbar Set Up
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setTitle("Create Account");
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //Float button Set Up
-        fab = (FloatingActionButton) findViewById(R.id.fabBtn_main_Act);
+        fab = findViewById(R.id.fabBtn_main_Act);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,19 +53,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setMainDefaultFragment();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navDrawer_main_Act);
+        NavigationView navigationView = findViewById(R.id.navDrawer_main_Act);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -81,8 +78,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null) {
+        // todo: after fix finebase bugs, uncomment this
+        /*if (currentUser == null) {
             sendUserToStart();
+        }*/
+
+        if (getSupportActionBar() != null){
+            //getSupportActionBar().setTitle("Create Account");
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
     }
 
@@ -113,12 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(createMenuIntent);
                 return true;
 
-            /*case R.id.action_addMenu:
-            case R.id.action_editMenu:
-            case R.id.custom_logout_btn:
-            case R.id.action_addNewDish:
-                return false;*/
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.main_drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction;
         int itemId = item.getItemId();
@@ -172,6 +169,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 }

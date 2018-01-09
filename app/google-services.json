@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "753706001203-56fhep64vkjbjh5geifs89594pfm80g9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapp.mealplanner",
+            "certificate_hash": "6b20519422c3cb83c53f1d3736828414a79ba68e"
+          }
+        },
+        {
           "client_id": "753706001203-taet3h7ugoaka8htn6ea40ns3avb48pu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

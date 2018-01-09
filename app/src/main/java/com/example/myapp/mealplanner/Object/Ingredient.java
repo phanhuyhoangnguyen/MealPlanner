@@ -65,7 +65,7 @@ public abstract class Ingredient implements Parcelable {
     }
 
     public Ingredient(String name, HashMap<String, Measurement> meCal) {
-        //TODO: Ingredients are different Calories when under different cooking
+        //TODO: after testing Ingredients are different Calories when under different cooking
         this.name = name;
 
         String firstKey = meCal.keySet().toArray()[0].toString(); //Alternative method: meCalMap.keySet().stream().findFirst().get();

@@ -6,7 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Fragment.NewMenuFrag;
 import com.example.myapp.mealplanner.Fragment.FoodTypeTableFrag;
@@ -26,18 +27,42 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_create_menu);
 
-        //Set Up Fragment
+        // Fragment Set Up
         manager = getSupportFragmentManager();
         defaultFragment();
 
-        //Toolbar Set Up
+        // Toolbar Set Up
         Toolbar mToolbar = findViewById(R.id.toolbar_createMenu_Act);
         setSupportActionBar(mToolbar);
+    }
 
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setTitle("Create Account");=
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (getSupportActionBar() != null) {
+            //getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        //Inflate new layout menu
+        getMenuInflater().inflate(R.menu.create_menu_items, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                Toast.makeText(this, "Log Out Clicked!", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void defaultFragment() {
@@ -50,19 +75,11 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     }
 
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.create_menu_items, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // this suppose to update recipe selected list and pass to default fragment,
+        // , NewMenuFrag, to display in today menu,
+        // however because this app use Firebase, real-time database, database is updated auto
+        // no need to manual update
         /*if (data != null){
             Bundle bundle = data.getExtras();
             String menuId = bundle.getString("menu_id");
@@ -82,7 +99,6 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
     @Override
     public void onShowFoodViewRequested(int requestCode) {
-        manager = getSupportFragmentManager();
         RecipeListRowFrag recipeListRowFrag = new RecipeListRowFrag();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_createMenu_Act, recipeListRowFrag, "FoodTypeListRowFrag");
@@ -115,23 +131,26 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         startActivity(editRecipeIns);
     }
 
-    // todo: Update Food Database according to Country: Japan, VietNamese, Korean, Thailand...
+    // todo: Update Food Database according to Country: Japan, Vietnamese, Korean, Thailand...
     // todo: Update with my own menu database
-    // todo: Code search function based on Countries, city or ingrdients, comdiments (eggs, black soya sauce, oyster sauce)
+    // todo: Search function based on Countries, city or ingredients, condiments (eggs, black Soy sauce, oyster sauce)
     // todo: Timer widget for cooking preparation
-    // todo: Update Ingredient Other Nutrition data: carb, vitamin A...
+    // todo: alternative ingredients
+    // todo: Update Ingredient Other Nutrition data: carbs, vitamin A...
     // todo: Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
-    //  + Random pick healthy food to add the meal to be fully healthy and nutritions: e.g. banana, nut, batiso tea...
-    // todo: Health Checker Function: allow users to check their symptomp according to their body parts:
+    //  + Random pick healthy food to add the meal to be fully healthy and nutrition: e.g. banana, nut, Atiso tea...
+    // todo: Health Checker Function: allow users to check their symptoms according to their body parts:
     //  e.g. hurt in lower part of belly, make a assumptions based on unhealthy diet check, recommended for food intakes.
-    // todo: Organs Improvements: allow users to specific enhance their target body parts/organ including muscles, eyes, livers, kiddney...
-    //  + Recommended healthy food intakes including banana, vegestable, cranberry, nuts... for extra health benefits.
-    //  Recommendation for vital intake (AI for further enhance): no vegestable -> drink or alternative
+    // todo: Organs Improvements: allow users to specific enhance their target body parts/organ including muscles, eyes, livers, kidney...
+    //  + Recommended healthy food intakes including banana, vegetable, cranberry, nuts... for extra health benefits.
+    //  Recommendation for vital intake (AI for further enhance): no vegetable -> drink or alternative
     //  Supplement Recommendation for healthier life: medicine, fish oil (with correct usage) - advertisements with big brand medicine in future (or pro-edition to unlock)
     //  e.g. Ural
     // todo: Chart: display food nutrition intakes
     // todo: Taking out Food Option
     // todo: Taking out Drink Option
-    // todo: Drink Recipe
+    // todo: add drink Recipe
     // todo: AI: recommended meal set
+    // todo: continue taking note
+    // todo: after finish coding all basic function, perform comprehensive testing to improve both layout (UI) and experience (UX)
 }
