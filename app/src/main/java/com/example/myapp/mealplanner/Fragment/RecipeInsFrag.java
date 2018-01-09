@@ -1,6 +1,7 @@
 package com.example.myapp.mealplanner.Fragment;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,16 @@ public class RecipeInsFrag extends Fragment {
     private String id;
     private static final int addImgBtnId = View.generateViewId();
     private static final int editRecipe = View.generateViewId();
+    private static final String ARG_PARAM1 = "RECIPE";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            //this can be called in onCreateView as well, but preferred to be put here
+            recipe = getArguments().getParcelable(ARG_PARAM1);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,8 +120,6 @@ public class RecipeInsFrag extends Fragment {
         TextView type = view.findViewById(R.id.foodType_recipeIns_Frag);
         cal.setOnClickListener(mOnClickListener);
 
-        recipe = getArguments().getParcelable("RECIPE");
-
         name.setText(recipe.getName());
         country.setText(recipe.getOrigin());
         cal.setText(recipe.getCalories().concat(" Cal"));
@@ -165,13 +174,8 @@ public class RecipeInsFrag extends Fragment {
         }
         mDatabase.setValue(mMenu);
 
-        Toast.makeText(getActivity(), "Recipe added", Toast.LENGTH_SHORT).show();
-        BackToSelectFood();
-    }
-
-    public void BackToSelectFood() {
-        FragmentManager manager = getFragmentManager();
-        manager.popBackStack("FoodTypeTableFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        Toast.makeText(getActivity(), "Recipe added!", Toast.LENGTH_SHORT).show();
+        mFragListener.recipeAdded();
     }
 
     public RecipeInsFrag() {
@@ -189,6 +193,7 @@ public class RecipeInsFrag extends Fragment {
     public interface OnFragInteractListener {
         void OnEditRecipeRequest(Recipe passRecipe);
 
+        void recipeAdded();
     }
 
     @Override

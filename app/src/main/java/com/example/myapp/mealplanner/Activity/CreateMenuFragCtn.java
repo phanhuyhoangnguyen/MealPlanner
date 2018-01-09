@@ -23,6 +23,15 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     private FragmentManager manager;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (getSupportActionBar() != null) {
+            //getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_create_menu);
@@ -34,15 +43,6 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         // Toolbar Set Up
         Toolbar mToolbar = findViewById(R.id.toolbar_createMenu_Act);
         setSupportActionBar(mToolbar);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (getSupportActionBar() != null) {
-            //getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override
@@ -75,18 +75,6 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // this suppose to update recipe selected list and pass to default fragment,
-        // , NewMenuFrag, to display in today menu,
-        // however because this app use Firebase, real-time database, database is updated auto
-        // no need to manual update
-        /*if (data != null){
-            Bundle bundle = data.getExtras();
-            String menuId = bundle.getString("menu_id");
-        }*/
-    }
-
-    @Override
     public void onCreateNewMenuRequested(com.example.myapp.mealplanner.Object.Menu newMenu, String message) {
         //Execute next Fragment: FoodTypeTableFrag
         FoodTypeTableFrag foodTypeTableFrag = new FoodTypeTableFrag();
@@ -98,7 +86,7 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
     }
 
     @Override
-    public void onShowFoodViewRequested(int requestCode) {
+    public void displayListRecipes(int requestCode) {
         RecipeListRowFrag recipeListRowFrag = new RecipeListRowFrag();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_createMenu_Act, recipeListRowFrag, "FoodTypeListRowFrag");
@@ -129,6 +117,23 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         editRecipeIns.putExtras(data);
 
         startActivity(editRecipeIns);
+    }
+
+    @Override
+    public void recipeAdded() {
+        manager.popBackStack("FoodTypeTableFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // this suppose to update recipe selected list and pass to default fragment,
+        // , NewMenuFrag, to display in today menu,
+        // however because this app use Firebase, real-time database, database is updated auto
+        // no need to manual update
+        /*if (data != null){
+            Bundle bundle = data.getExtras();
+            String menuId = bundle.getString("menu_id");
+        }*/
     }
 
     // todo: Update Food Database according to Country: Japan, Vietnamese, Korean, Thailand...

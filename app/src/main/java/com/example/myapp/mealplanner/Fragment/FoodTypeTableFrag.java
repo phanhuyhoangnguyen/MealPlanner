@@ -61,7 +61,7 @@ public class FoodTypeTableFrag extends Fragment {
     @Override
     public void onPrepareOptionsMenu(android.view.Menu menu) {
         menu.findItem(R.id.action_addMenu).setVisible(false);
-        menu.findItem(R.id.action_createMenu).setVisible(false);
+        //menu.findItem(R.id.action_createMenu).setVisible(false);
         menu.findItem(R.id.action_editMenu).setVisible(false);
 
         super.onPrepareOptionsMenu(menu);
@@ -85,38 +85,38 @@ public class FoodTypeTableFrag extends Fragment {
             switch (view.getId()) {
                 case R.id.saladLabel_foodTableType_Frag:
                 case R.id.saladImgVw_foodTableType_Frag:
-                    showFoodViewRequested(0);
+                    displayListRecipes(0);
                     break;
 
                 case R.id.soupLabel_foodTableType_Frag:
                 case R.id.soupImgVw_foodTableType_Frag:
-                    showFoodViewRequested(1);
+                    displayListRecipes(1);
                     break;
 
                 case R.id.panFryingImgVw_foodTableType_Frag:
                 case R.id.panFryingLabel_foodTableType_Frag:
-                    showFoodViewRequested(2);
+                    displayListRecipes(2);
                     break;
 
                 case R.id.dessertImgVw_foodTableType_Frag:
                 case R.id.dessertLabel_foodTableType_Frag:
-                    showFoodViewRequested(3);
+                    displayListRecipes(3);
                     break;
             }
         }
     };
 
-    private void showFoodViewRequested(int requestCode) {
-        onShowFoodViewRequestListener.onShowFoodViewRequested(requestCode);
+    private void displayListRecipes(int requestCode) {
+        onDisplayRecipesRequestListener.displayListRecipes(requestCode);
     }
 
     public interface OnFragInteractListener {
         //After the onAttack is called, every time this is executed, this will be perform by Activity,
         //with the parameter of this Fragment
-        void onShowFoodViewRequested(int requestCode);
+        void displayListRecipes(int requestCode);
     }
 
-    private OnFragInteractListener onShowFoodViewRequestListener;
+    private OnFragInteractListener onDisplayRecipesRequestListener;
 
     @Override
     public final void onAttach(Context context) {
@@ -124,7 +124,7 @@ public class FoodTypeTableFrag extends Fragment {
         super.onAttach(context);
         try {
             //reference back to its activity
-            onShowFoodViewRequestListener = (OnFragInteractListener) context;
+            onDisplayRecipesRequestListener = (OnFragInteractListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement OnFragInteractListener");
         }

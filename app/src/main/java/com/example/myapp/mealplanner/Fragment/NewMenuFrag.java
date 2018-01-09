@@ -34,10 +34,6 @@ public class NewMenuFrag extends Fragment {
     private ArrayList<Recipe> entree;
     private ArrayList<Recipe> dessert;
 
-    private ListView mListViewAppetizer;
-    private ListView mListViewEntree;
-    private ListView mListViewDessert;
-
     private ArrAdaptRecipeRow itemsAdapterAppetizer;
     private ArrAdaptRecipeRow itemsAdapterEntree;
     private ArrAdaptRecipeRow itemsAdapterDessert;
@@ -57,9 +53,9 @@ public class NewMenuFrag extends Fragment {
         //Toolbar SetUp
         setHasOptionsMenu(true);
 
-        mListViewAppetizer = view.findViewById(R.id.appetizerItm_menuListRow_Frag);
-        mListViewEntree = view.findViewById(R.id.entreeListItm_menuListRow_Frag);
-        mListViewDessert = view.findViewById(R.id.dessertListItm_menuListRow_Frag);
+        ListView mListViewAppetizer = view.findViewById(R.id.appetizerItm_menuListRow_Frag);
+        ListView mListViewEntree = view.findViewById(R.id.entreeListItm_menuListRow_Frag);
+        ListView mListViewDessert = view.findViewById(R.id.dessertListItm_menuListRow_Frag);
 
         appetizer = new ArrayList<>();
         entree = new ArrayList<>();
@@ -87,10 +83,6 @@ public class NewMenuFrag extends Fragment {
                 onCreateNewMenuRequestedListener.onCreateNewMenuRequested(null, "onMenuItemClick: Create Menu clicked!");
                 return true;
 
-            case R.id.action_createMenu:
-                createNewMenu();
-                return true;
-
             case R.id.action_editMenu:
                 return false;
 
@@ -103,28 +95,6 @@ public class NewMenuFrag extends Fragment {
                 Log.i("onMenuItemClick", "default");
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    private void createNewMenu() {
-        //TODO: rewrite this method
-        Menu nMenu = null;
-        DatabaseReference mDatabase;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        Calendar calendar = Calendar.getInstance();
-        String id = sdf.format(calendar.getTime());
-
-        //1st method: Not recommended
-        mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
-        mDatabase.setValue(nMenu);
-
-        /*//2nd method: Using update function provided
-        Map<String, Object> menuUpdates = new HashMap<>();
-        menuUpdates.put(id, nMenu);
-        mDatabase.updateChildren(menuUpdates);*/
-
-        //update view - Menu Item
-        DisplayFoodMenuData();
     }
 
     private void sendUserToStart() {
