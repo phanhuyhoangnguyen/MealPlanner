@@ -4,14 +4,12 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Activity.StartActivity;
 import com.example.myapp.mealplanner.CustomArrayAdapter.ArrAdaptRecipeRow;
@@ -40,6 +38,10 @@ public class NewMenuFrag extends Fragment {
     private ListView mListViewEntree;
     private ListView mListViewDessert;
 
+    private ArrAdaptRecipeRow itemsAdapterAppetizer;
+    private ArrAdaptRecipeRow itemsAdapterEntree;
+    private ArrAdaptRecipeRow itemsAdapterDessert;
+
     public NewMenuFrag() {
         // Required empty public constructor
     }
@@ -59,6 +61,20 @@ public class NewMenuFrag extends Fragment {
         mListViewEntree = view.findViewById(R.id.entreeListItm_menuListRow_Frag);
         mListViewDessert = view.findViewById(R.id.dessertListItm_menuListRow_Frag);
 
+        appetizer = new ArrayList<>();
+        entree = new ArrayList<>();
+        dessert = new ArrayList<>();
+
+        itemsAdapterAppetizer = new ArrAdaptRecipeRow(getActivity(), appetizer);
+        mListViewAppetizer.setAdapter(itemsAdapterAppetizer);
+
+        itemsAdapterEntree = new ArrAdaptRecipeRow(getActivity(), entree);
+        mListViewEntree.setAdapter(itemsAdapterEntree);
+
+        itemsAdapterDessert = new ArrAdaptRecipeRow(getActivity(), dessert);
+        mListViewDessert.setAdapter(itemsAdapterDessert);
+
+        //display even if the list is empty
         DisplayFoodMenuData();
 
         return view;
@@ -73,7 +89,6 @@ public class NewMenuFrag extends Fragment {
 
             case R.id.action_createMenu:
                 createNewMenu();
-                DisplayFoodMenuData();
                 return true;
 
             case R.id.action_editMenu:
@@ -92,7 +107,7 @@ public class NewMenuFrag extends Fragment {
 
 
     private void createNewMenu() {
-        //TODO: must update this instead of assign it to null, using data from fragment
+        //TODO: rewrite this method
         Menu nMenu = null;
         DatabaseReference mDatabase;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
@@ -108,7 +123,8 @@ public class NewMenuFrag extends Fragment {
         menuUpdates.put(id, nMenu);
         mDatabase.updateChildren(menuUpdates);*/
 
-        Toast.makeText(getActivity(), "New Menu Created!", Toast.LENGTH_SHORT).show();
+        //update view - Menu Item
+        DisplayFoodMenuData();
     }
 
     private void sendUserToStart() {
@@ -118,10 +134,6 @@ public class NewMenuFrag extends Fragment {
     }
 
     private void DisplayFoodMenuData() {
-
-        appetizer = new ArrayList<>();
-        entree = new ArrayList<>();
-        dessert = new ArrayList<>();
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Menu");
 
@@ -161,14 +173,9 @@ public class NewMenuFrag extends Fragment {
                     }
                 }
 
-                ArrAdaptRecipeRow itemsAdapterAppetizer = new ArrAdaptRecipeRow(getActivity(), appetizer);
-                mListViewAppetizer.setAdapter(itemsAdapterAppetizer);
-
-                ArrAdaptRecipeRow itemsAdapterEntree = new ArrAdaptRecipeRow(getActivity(), entree);
-                mListViewEntree.setAdapter(itemsAdapterEntree);
-
-                ArrAdaptRecipeRow itemsAdapterDessert = new ArrAdaptRecipeRow(getActivity(), dessert);
-                mListViewDessert.setAdapter(itemsAdapterDessert);
+                itemsAdapterAppetizer.notifyDataSetChanged();
+                itemsAdapterEntree.notifyDataSetChanged();
+                itemsAdapterDessert.notifyDataSetChanged();
             }
 
             @Override

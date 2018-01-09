@@ -62,7 +62,6 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -77,6 +76,10 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // this suppose to update recipe selected list and pass to default fragment,
+        // , NewMenuFrag, to display in today menu,
+        // however because this app use Firebase, real-time database, database is updated auto
+        // no need to manual update
         /*if (data != null){
             Bundle bundle = data.getExtras();
             String menuId = bundle.getString("menu_id");

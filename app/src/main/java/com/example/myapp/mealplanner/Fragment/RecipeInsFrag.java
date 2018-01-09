@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.myapp.mealplanner.Activity.StartActivity;
 import com.example.myapp.mealplanner.Object.Ingredient;
+import com.example.myapp.mealplanner.Object.IngredientCountable;
 import com.example.myapp.mealplanner.Object.Menu;
 import com.example.myapp.mealplanner.Object.Recipe;
 import com.example.myapp.mealplanner.R;
@@ -31,7 +32,6 @@ import java.util.Calendar;
 public class RecipeInsFrag extends Fragment {
     private Recipe recipe;
     private Menu mMenu;
-    private DatabaseReference mDatabase;
     private String id;
     private static final int addImgBtnId = View.generateViewId();
     private static final int editRecipe = View.generateViewId();
@@ -41,12 +41,36 @@ public class RecipeInsFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recipe_ins, container, false);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        Calendar calendar = Calendar.getInstance();
+        id = sdf.format(calendar.getTime());
+
+        retrieveMenu(id);
+
         loadDataToView(view);
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    private void retrieveMenu(String id) {
+        //todo: write function create menu for future
+        //check if menu is existed, if menu is existed, add recipe, else create new menu and add recipe
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mMenu = dataSnapshot.getValue(Menu.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -104,24 +128,6 @@ public class RecipeInsFrag extends Fragment {
 
         instruction.setText(ingAndIns);
         type.setText(recipe.getFoodType().concat("/").concat(recipe.getMenuType()));
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        Calendar calendar = Calendar.getInstance();
-        id = sdf.format(calendar.getTime());
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mMenu = dataSnapshot.getValue(Menu.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -135,16 +141,6 @@ public class RecipeInsFrag extends Fragment {
                     if (cal[1] != null) {
                         calTxtVw.setText(recipe.changeCalToKjTest(cal[1]));
                     }
-
-                    /*String cal[] = calTxtVw.getText().toString().split(" ");
-                    if (cal[1] != null){
-                        if (cal[1].equalsIgnoreCase("Cal")){
-                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(true)).concat(" kj"));
-                        }
-                        else{
-                            calTxtVw.setText(String.valueOf(recipe.changeCalToKj(false)).concat(" Cal"));
-                        }
-                    }*/
                     break;
 
                 default:
@@ -155,9 +151,13 @@ public class RecipeInsFrag extends Fragment {
     };
 
     private void addMenu(Recipe recipe) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Menu").child(id);
+
+        //if menu is already existed with existed recipe list, then new recipe is added
         if (mMenu != null && mMenu.getId().equalsIgnoreCase(id)) {
             mMenu.getRecipes().add(recipe);
         } else {
+            //else, if menu is new, we replace null menu with completely new Menu
             ArrayList<Recipe> recipes = new ArrayList<>();
             recipes.clear();
             recipes.add(recipe);
