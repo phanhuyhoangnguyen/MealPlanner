@@ -136,11 +136,12 @@ public class CreateMenuFragCtn extends AppCompatActivity implements NewMenuFrag.
         }*/
     }
 
-    // todo: Update Food Database according to Country: Japan, Vietnamese, Korean, Thailand...
+    // todo: optional ingredients
+    // todo: alternative ingredients
     // todo: Update with my own menu database
+    // todo: Update Food Database according to Country: Japan, Vietnamese, Korean, Thailand...
     // todo: Search function based on Countries, city or ingredients, condiments (eggs, black Soy sauce, oyster sauce)
     // todo: Timer widget for cooking preparation
-    // todo: alternative ingredients
     // todo: Update Ingredient Other Nutrition data: carbs, vitamin A...
     // todo: Recommended nutrition intakes including vital intakes vitamin A, vitamin B,... and bad food limitation intakes.
     //  + Random pick healthy food to add the meal to be fully healthy and nutrition: e.g. banana, nut, Atiso tea...

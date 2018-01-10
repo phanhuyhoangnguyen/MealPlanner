@@ -47,8 +47,6 @@ public class Recipe implements Parcelable {
         return origin;
     }
 
-    //this is related to Firebase, when the server retrieve data from DataSnapShot, this will be triggered as well as the other setter
-    //to transfer every variables to new Object one by one.
     public void setOrigin(String origin) {
         this.origin = origin;
     }
@@ -59,9 +57,6 @@ public class Recipe implements Parcelable {
 
     public String origin;
 
-    //Even if I didn't wrote code for this, Firebase would still able to create and push these up on Database Cloud
-    //Firebase will push everything in this Object onto Cloud, either getter or setter with make up name for a variables and
-    //automatically create anothers getter and setter on Database Cloud, this ended up dupplicated data
     public List<IngredientCountable> getIngredientCountable() {
         return ingredientCountable;
     }
@@ -70,9 +65,8 @@ public class Recipe implements Parcelable {
         this.ingredientCountable = ingredientCountable;
     }
 
-    //Test: List<Ingredient> -> List<IngredientCountable>
-    public List<IngredientCountable> ingredientCountable;
-    /*public HashMap<String, String> ingredientCountable;
+    public List<IngredientCountable> ingredientCountable;     //Test: List<Ingredient> -> List<IngredientCountable>
+    /*public HashMap<String, IngredientCountable> ingredientCountable;
 
     public HashMap<String, String> getIngredientUncountables() {
         return ingredientCountable;
@@ -203,7 +197,6 @@ public class Recipe implements Parcelable {
             return String.valueOf(getCalories()).concat(" Cal");
         }
     }
-
 
     public void setServingYield(String servingYield) {
         this.servingYield = servingYield;

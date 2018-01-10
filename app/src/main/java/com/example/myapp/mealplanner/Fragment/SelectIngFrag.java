@@ -4,10 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -68,10 +66,10 @@ public class SelectIngFrag extends Fragment {
     //Another design for Long Click's Handling: Activity's implementation for Long Click Handling
     private OnFragItmClickListener onFragItmClickListener;*/
 
-    private static final int MENU_ITEM_ITEM1 = 1;
+    private static final int MENU_ITEM_ITEM1 = View.generateViewId();
 
     public SelectIngFrag() {
-        // Required empty public constructor
+        // Required empty public constructor, for create normal fragment without receiving data
     }
 
     public static SelectIngFrag newInstance(List<IngredientCountable> existingData) {
@@ -87,13 +85,8 @@ public class SelectIngFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //ingSelectedData = new ArrayList<>();  //deleted
             ingSelectedData = getArguments().getParcelableArrayList(ARG_INGLIST);
         }
-        //If call from here, this method will be only called once but not again when resume
-        //however because the ingNameData is called from onCreateView, which is created new again
-        //this will cause empty
-        //retrieveIngredientData();
     }
 
     @Override
@@ -103,7 +96,6 @@ public class SelectIngFrag extends Fragment {
 
         //Toolbar SetUp
         setHasOptionsMenu(true);
-
 
         //IngredientUncountable AutoCompletion Code
         ingNameData = new ArrayList<>();
@@ -120,17 +112,11 @@ public class SelectIngFrag extends Fragment {
         final Button saveIngList = view.findViewById(R.id.saveBtn_selectIng_Frag);
 
         //Retrieve database to AutoCompleteText List: ingNameData, Map: ingredientsMap
-        //If called in here, this might be called more than once, so remember to clear the data, otherwise the data might duplicated
         retrieveIngredientData();
 
         //TODO: before testing: create custom ArrayAdapter for Auto-complete text, showing no result
         itemsAvailAdapter = new ArrayAdapter<>(
                 getActivity(), android.R.layout.simple_dropdown_item_1line, ingNameData);
-
-        //Automatically call notifySetChange instead of having to call it manually
-        //itemsAvailAdapter.setNotifyOnChange(true);
-        //No need this code because the itemsAvailAdapter is already setNotifyDataChange(true)
-        //itemsAvailAdapter.notifyDataSetChanged();
 
         acIngTxtVw.setAdapter(itemsAvailAdapter);
 
@@ -181,9 +167,6 @@ public class SelectIngFrag extends Fragment {
                 if (!hasText()) {
                     showClearButton(false);
                 }
-                /*if (!acIngTxtVw.isPerformingCompletion()){
-
-                }*/
             }
         });
 
@@ -233,9 +216,6 @@ public class SelectIngFrag extends Fragment {
     @Override
     public void onCreateOptionsMenu(android.view.Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        //getActivity().invalidateOptionsMenu();
-        //menu.clear(); //use to clear to apply the new toolbar design
-        //inflater.inflate(R.menu.empty_menu_items, menu);
 
         //Add Menu Item into Empty Menu Programmatically
         //Alternative method: setTag("someName".concat(String.valueOf(customNumber)));
@@ -272,20 +252,17 @@ public class SelectIngFrag extends Fragment {
     //this toolbar here in Fragment and its Activity are the same toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
             //TODO: when testing: check program if it still function well when using back button
-            case android.R.id.home:
-                //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
-                getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                return true;
-
-            case MENU_ITEM_ITEM1:
-                mFragListener.OnCreateNewIngRequest();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            //same id but different implementation, this is able because of setHasOptionsMenu(true); has been called
+            getActivity().getSupportFragmentManager().popBackStack("SelectIngFrag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            return true;
+        } else if (id == MENU_ITEM_ITEM1) {
+            mFragListener.OnCreateNewIngRequest();
+            return true;
+        } else return super.onOptionsItemSelected(item);
     }
 
     private final View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
@@ -368,7 +345,6 @@ public class SelectIngFrag extends Fragment {
             }
         });
         Log.i("ingNameData Update 2:", " add");
-        Toast.makeText(getActivity(), "add", Toast.LENGTH_SHORT).show();
     }
 
 //Alternative: 1st Design (Simple Design): separate button click listener, there is 2 click listener in this implementation: not so good
@@ -512,7 +488,7 @@ public class SelectIngFrag extends Fragment {
         //this is also can be called in here, but not only from ArrayAdapter
         //1st way: Add manually with the menu define layout: Not recommend because v.getId() is always the same
         menu.setHeaderTitle("Select Action");
-        menu.add(Menu.NONE, R.id.delete_option, Menu.NONE, "Replace with Alternative Ingredients");
+        menu.add(Menu.NONE, R.id.delete_option + 1, Menu.NONE, "Replace with Alternative Ingredients");
         //menu.add(Menu.NONE, v.getId(), Menu.NONE, "Test Item 1");
         //menu.add(Menu.NONE, v.getId(), Menu.NONE, "Test Item 2");
 
@@ -528,7 +504,6 @@ public class SelectIngFrag extends Fragment {
         int position = ((ArrAdaptIngBtnListener) mRecycleView.getAdapter()).getPosition();
         Ingredient ingredientUncountable = ingSelectedData.get(position);
 
-        //1st method: Using switch
         switch (item.getItemId()) {
             case R.id.delete_option:
                 //TODO: when testing fix: check why the item removed but still recorded in memory but not creating new
@@ -548,7 +523,6 @@ public class SelectIngFrag extends Fragment {
         else
             listLabelLn.setVisibility(View.GONE);
 
-        //Display IngredientUncountable List
         displaySelectedIngredientList();
     }
 
@@ -578,20 +552,14 @@ public class SelectIngFrag extends Fragment {
 
     private boolean ingredientAdded(String ingName) {
         for (Ingredient i : ingSelectedData) {
-            //Log.i("addSelectedIngredient", "size > 0");
-            //Log.i("addSelectedIngredient", i.getName());
             if (i.getName().equalsIgnoreCase(ingName)) {
-                //Log.i("addSelectedIngredient", "existed!");
                 return true;
             }
-            //Log.i("addSelectedIngredient", "don't have");
         }
         return false;
     }
 
     public void displaySelectedIngredientList() {
-        //we can refresh to update data by either calling new ArrayAdaptIngEditTxt again or
-        //using notifyDataSetChanged
 
         //Alternative: 1st Design
         arrayIngredientAdapter = new ArrAdaptIngBtnListener(
@@ -613,6 +581,7 @@ public class SelectIngFrag extends Fragment {
         void OnFinishedAddingIng(List<IngredientCountable> ingredientCountable);
 
         void OnCreateNewIngRequest();
+
     }
 
     @Override
